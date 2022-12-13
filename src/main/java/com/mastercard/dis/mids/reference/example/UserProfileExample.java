@@ -1,0 +1,43 @@
+package com.mastercard.dis.mids.reference.example;
+
+
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+import org.openapitools.client.model.IdentitySearch;
+import org.openapitools.client.model.TpAuditMetadata;
+import org.openapitools.client.model.UserProfile;
+
+import java.util.ArrayList;
+import java.util.Collections;
+
+import static com.mastercard.dis.mids.reference.util.Constants.COUNTRY_CODE;
+import static com.mastercard.dis.mids.reference.util.Constants.SDK_VERSION;
+import static com.mastercard.dis.mids.reference.util.Constants.SESSION_ID;
+import static com.mastercard.dis.mids.reference.util.Constants.TRANSACTION_GROUP_ID;
+import static com.mastercard.dis.mids.reference.util.Constants.USER_PROFILE_ID_VALUE;
+import static org.openapitools.client.model.UserConsent.ACCEPT;
+
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+public class UserProfileExample {
+
+    public static IdentitySearch getIdentitySearchObject() {
+        IdentitySearch identitySearch = new IdentitySearch();
+        identitySearch.setUserConsent(ACCEPT);
+        identitySearch.setScopedFields(Collections.singletonList(IdentitySearch.ScopedFieldsEnum.ALL));
+        return identitySearch;
+    }
+
+    public static UserProfile getUserProfile() {
+        UserProfile userProfile = new UserProfile();
+        userProfile.setUserProfileId(USER_PROFILE_ID_VALUE);
+        userProfile.setCountryCode(COUNTRY_CODE);
+        userProfile.setSdkAuditEvents(new ArrayList<>());
+        TpAuditMetadata tpAuditMetadata = new TpAuditMetadata();
+        tpAuditMetadata.setSessionId(SESSION_ID);
+        tpAuditMetadata.setTransactionGroupId(TRANSACTION_GROUP_ID);
+        userProfile.setTpAuditMetadata(tpAuditMetadata);
+        return userProfile;
+    }
+
+
+}
