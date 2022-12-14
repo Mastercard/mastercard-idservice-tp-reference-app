@@ -67,7 +67,7 @@ public class Constants {
     public static final boolean VISA_VERIFY_REQUIRED = false;
     public static final String VISA_SUPPORTED_COUNTRY_CODE = "AU";
     // Claim Sharing
-    public static final UUID ARID = UUID.fromString("7ec89f22-8b4c-44ad-80a5-088c87bd61df");
+    public static final UUID ARID = UUID.fromString(ARID_VALUE);
     //Multi-Doc
     public static final String NEW_LEGAL_NAME = "New Legal Name";
 

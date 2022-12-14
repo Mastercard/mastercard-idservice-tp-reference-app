@@ -14,15 +14,10 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.openapitools.client.ApiClient;
 import org.openapitools.client.ApiException;
 import org.openapitools.client.ApiResponse;
-import org.openapitools.client.api.UserProfileApi;
-//import org.openapitools.client.model.ActivationCode;
 import org.openapitools.client.model.ClientIdentities;
 import org.openapitools.client.model.IdentityAttributeDeleted;
 import org.openapitools.client.model.IdentityAttributeDeletions;
 import org.openapitools.client.model.IdentitySearch;
-//import org.openapitools.client.model.MobileIdRegistration;
-//import org.openapitools.client.model.MobileIdUserEligibilityInfo;
-//import org.openapitools.client.model.ModelConfiguration;
 import org.openapitools.client.model.UserProfile;
 
 import java.lang.reflect.Type;
@@ -37,19 +32,13 @@ import static com.mastercard.dis.mids.reference.util.Constants.PDS;
 import static com.mastercard.dis.mids.reference.util.Constants.X_MIDS_USERAUTH_SESSIONID;
 import static com.mastercard.dis.mids.reference.util.Constants.X_USER_IDENTITY;
 import static org.junit.jupiter.api.Assertions.assertAll;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.ArgumentMatchers.anyMap;
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.atLeastOnce;
 import static org.mockito.Mockito.atMostOnce;
 import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.doThrow;
-import static org.mockito.Mockito.eq;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -67,16 +56,13 @@ class UserProfileServiceImplTest {
     private UserProfileServiceImpl userProfileServiceImpl;
 
     @Mock
-    private ApiClientConfiguration apiClientConfigurationMock;
-
-    @Mock
     private ApiClient apiClientMock;
 
     @Mock
     private ExceptionUtil exceptionUtilMock;
 
     @Mock
-    private UserProfileApi userProfileApi;
+    private ApiClientConfiguration apiClientConfiguration;
 
     Map<String, List<String>> headers;
 
@@ -106,8 +92,10 @@ class UserProfileServiceImplTest {
 
     @Test
     void testInitializeReAuthentication_Error() throws ApiException {
-        doThrow(new ApiException()).when(apiClientMock).execute(any(), any());
-        doThrow(new ServiceException("Error while processing request")).when(exceptionUtilMock).logAndConvertToServiceException(any(ApiException.class));
+        when(apiClientMock.execute(any(), any()))
+                .thenThrow(new ApiException());
+        when(exceptionUtilMock.logAndConvertToServiceException(any(ApiException.class)))
+                .thenThrow(new ServiceException("Error while processing request"));
 
         IdentitySearch identitySearch = new IdentitySearch();
         Assertions.assertThrows(ServiceException.class, () -> userProfileServiceImpl.retrieveIdentities(identitySearch));
@@ -150,7 +138,6 @@ class UserProfileServiceImplTest {
         UserProfile userProfile = new UserProfile();
         userProfile.setCountryCode(COUNTRY_CODE);
         userProfile.setUserProfileId(USER_PROFILE_ID);
-        Call call = mock(Call.class);
         doReturn(new ApiResponse<>(200, null, null)).when(apiClientMock).execute(any());
 
         userProfileServiceImpl.userProfileRegistration(userProfile);
@@ -161,13 +148,10 @@ class UserProfileServiceImplTest {
 
     @Test
     void userProfileRegistration_exception_Test() {
-        UserProfile userProfile = new UserProfile();
-        userProfile.setCountryCode(COUNTRY_CODE);
-        userProfile.setUserProfileId(USER_PROFILE_ID);
         when(exceptionUtilMock.logAndConvertToServiceException(any(ApiException.class)))
                 .thenThrow(new ServiceException("Error while processing request"));
         Assertions.assertThrows(ServiceException.class,
-                () -> userProfileServiceImpl.userProfileRegistration(any(UserProfile.class)));
+                () -> userProfileServiceImpl.userProfileRegistration(null));
     }
 
     @Test
@@ -184,7 +168,7 @@ class UserProfileServiceImplTest {
         when(exceptionUtilMock.logAndConvertToServiceException(any(ApiException.class)))
                 .thenThrow(new ServiceException("Error while processing request"));
         Assertions.assertThrows(ServiceException.class,
-                () -> userProfileServiceImpl.userProfileDelete(any(), USER_CONSENT));
+                () -> userProfileServiceImpl.userProfileDelete(null, USER_CONSENT));
     }
 
     @Test
@@ -200,23 +184,16 @@ class UserProfileServiceImplTest {
 
     @Test
     void identityAttributeDelete_error() throws ApiException {
-        doThrow(new ApiException()).when(apiClientMock).execute(any(), any());
-        doThrow(new ServiceException("Error while processing request")).when(exceptionUtilMock).logAndConvertToServiceException(any(ApiException.class));
+        when(apiClientMock.execute(any(), any()))
+                .thenThrow(new ApiException());
+        when(exceptionUtilMock.logAndConvertToServiceException(any(ApiException.class)))
+                .thenThrow(new ServiceException("Error while processing request"));
+        when(apiClientConfiguration.isEncryptionEnabled())
+                .thenReturn(true);
 
-        Assertions.assertThrows(ServiceException.class, () -> userProfileServiceImpl.deleteIdentityAttribute(getIdentityAttributeDeletions()));
+        IdentityAttributeDeletions deletions = getIdentityAttributeDeletions();
+        Assertions.assertThrows(ServiceException.class, () -> userProfileServiceImpl.deleteIdentityAttribute(deletions));
         verify(apiClientMock, atMostOnce()).buildCall(anyString(), anyString(), anyString(), anyList(), anyList(), any(), anyMap(), anyMap(), anyMap(), any(), any());
         verify(apiClientMock, atMostOnce()).execute(any(Call.class), any(Type.class));
     }
-
-
-
-
-
-
-
-
-
-
-
-
 }

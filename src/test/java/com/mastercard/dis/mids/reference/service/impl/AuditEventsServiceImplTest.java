@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import static com.mastercard.dis.mids.reference.util.Constants.COUNTRY_CODE;
 import static com.mastercard.dis.mids.reference.util.Constants.USER_PROFILE_ID;
 import static com.mastercard.dis.mids.reference.util.Constants.X_MIDS_USERAUTH_SESSIONID;
@@ -36,7 +37,6 @@ class AuditEventsServiceImplTest {
 
     @InjectMocks
     private AuditEventsServiceImpl auditEventsServiceImpl;
-
 
     @Mock
     private ApiClient apiClientMock;
@@ -74,8 +74,8 @@ class AuditEventsServiceImplTest {
     void auditEvents_exception_Test() throws ServiceException {
         when(exceptionUtilMock.logAndConvertToServiceException(any(ApiException.class)))
                 .thenThrow(new ServiceException("Error while processing request"));
-        Assertions.assertThrows(ServiceException.class,
-                () -> auditEventsServiceImpl.auditEvents(any(AuditEvents.class)));
 
+        Assertions.assertThrows(ServiceException.class,
+                () -> auditEventsServiceImpl.auditEvents(null));
     }
 }

@@ -78,6 +78,7 @@ import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class DocumentVerificationServiceImplTest {
@@ -231,16 +232,18 @@ class DocumentVerificationServiceImplTest {
     @Test
     void getDocumentVerificationToken_CreateDocumentVerificationStatus_WithCreateSessionContext_Failure() throws ServiceException, ApiException {
         headers.clear();
-        doThrow(new ServiceException("Exception occurred while creating session context"))
-                .when(exceptionUtil).logAndConvertToServiceException(any(ApiException.class));
+        when(exceptionUtil.logAndConvertToServiceException(any(ApiException.class)))
+                .thenThrow(new ServiceException("Exception occurred while creating session context"));
 
-        doThrow(new ApiException("Api Exception")).when(apiClientMock).execute(any(), any());
+        when(apiClientMock.execute(any(), any()))
+                .thenThrow(new ApiException("Api Exception"));
 
+        DocumentDataRetrieval doc = new DocumentDataRetrieval();
         try {
-            documentVerificationService.retrieveDocument(new DocumentDataRetrieval());
+            documentVerificationService.retrieveDocument(doc);
             fail();
         } catch (ServiceException exp) {
-            Assert.assertEquals("Exception occurred while creating session context", exp.getMessage());
+            assertEquals("Exception occurred while creating session context", exp.getMessage());
         }
     }
 
@@ -248,19 +251,18 @@ class DocumentVerificationServiceImplTest {
     void getDocumentVerificationToken_CreateDocumentVerificationStatus_WithCreateSessionContext_UserAuth_Header_Null() throws ServiceException, ApiException {
         headers.put(X_MIDS_USERAUTH_SESSIONID, null);
 
-        doReturn(new ServiceException("Exception occurred while creating session context"))
-                .when(exceptionUtil)
-                .logAndConvertToServiceException(any());
+        when(exceptionUtil.logAndConvertToServiceException(any(ApiException.class)))
+                .thenThrow(new ServiceException("Exception occurred while creating session context"));
 
 
         doThrow(new ApiException("Api Exception")).when(apiClientMock).execute(any(), any());
 
+        DocumentDataRetrieval doc = new DocumentDataRetrieval();
         try {
-
-            documentVerificationService.retrieveDocument(new DocumentDataRetrieval());
+            documentVerificationService.retrieveDocument(doc);
             fail();
         } catch (ServiceException exp) {
-            Assert.assertEquals("Exception occurred while creating session context", exp.getMessage());
+            assertEquals("Exception occurred while creating session context", exp.getMessage());
         }
     }
 
@@ -269,12 +271,15 @@ class DocumentVerificationServiceImplTest {
         headers.clear();
         headers.put(X_MIDS_USERAUTH_SESSIONID, Collections.singletonList("test-user-auth-token"));
         headers.put(X_USER_IDENTITY, null);
-        doReturn(new ServiceException("Exception occurred while creating session context")).when(exceptionUtil).logAndConvertToServiceException(any());
+
+        when(exceptionUtil.logAndConvertToServiceException(any(ApiException.class)))
+                .thenThrow(new ServiceException("Exception occurred while creating session context"));
 
         doThrow(new ApiException("Api Exception")).when(apiClientMock).execute(any(), any());
 
+        DocumentDataRetrieval doc = new DocumentDataRetrieval();
         try {
-            documentVerificationService.retrieveDocument(new DocumentDataRetrieval());
+            documentVerificationService.retrieveDocument(doc);
             fail();
         } catch (ServiceException exp) {
             Assert.assertEquals("Exception occurred while creating session context", exp.getMessage());
