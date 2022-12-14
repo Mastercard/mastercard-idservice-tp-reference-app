@@ -1,6 +1,9 @@
 # Mastercard ID For Trust Providers Reference Implementation
 
-[![](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](./LICENSE.md)
+[![](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](./LICENSE)
+[![](https://sonarcloud.io/api/project_badges/measure?project=Mastercard_mastercard-idservice-tp-reference-app&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=Mastercard_mastercard-idservice-tp-reference-app)
+[![](https://sonarcloud.io/api/project_badges/measure?project=Mastercard_mastercard-idservice-tp-reference-app&metric=coverage)](https://sonarcloud.io/summary/new_code?id=Mastercard_mastercard-idservice-tp-reference-app)
+[![](https://sonarcloud.io/api/project_badges/measure?project=Mastercard_mastercard-idservice-tp-reference-app&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=Mastercard_mastercard-idservice-tp-reference-app)
 
 ## Table of Contents
 - [Overview](#overview)

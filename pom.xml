@@ -25,12 +25,19 @@
         <client-encryption-version>1.7.5</client-encryption-version>
         <openapi-generator.version>5.4.0</openapi-generator.version>
         <javax-ws-version>2.1.1</javax-ws-version>
-      <maven-artifact.version>3.8.6</maven-artifact.version>
+        <maven-artifact.version>3.8.6</maven-artifact.version>
+        <sonar.organization>mastercard</sonar.organization>
+        <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+        <sonar.projectKey>Mastercard_mastercard-idservice-tp-reference-app</sonar.projectKey>
+        <sonar.coverage.exclusions>
+            **/com/mastercard/dis/mids/reference/config/*,
+            **/com/mastercard/dis/mids/reference/interceptor/*
+        </sonar.coverage.exclusions>
     </properties>
 
     <dependencies>
 
-       <dependency>
+        <dependency>
             <groupId>javax.ws.rs</groupId>
             <artifactId>javax.ws.rs-api</artifactId>
             <version>${javax-ws-version}</version>
@@ -99,7 +106,7 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-       <dependency>
+        <dependency>
             <groupId>org.apache.maven</groupId>
             <artifactId>maven-artifact</artifactId>
             <version>${maven-artifact.version}</version>
@@ -164,6 +171,36 @@
                                 <dateLibrary>java8</dateLibrary>
                             </configOptions>
                         </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>0.8.6</version>
+                <configuration>
+                    <excludes>
+                        <exclude>
+                            com.mastercard.dis.mids.reference.config.*
+                        </exclude>
+                        <exclude>
+                            com.mastercard.dis.mids.reference.interceptor.*
+                        </exclude>
+                    </excludes>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>default-prepare-agent</id>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>jacoco-site</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
                     </execution>
                 </executions>
             </plugin>
