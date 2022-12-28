@@ -1,4 +1,4 @@
-# Mastercard ID For Trust Providers Reference Implementation
+# Mastercard ID for Trust Providers Reference Implementation
 
 [![](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](./LICENSE)
 [![](https://sonarcloud.io/api/project_badges/measure?project=Mastercard_mastercard-idservice-tp-reference-app&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=Mastercard_mastercard-idservice-tp-reference-app)
@@ -21,7 +21,7 @@
 - [Support](#support)
 
 ## Overview <a name="overview"></a>
-ID For Trust Providers is a digital identity service from Mastercard that helps you apply for, enroll in, log in to, and access services more simply, securely and privately. Rather than manually providing your information when you are trying to complete tasks online or in apps, ID enables you to share your verified information automatically, more securely, and with your consent and control. ID also enables you to do away with passwords and protects your personal information. Please see here for more details on the API: [Mastercard ID for Trust Providers](https://developer.mastercard.com/mastercard-id-for-tp/documentation/).
+ID for Trust Providers is a digital identity service from Mastercard that helps you apply for, enroll in, log in to, and access services more simply, securely and privately. Rather than manually providing your information when you are trying to complete tasks online or in apps, ID enables you to share your verified information automatically, more securely, and with your consent and control. ID also enables you to do away with passwords and protects your personal information. Please see here for more details on the API: [Mastercard ID for Trust Providers](https://developer.mastercard.com/mastercard-id-for-tp/documentation/).
 
 For more information regarding the program refer to [Digital Identity Services](https://idservice.com/)
 
@@ -35,7 +35,7 @@ For more information regarding the program refer to [Digital Identity Services](
 
 ## Usage <a name="usage"></a>
 ### Prerequisites <a name="prerequisites"></a>
-* [Mastercard Developers Account](https://developer.mastercard.com/dashboard) with access to Mastercard ID for Trust Providers API
+* [Mastercard Developers Account](https://developer.mastercard.com/dashboard) with access to ID for Trust Providers API
 * A text editor or IDE
 * [Spring Boot 2.2+](https://spring.io/projects/spring-boot)
 * [Apache Maven 3.3+](https://maven.apache.org/download.cgi)
@@ -44,7 +44,7 @@ For more information regarding the program refer to [Digital Identity Services](
 ### Configuration <a name="configuration"></a> 
 
 1. Create an account at [Mastercard Developers](https://developer.mastercard.com/account/sign-up).  
-2. Create a new project and add `Mastercard ID for Trust Providers` API to your project.
+2. Create a new project and add `ID for Trust Providers` API to your project.
 3. Download all the keys. It will download multiple files.
 4. Select all `.p12` files, `.pem` file and copy it to `src/main/resources` in the project folder.
 5. Open `${project.basedir}/src/main/resources/application.properties` and configure the parameters accordingly.
@@ -136,9 +136,9 @@ Now that you have all the dependencies you need, you can generate the sources. T
 25. Exit
 
 ### Use cases <a name="use-cases"></a>
-Main use cases in ID For Trust Providers Reference APIs are Personal Data Storage, SMS One Time Password, Email One Time Password, Document Verification, Initiate Authentications, Re-Authentication, Claims Sharing, Audit Events, User profiles.
+Main use cases in ID for Trust Providers Reference APIs are Personal Data Storage, SMS One Time Password, Email One Time Password, Document Verification, Initiate Authentications, Re-Authentication, Claims Sharing, Audit Events, User profiles.
 
-Below are the different APIs available in ID For Trust Providers Reference application:
+Below are the different APIs available in ID for Trust Providers Reference application:
 
 | Use case | Source Code | URL | Sample request | Sample response |
 |----------|-------------|-----|----------------|-----------------|
@@ -161,13 +161,13 @@ Below are the different APIs available in ID For Trust Providers Reference appli
 
 ## API Reference <a name="api-reference"></a>
 
-- To develop a client application that consumes the ID For Trust Providers API with Spring Boot, refer to the  [Mastercard ID For Trust Providers Reference](https://developer.mastercard.com/mastercard-id-for-tp/documentation/api-reference/).
+- To develop a client application that consumes the ID for Trust Providers API with Spring Boot, refer to the  [ID for Trust Providers Reference](https://developer.mastercard.com/mastercard-id-for-tp/documentation/api-reference/).
 
 - The OpenAPI specification with `idservice` and `idwatchlist` endpoints can be found [here](https://developer.mastercard.com/mastercard-id-for-tp/documentation/reference-app/).
 
 ## Support <a name="support"></a>
 
-- For further information, send an email to `ID.Network.Support@mastercard.com`.
+- For further information, send an e-mail to `ID.Network.Support@mastercard.com`.
 - For information regarding licensing, refer to the [License file](LICENSE.md).
 - For copyright information, refer to the [COPYRIGHT.md](COPYRIGHT.md).
 - For instructions on how to contribute to this project, refer to the [Contributing file](CONTRIBUTING.md).

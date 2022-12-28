@@ -1,5 +1,6 @@
 package com.mastercard.dis.mids.reference.component;
 
+import com.mastercard.dis.mids.reference.example.dto.MultiDocumentVerificationToken;
 import com.mastercard.dis.mids.reference.service.AuditEventsService;
 import com.mastercard.dis.mids.reference.service.ClaimsApiService;
 import com.mastercard.dis.mids.reference.service.DocumentVerificationService;
@@ -13,6 +14,7 @@ import com.mastercard.dis.mids.reference.service.TPRPClaimsService;
 import com.mastercard.dis.mids.reference.service.TPScopesService;
 import com.mastercard.dis.mids.reference.service.UserAccountActivitySearchService;
 import com.mastercard.dis.mids.reference.service.UserProfileService;
+import com.mastercard.dis.mids.reference.service.TPDataSharesService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -20,19 +22,27 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-//import org.openapitools.client.model.ActivationCode;
-import org.openapitools.client.model.ClaimIdentities;
-import org.openapitools.client.model.ClientIdentities;
 import org.openapitools.client.model.ConfirmedPDS;
-import org.openapitools.client.model.CreatedEmailOtp;
-import org.openapitools.client.model.CreatedSMSOtp;
-import org.openapitools.client.model.DocumentDataStatus;
 import org.openapitools.client.model.DocumentVerificationExtractedData;
-//import org.openapitools.client.model.MobileIdRegistration;
+import org.openapitools.client.model.DocumentDataStatus;
+import org.openapitools.client.model.CreatedSMSOtp;
+import org.openapitools.client.model.CreatedEmailOtp;
+import org.openapitools.client.model.ClientIdentities;
+import org.openapitools.client.model.ClaimIdentities;
+import org.openapitools.client.model.TpDataShare;
+import org.openapitools.client.model.TPDataShareSuccessData;
+import org.openapitools.client.model.MultiDocumentConfirmedPDS;
+import org.openapitools.client.model.IdentityAttributeItem;
+import org.openapitools.client.model.UpdateIdentityAttributesData;
 import org.springframework.test.util.ReflectionTestUtils;
 
+import java.util.Collections;
+
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyBoolean;
+import static org.mockito.ArgumentMatchers.anyListOf;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -45,6 +55,7 @@ class MIDSReferenceTest {
     public static final String ACTION_SAMPLE = "ID Created";
     public static final String CONTENT_VALUE = "5ed2cf35-a125-aaaaaaaaaa-bbbbbb-ccc";
     public static final String ARID = "524a46e4-9ecf-11eb-a8b3-0242ac130009";
+    private static final String ATTRIBUTE_PDS = "attributePDS";
 
     @InjectMocks
     MIDSReference midsReference;
@@ -77,7 +88,7 @@ class MIDSReferenceTest {
     AuditEventsService auditEventsService;
 
     @Mock
-    MultiDocumentVerificationService multiDocumentVerificationServiceMock;
+    MultiDocumentVerificationService multiDocumentVerificationService;
 
     @Mock
     GpaAuthenticationService gpaAuthenticationService;
@@ -87,6 +98,9 @@ class MIDSReferenceTest {
 
     @Mock
     TPScopesService tpScopesService;
+
+    @Mock
+    TPDataSharesService tpDataSharesService;
 
     @BeforeEach
     void prepareTest() {
@@ -107,7 +121,7 @@ class MIDSReferenceTest {
         doReturn(new ConfirmedPDS()).when(documentVerificationServiceMock).confirmDocumentData(any());
         midsReference.generateMultiToken();
 
-        verify(multiDocumentVerificationServiceMock, times(1)).documentVerificationMultiAccessSDKToken(any());
+        verify(multiDocumentVerificationService, times(1)).documentVerificationMultiAccessSDKToken(any());
     }
 
     @Test
@@ -118,7 +132,7 @@ class MIDSReferenceTest {
         doReturn(confirmedDataUpdatedPDS).when(documentVerificationServiceMock).confirmDocumentData(any());
         midsReference.generateMultiToken();
 
-        verify(multiDocumentVerificationServiceMock, times(1)).documentVerificationMultiAccessSDKToken(any());
+        verify(multiDocumentVerificationService, times(1)).documentVerificationMultiAccessSDKToken(any(MultiDocumentVerificationToken.class));
     }
 
     @ParameterizedTest
@@ -180,7 +194,7 @@ class MIDSReferenceTest {
     }
 
     @Test
-    void performReAuthenticationDecissions_successfulResponse() {
+    void performReAuthenticationDecisions_successfulResponse() {
         doReturn(createDocumentExtractedData(false)).when(documentVerificationServiceMock).retrieveDocument(any());
         doReturn(new ConfirmedPDS()).when(documentVerificationServiceMock).confirmDocumentData(any());
 
@@ -189,7 +203,7 @@ class MIDSReferenceTest {
     }
 
     @Test
-    void performReAuthenticationDecissions_successfulResponse_nullDocumentIssueDate() {
+    void performReAuthenticationDecisions_successfulResponse_nullDocumentIssueDate() {
         doReturn(createDocumentExtractedData(false)).when(documentVerificationServiceMock).retrieveDocument(any());
         doReturn(new ConfirmedPDS()).when(documentVerificationServiceMock).confirmDocumentData(any());
 
@@ -226,7 +240,7 @@ class MIDSReferenceTest {
         verify(userAccountActivitySearchServiceMock, times(1)).retrieveUserActivities(any());
     }
 
-    private Object createDocumentExtractedData(boolean b) {
+    private DocumentVerificationExtractedData createDocumentExtractedData(boolean b) {
         DocumentDataStatus documentData = new DocumentDataStatus();
         documentData.setDateOfBirth(ISSUING_DATE);
         documentData.setExpiryDate(ISSUING_DATE);
@@ -262,7 +276,7 @@ class MIDSReferenceTest {
     }
 
     @Test
-    void performRPActivitySearh_successfulResponse() {
+    void performRPActivitySearch_successfulResponse() {
         doReturn(createDocumentExtractedData(false)).when(documentVerificationServiceMock).retrieveDocument(any());
         doReturn(new ConfirmedPDS()).when(documentVerificationServiceMock).confirmDocumentData(any());
         doReturn(new ClaimIdentities()).when(tprpClaimsService).claimsSharing(any());
@@ -312,24 +326,29 @@ class MIDSReferenceTest {
         verify(tpScopesService, times(1)).getRpScopes(ARID);
     }
 
- /*   @Test
-    void performMobileIDRegistration_successfulResponse() {
-        doReturn(createDocumentExtractedData(false)).when(documentVerificationServiceMock).retrieveDocument(any());
-        doReturn(new ConfirmedPDS()).when(documentVerificationServiceMock).confirmDocumentData(any());
-        doReturn(new MobileIdRegistration()).when(userProfileService).mobileIdRegistrations(any());
+    @Test
+    void performUpdatePdsData_successfulResponse() {
+        MIDSReference midsReferenceSpy = Mockito.spy(midsReference);
+        doReturn("PDS_TEST").when(midsReferenceSpy).getPDS(anyBoolean(), anyListOf(String.class));
+        doReturn(new TPDataShareSuccessData()).when(tpDataSharesService).updatePdsData(any(TpDataShare.class));
 
-        midsReference.mobileIdRegistrations();
-        verify(userProfileService, times(1)).mobileIdRegistrations(any());
+        midsReferenceSpy.updatePdsData();
+
+        verify(tpDataSharesService, times(1)).updatePdsData(any(TpDataShare.class));
     }
 
     @Test
-    void getMobileIDActivationCode_successfulResponse() {
-        doReturn(createDocumentExtractedData(false)).when(documentVerificationServiceMock).retrieveDocument(any());
-        doReturn(new MobileIdRegistration()).when(userProfileService).mobileIdRegistrations(any());
-        doReturn(new ConfirmedPDS()).when(documentVerificationServiceMock).confirmDocumentData(any());
-        doReturn(new ActivationCode()).when(userProfileService).getMobileIdActivationCode(any(), any());
+    void performUpdateIdentityAttributes_successfulResponse() {
+        MIDSReference midsReferenceSpy = Mockito.spy(midsReference);
+        doReturn(new MultiDocumentConfirmedPDS()).when(midsReferenceSpy).multiDocTasks();
+        doReturn(Collections.singletonList(new IdentityAttributeItem(){{
+            setAttributeName(AttributeNameEnum.LEGAL_NAME);
+            setAttributeValue("Test Name");
+        }})).when(midsReferenceSpy).createIdentityAttributes();
 
-        midsReference.getMobileIdActivationCode();
-        verify(userProfileService, times(1)).getMobileIdActivationCode(any(), any());
-    }*/
+        midsReferenceSpy.updateIdentiyAttributes();
+
+        verify(multiDocumentVerificationService, times(1)).updateIdentityAttributes(any(UpdateIdentityAttributesData.class));
+    }
+
 }
