@@ -25,7 +25,6 @@ import com.mastercard.dis.mids.reference.exception.ServiceException;
 import com.mastercard.dis.mids.reference.session.SessionContext;
 import com.mastercard.dis.mids.reference.util.DocumentVerificationUtil;
 import okhttp3.Call;
-import org.junit.Assert;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
