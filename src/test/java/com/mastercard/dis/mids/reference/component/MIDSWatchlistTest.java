@@ -32,5 +32,4 @@ class MIDSWatchlistTest {
 
         Mockito.verify(fraudSignalsService, Mockito.times(1)).performFraudDataSearchSignals(Mockito.any(FraudSearchData.class));
     }
-
 }

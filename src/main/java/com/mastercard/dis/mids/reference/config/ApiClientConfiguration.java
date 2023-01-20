@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2021 Mastercard
+ Copyright (c) 2023 Mastercard
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -33,7 +33,7 @@ import org.springframework.core.io.Resource;
 import javax.annotation.PostConstruct;
 import java.security.PrivateKey;
 
-import static com.mastercard.dis.mids.reference.util.Constants.X_ENCRYPTED_HEADER;
+import static com.mastercard.dis.mids.reference.constants.Constants.X_ENCRYPTED_HEADER;
 
 /**
  * This is ApiClient configuration, it will read properties from application.properties and create instance of ApiClient.

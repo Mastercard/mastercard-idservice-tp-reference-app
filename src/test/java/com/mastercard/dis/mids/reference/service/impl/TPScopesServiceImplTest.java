@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2021 Mastercard
+ Copyright (c) 2023 Mastercard
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -30,7 +30,7 @@ import org.openapitools.client.model.RPScopes;
 import org.springframework.test.util.ReflectionTestUtils;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -97,7 +97,7 @@ public class TPScopesServiceImplTest {
         RPScopes responseData = new RPScopes();
         responseData.setRpLogoUrl("url");
         responseData.setRpName("rpName");
-        responseData.setScopes(Arrays.asList("Name:0:20"));
+        responseData.setScopes(Collections.singletonList("Name:0:20"));
         return responseData;
     }
 }

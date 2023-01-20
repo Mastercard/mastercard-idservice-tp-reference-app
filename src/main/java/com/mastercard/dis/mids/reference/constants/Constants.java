@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2021 Mastercard
+ Copyright (c) 2023 Mastercard
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -14,9 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-package com.mastercard.dis.mids.reference.util;
-
-import java.util.UUID;
+package com.mastercard.dis.mids.reference.constants;
 
 public class Constants {
 
@@ -66,8 +64,7 @@ public class Constants {
     public static final String MODEL = "S8";
     public static final boolean VISA_VERIFY_REQUIRED = false;
     public static final String VISA_SUPPORTED_COUNTRY_CODE = "AU";
-    // Claim Sharing
-    public static final UUID ARID = UUID.fromString(ARID_VALUE);
+
     //Multi-Doc
     public static final String NEW_LEGAL_NAME = "New Legal Name";
 

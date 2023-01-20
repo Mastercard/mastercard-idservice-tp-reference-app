@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2021 Mastercard
+ Copyright (c) 2023 Mastercard
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -38,12 +38,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import static com.mastercard.dis.mids.reference.util.Constants.COUNTRY_CODE;
-import static com.mastercard.dis.mids.reference.util.Constants.PDS;
-import static com.mastercard.dis.mids.reference.util.Constants.PRIVACY_POLICY_VERSION;
-import static com.mastercard.dis.mids.reference.util.Constants.SDK_VERSION;
-import static com.mastercard.dis.mids.reference.util.Constants.USER_PROFILE_ID;
-import static com.mastercard.dis.mids.reference.util.Constants.X_MIDS_USERAUTH_SESSIONID;
+import static com.mastercard.dis.mids.reference.constants.Constants.COUNTRY_CODE;
+import static com.mastercard.dis.mids.reference.constants.Constants.PDS;
+import static com.mastercard.dis.mids.reference.constants.Constants.PRIVACY_POLICY_VERSION;
+import static com.mastercard.dis.mids.reference.constants.Constants.SDK_VERSION;
+import static com.mastercard.dis.mids.reference.constants.Constants.USER_PROFILE_ID;
+import static com.mastercard.dis.mids.reference.constants.Constants.X_MIDS_USERAUTH_SESSIONID;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;

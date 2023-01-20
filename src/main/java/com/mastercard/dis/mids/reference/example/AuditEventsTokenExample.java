@@ -4,8 +4,8 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.openapitools.client.model.AuditEvents;
 
-import static com.mastercard.dis.mids.reference.util.Constants.AUDIT_USER_PROFILE_ID;
-import static com.mastercard.dis.mids.reference.util.Constants.COUNTRY_CODE;
+import static com.mastercard.dis.mids.reference.constants.Constants.AUDIT_USER_PROFILE_ID;
+import static com.mastercard.dis.mids.reference.constants.Constants.COUNTRY_CODE;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class AuditEventsTokenExample {

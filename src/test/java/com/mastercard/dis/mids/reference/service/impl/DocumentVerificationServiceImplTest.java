@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2021 Mastercard
+ Copyright (c) 2023 Mastercard
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -57,13 +57,14 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
-import static com.mastercard.dis.mids.reference.util.Constants.ARID;
-import static com.mastercard.dis.mids.reference.util.Constants.COUNTRY_CODE;
-import static com.mastercard.dis.mids.reference.util.Constants.SDK_VERSION;
-import static com.mastercard.dis.mids.reference.util.Constants.VISA_SUPPORTED_COUNTRY_CODE;
-import static com.mastercard.dis.mids.reference.util.Constants.X_MIDS_USERAUTH_SESSIONID;
-import static com.mastercard.dis.mids.reference.util.Constants.X_USER_IDENTITY;
+import static com.mastercard.dis.mids.reference.constants.Constants.ARID_VALUE;
+import static com.mastercard.dis.mids.reference.constants.Constants.COUNTRY_CODE;
+import static com.mastercard.dis.mids.reference.constants.Constants.SDK_VERSION;
+import static com.mastercard.dis.mids.reference.constants.Constants.VISA_SUPPORTED_COUNTRY_CODE;
+import static com.mastercard.dis.mids.reference.constants.Constants.X_MIDS_USERAUTH_SESSIONID;
+import static com.mastercard.dis.mids.reference.constants.Constants.X_USER_IDENTITY;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -78,7 +79,6 @@ import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class DocumentVerificationServiceImplTest {
@@ -232,18 +232,16 @@ class DocumentVerificationServiceImplTest {
     @Test
     void getDocumentVerificationToken_CreateDocumentVerificationStatus_WithCreateSessionContext_Failure() throws ServiceException, ApiException {
         headers.clear();
-        when(exceptionUtil.logAndConvertToServiceException(any(ApiException.class)))
-                .thenThrow(new ServiceException("Exception occurred while creating session context"));
+        doThrow(new ServiceException("Exception occurred while creating session context"))
+                .when(exceptionUtil).logAndConvertToServiceException(any(ApiException.class));
 
-        when(apiClientMock.execute(any(), any()))
-                .thenThrow(new ApiException("Api Exception"));
-
-        DocumentDataRetrieval doc = new DocumentDataRetrieval();
+        doThrow(new ApiException("Api Exception")).when(apiClientMock).execute(any(), any());
+        DocumentDataRetrieval documentDataRetrieval = new DocumentDataRetrieval();
         try {
-            documentVerificationService.retrieveDocument(doc);
+            documentVerificationService.retrieveDocument(documentDataRetrieval);
             fail();
         } catch (ServiceException exp) {
-            assertEquals("Exception occurred while creating session context", exp.getMessage());
+            Assertions.assertEquals("Exception occurred while creating session context", exp.getMessage());
         }
     }
 
@@ -251,18 +249,18 @@ class DocumentVerificationServiceImplTest {
     void getDocumentVerificationToken_CreateDocumentVerificationStatus_WithCreateSessionContext_UserAuth_Header_Null() throws ServiceException, ApiException {
         headers.put(X_MIDS_USERAUTH_SESSIONID, null);
 
-        when(exceptionUtil.logAndConvertToServiceException(any(ApiException.class)))
-                .thenThrow(new ServiceException("Exception occurred while creating session context"));
+        doReturn(new ServiceException("Exception occurred while creating session context"))
+                .when(exceptionUtil)
+                .logAndConvertToServiceException(any());
 
 
         doThrow(new ApiException("Api Exception")).when(apiClientMock).execute(any(), any());
-
-        DocumentDataRetrieval doc = new DocumentDataRetrieval();
+        DocumentDataRetrieval documentDataRetrieval = new DocumentDataRetrieval();
         try {
-            documentVerificationService.retrieveDocument(doc);
+            documentVerificationService.retrieveDocument(documentDataRetrieval);
             fail();
         } catch (ServiceException exp) {
-            assertEquals("Exception occurred while creating session context", exp.getMessage());
+            Assertions.assertEquals("Exception occurred while creating session context", exp.getMessage());
         }
     }
 
@@ -271,18 +269,15 @@ class DocumentVerificationServiceImplTest {
         headers.clear();
         headers.put(X_MIDS_USERAUTH_SESSIONID, Collections.singletonList("test-user-auth-token"));
         headers.put(X_USER_IDENTITY, null);
-
-        when(exceptionUtil.logAndConvertToServiceException(any(ApiException.class)))
-                .thenThrow(new ServiceException("Exception occurred while creating session context"));
+        doReturn(new ServiceException("Exception occurred while creating session context")).when(exceptionUtil).logAndConvertToServiceException(any());
 
         doThrow(new ApiException("Api Exception")).when(apiClientMock).execute(any(), any());
-
-        DocumentDataRetrieval doc = new DocumentDataRetrieval();
+        DocumentDataRetrieval documentDataRetrieval = new DocumentDataRetrieval();
         try {
-            documentVerificationService.retrieveDocument(doc);
+            documentVerificationService.retrieveDocument(documentDataRetrieval);
             fail();
         } catch (ServiceException exp) {
-            Assert.assertEquals("Exception occurred while creating session context", exp.getMessage());
+            Assertions.assertEquals("Exception occurred while creating session context", exp.getMessage());
         }
     }
 
@@ -428,7 +423,7 @@ class DocumentVerificationServiceImplTest {
         documentVerificationConfirmData.setDocumentData(new ConfirmDocumentData());
         documentVerificationConfirmData.setFraudDetection(new FraudDetection());
         if (claimSharingFlow) {
-            documentVerificationConfirmData.setArid(ARID);
+            documentVerificationConfirmData.setArid(UUID.fromString(ARID_VALUE));
         }
         if (verifyIfVisaMatched) {
             documentVerificationConfirmData.setVisaMatched(verifyIfVisaMatched);

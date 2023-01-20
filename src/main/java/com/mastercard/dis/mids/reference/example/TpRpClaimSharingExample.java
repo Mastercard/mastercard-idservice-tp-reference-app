@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2021 Mastercard
+ Copyright (c) 2023 Mastercard
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -23,7 +23,7 @@ import org.openapitools.client.model.ClaimScopes;
 import java.util.Arrays;
 import java.util.List;
 
-import static com.mastercard.dis.mids.reference.util.Constants.TP_RP_SCOPES;
+import static com.mastercard.dis.mids.reference.constants.Constants.TP_RP_SCOPES;
 import static org.openapitools.client.model.UserConsent.ACCEPT;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)

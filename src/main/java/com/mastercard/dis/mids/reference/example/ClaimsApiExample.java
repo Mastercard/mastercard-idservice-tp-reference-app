@@ -7,10 +7,10 @@ import org.openapitools.client.model.RPClaimsUserDetails;
 
 import java.util.UUID;
 
-import static com.mastercard.dis.mids.reference.util.Constants.ARID_VALUE;
-import static com.mastercard.dis.mids.reference.util.Constants.COUNTRY_CODE;
-import static com.mastercard.dis.mids.reference.util.Constants.LOCALE;
-import static com.mastercard.dis.mids.reference.util.Constants.PDS;
+import static com.mastercard.dis.mids.reference.constants.Constants.ARID_VALUE;
+import static com.mastercard.dis.mids.reference.constants.Constants.COUNTRY_CODE;
+import static com.mastercard.dis.mids.reference.constants.Constants.LOCALE;
+import static com.mastercard.dis.mids.reference.constants.Constants.PDS;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class ClaimsApiExample {

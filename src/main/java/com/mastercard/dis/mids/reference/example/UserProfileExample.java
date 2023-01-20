@@ -10,11 +10,10 @@ import org.openapitools.client.model.UserProfile;
 import java.util.ArrayList;
 import java.util.Collections;
 
-import static com.mastercard.dis.mids.reference.util.Constants.COUNTRY_CODE;
-import static com.mastercard.dis.mids.reference.util.Constants.SDK_VERSION;
-import static com.mastercard.dis.mids.reference.util.Constants.SESSION_ID;
-import static com.mastercard.dis.mids.reference.util.Constants.TRANSACTION_GROUP_ID;
-import static com.mastercard.dis.mids.reference.util.Constants.USER_PROFILE_ID_VALUE;
+import static com.mastercard.dis.mids.reference.constants.Constants.COUNTRY_CODE;
+import static com.mastercard.dis.mids.reference.constants.Constants.SESSION_ID;
+import static com.mastercard.dis.mids.reference.constants.Constants.TRANSACTION_GROUP_ID;
+import static com.mastercard.dis.mids.reference.constants.Constants.USER_PROFILE_ID_VALUE;
 import static org.openapitools.client.model.UserConsent.ACCEPT;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)

@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2021 Mastercard
+ Copyright (c) 2023 Mastercard
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -16,24 +16,29 @@ limitations under the License.
 
 package com.mastercard.dis.mids.reference.service.impl;
 
+import com.mastercard.dis.mids.reference.config.ApiClientConfiguration;
+import com.mastercard.dis.mids.reference.exception.ExceptionUtil;
 import com.mastercard.dis.mids.reference.exception.ServiceException;
 import com.mastercard.dis.mids.reference.session.SessionContext;
-import com.mastercard.dis.mids.reference.util.Constants;
+import com.mastercard.dis.mids.reference.constants.Constants;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.openapitools.client.ApiClient;
 import org.openapitools.client.ApiException;
+import org.openapitools.client.api.ClaimsSharingApi;
 import org.openapitools.client.model.ClaimIdentities;
 import org.openapitools.client.model.ClaimScopes;
-
+import org.springframework.test.util.ReflectionTestUtils;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import static com.mastercard.dis.mids.reference.util.Constants.X_USER_IDENTITY;
+import static com.mastercard.dis.mids.reference.constants.Constants.X_USER_IDENTITY;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -45,7 +50,14 @@ import static org.mockito.Mockito.mock;
 @ExtendWith(MockitoExtension.class)
 class TPRPClaimsServiceImplTest {
 
+    @InjectMocks
+    TPRPClaimsServiceImpl TPRPClaimsServiceImpl;
 
+    @Mock
+    ExceptionUtil exceptionUtil;
+
+    @Mock
+    ApiClientConfiguration apiClientConfiguration;
 
     Map<String, List<String>> headers;
 
@@ -60,6 +72,12 @@ class TPRPClaimsServiceImplTest {
         headers.put(Constants.X_MIDS_USERAUTH_SESSIONID, headersList);
         headers.put(X_USER_IDENTITY, headersList);
         SessionContext.create(X_USER_IDENTITY);
+
+        ClaimsSharingApi claimsSharingApi = new ClaimsSharingApi();
+        claimsSharingApi.setApiClient(new ApiClient());
+        claimsSharingApi.getApiClient().addDefaultHeader(X_USER_IDENTITY, SessionContext.get().getUserIdentityToken());
+        ReflectionTestUtils.setField(TPRPClaimsServiceImpl, "claimsSharingApi", claimsSharingApi);
+
     }
 
     @Test
@@ -73,11 +91,13 @@ class TPRPClaimsServiceImplTest {
     }
 
     @Test
-    void testTPRPClaimSharing_Error() throws ApiException {
+    void testTPRPClaimSharing_Error()  {
+
         ClaimScopes claimScopes = getClaimScopes();
-        TPRPClaimsServiceImpl mockTPRPClaimsServiceImpl = mock(TPRPClaimsServiceImpl.class);
-        doThrow(ServiceException.class).when(mockTPRPClaimsServiceImpl).claimsSharing(claimScopes);
-        Assertions.assertThrows(ServiceException.class, () -> mockTPRPClaimsServiceImpl.claimsSharing(claimScopes));
+
+        doThrow(ServiceException.class).when(exceptionUtil).logAndConvertToServiceException(any());
+
+        Assertions.assertThrows(ServiceException.class, ()-> TPRPClaimsServiceImpl.claimsSharing(claimScopes) );
     }
 
     private ClaimScopes getClaimScopes() {

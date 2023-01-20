@@ -42,7 +42,6 @@ import java.util.Collections;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyBoolean;
-import static org.mockito.ArgumentMatchers.anyListOf;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -88,7 +87,7 @@ class MIDSReferenceTest {
     AuditEventsService auditEventsService;
 
     @Mock
-    MultiDocumentVerificationService multiDocumentVerificationService;
+    MultiDocumentVerificationService multiDocumentVerificationServiceMock;
 
     @Mock
     GpaAuthenticationService gpaAuthenticationService;
@@ -121,7 +120,7 @@ class MIDSReferenceTest {
         doReturn(new ConfirmedPDS()).when(documentVerificationServiceMock).confirmDocumentData(any());
         midsReference.generateMultiToken();
 
-        verify(multiDocumentVerificationService, times(1)).documentVerificationMultiAccessSDKToken(any());
+        verify(multiDocumentVerificationServiceMock, times(1)).documentVerificationMultiAccessSDKToken(any());
     }
 
     @Test
@@ -132,7 +131,7 @@ class MIDSReferenceTest {
         doReturn(confirmedDataUpdatedPDS).when(documentVerificationServiceMock).confirmDocumentData(any());
         midsReference.generateMultiToken();
 
-        verify(multiDocumentVerificationService, times(1)).documentVerificationMultiAccessSDKToken(any(MultiDocumentVerificationToken.class));
+        verify(multiDocumentVerificationServiceMock, times(1)).documentVerificationMultiAccessSDKToken(any(MultiDocumentVerificationToken.class));
     }
 
     @ParameterizedTest
@@ -260,6 +259,7 @@ class MIDSReferenceTest {
         midsReference.callRetrieveIdentities();
         verify(userProfileService, times(1)).retrieveIdentities(any());
     }
+
     @Test
     void callDeleteIdentityAttribute_successfulResponse() {
         doReturn(createDocumentExtractedData(false)).when(documentVerificationServiceMock).retrieveDocument(any());
@@ -329,7 +329,7 @@ class MIDSReferenceTest {
     @Test
     void performUpdatePdsData_successfulResponse() {
         MIDSReference midsReferenceSpy = Mockito.spy(midsReference);
-        doReturn("PDS_TEST").when(midsReferenceSpy).getPDS(anyBoolean(), anyListOf(String.class));
+        doReturn("PDS_TEST").when(midsReferenceSpy).getPDS(anyBoolean(), any());
         doReturn(new TPDataShareSuccessData()).when(tpDataSharesService).updatePdsData(any(TpDataShare.class));
 
         midsReferenceSpy.updatePdsData();
@@ -341,14 +341,13 @@ class MIDSReferenceTest {
     void performUpdateIdentityAttributes_successfulResponse() {
         MIDSReference midsReferenceSpy = Mockito.spy(midsReference);
         doReturn(new MultiDocumentConfirmedPDS()).when(midsReferenceSpy).multiDocTasks();
-        doReturn(Collections.singletonList(new IdentityAttributeItem(){{
+        doReturn(Collections.singletonList(new IdentityAttributeItem() {{
             setAttributeName(AttributeNameEnum.LEGAL_NAME);
             setAttributeValue("Test Name");
         }})).when(midsReferenceSpy).createIdentityAttributes();
 
         midsReferenceSpy.updateIdentiyAttributes();
 
-        verify(multiDocumentVerificationService, times(1)).updateIdentityAttributes(any(UpdateIdentityAttributesData.class));
+        verify(multiDocumentVerificationServiceMock, times(1)).updateIdentityAttributes(any(UpdateIdentityAttributesData.class));
     }
-
 }

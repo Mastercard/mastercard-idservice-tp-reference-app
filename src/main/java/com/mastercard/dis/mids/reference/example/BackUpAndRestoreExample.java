@@ -4,9 +4,9 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.openapitools.client.model.DeviceInfo;
 
-import static com.mastercard.dis.mids.reference.util.Constants.DEVICE_ID;
-import static com.mastercard.dis.mids.reference.util.Constants.MAKE;
-import static com.mastercard.dis.mids.reference.util.Constants.MODEL;
+import static com.mastercard.dis.mids.reference.constants.Constants.DEVICE_ID;
+import static com.mastercard.dis.mids.reference.constants.Constants.MAKE;
+import static com.mastercard.dis.mids.reference.constants.Constants.MODEL;
 
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)

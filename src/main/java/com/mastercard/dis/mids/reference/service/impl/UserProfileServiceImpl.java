@@ -17,7 +17,7 @@ import org.openapitools.client.model.UserProfile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import static com.mastercard.dis.mids.reference.util.Constants.X_USER_IDENTITY;
+import static com.mastercard.dis.mids.reference.constants.Constants.X_USER_IDENTITY;
 
 @Slf4j
 @Service
