@@ -72,7 +72,7 @@ public class TPScopesServiceImplTest {
     }
 
     @Test
-    public void retrieveRpScopes_validRpScopes_successResponse() throws ApiException {
+    void retrieveRpScopes_validRpScopes_successResponse() throws ApiException {
 
         TPScopesServiceImpl tpScopesServiceMock = mock(TPScopesServiceImpl.class);
         RPScopes rpScopesReturn = getRpScopes();
@@ -83,7 +83,7 @@ public class TPScopesServiceImplTest {
     }
 
     @Test
-    public void retrieveRpScopes_validRpScopes_exceptionResponse() throws ApiException {
+    void retrieveRpScopes_validRpScopes_exceptionResponse() throws ApiException {
         doReturn(new ServiceException("Test")).when(exceptionUtil).logAndConvertToServiceException(any());
         try {
             tpScopesService.getRpScopes(ARID);
