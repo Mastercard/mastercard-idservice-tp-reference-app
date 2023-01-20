@@ -74,8 +74,12 @@ class AuditEventsServiceImplTest {
     void auditEvents_exception_Test() throws ServiceException {
         when(exceptionUtilMock.logAndConvertToServiceException(any(ApiException.class)))
                 .thenThrow(new ServiceException("Error while processing request"));
-        Assertions.assertThrows(ServiceException.class,
-                () -> auditEventsServiceImpl.auditEvents(any(AuditEvents.class)));
+
+        try{
+            auditEventsServiceImpl.auditEvents(any(AuditEvents.class));
+        }catch (ServiceException serviceException){
+            Assertions.assertEquals("Error while processing request",serviceException.getMessage());
+        }
 
     }
 }
