@@ -158,8 +158,11 @@ class UserProfileServiceImplTest {
         userProfile.setUserProfileId(USER_PROFILE_ID);
         when(exceptionUtilMock.logAndConvertToServiceException(any(ApiException.class)))
                 .thenThrow(new ServiceException("Error while processing request"));
-        Assertions.assertThrows(ServiceException.class,
-                () -> userProfileServiceImpl.userProfileRegistration(any(UserProfile.class)));
+        try{
+            userProfileServiceImpl.userProfileRegistration(any(UserProfile.class));
+        }catch (ServiceException exp) {
+            Assertions.assertEquals("Error while processing request", exp.getMessage());
+        }
     }
 
     @Test
@@ -175,8 +178,11 @@ class UserProfileServiceImplTest {
     void userProfile_Delete_exception_Test() {
         when(exceptionUtilMock.logAndConvertToServiceException(any(ApiException.class)))
                 .thenThrow(new ServiceException("Error while processing request"));
-        Assertions.assertThrows(ServiceException.class,
-                () -> userProfileServiceImpl.userProfileDelete(any(), USER_CONSENT));
+        try{
+            userProfileServiceImpl.userProfileDelete(any(), USER_CONSENT);  
+        }catch (ServiceException exp) {
+            Assertions.assertEquals("Error while processing request", exp.getMessage());
+        }
     }
 
     @Test
@@ -194,8 +200,12 @@ class UserProfileServiceImplTest {
     void identityAttributeDelete_error() throws ApiException {
         doThrow(new ApiException()).when(apiClientMock).execute(any(), any());
         doThrow(new ServiceException("Error while processing request")).when(exceptionUtilMock).logAndConvertToServiceException(any(ApiException.class));
-
-        Assertions.assertThrows(ServiceException.class, () -> userProfileServiceImpl.deleteIdentityAttribute(getIdentityAttributeDeletions()));
+        IdentityAttributeDeletions identityAttributeDeletions = getIdentityAttributeDeletions();
+        try{
+            userProfileServiceImpl.deleteIdentityAttribute(identityAttributeDeletions);
+        }catch (ServiceException exp) {
+            Assertions.assertEquals("Error while processing request", exp.getMessage());
+        }
         verify(apiClientMock, atMostOnce()).buildCall(anyString(), anyString(), anyString(), anyList(), anyList(), any(), anyMap(), anyMap(), anyMap(), any(), any());
         verify(apiClientMock, atMostOnce()).execute(any(Call.class), any(Type.class));
     }

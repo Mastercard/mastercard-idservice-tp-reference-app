@@ -236,12 +236,12 @@ class DocumentVerificationServiceImplTest {
                 .when(exceptionUtil).logAndConvertToServiceException(any(ApiException.class));
 
         doThrow(new ApiException("Api Exception")).when(apiClientMock).execute(any(), any());
-
+        DocumentDataRetrieval documentDataRetrieval = new DocumentDataRetrieval();
         try {
-            documentVerificationService.retrieveDocument(new DocumentDataRetrieval());
+            documentVerificationService.retrieveDocument(documentDataRetrieval);
             fail();
         } catch (ServiceException exp) {
-            Assert.assertEquals("Exception occurred while creating session context", exp.getMessage());
+            Assertions.assertEquals("Exception occurred while creating session context", exp.getMessage());
         }
     }
 
@@ -255,13 +255,12 @@ class DocumentVerificationServiceImplTest {
 
 
         doThrow(new ApiException("Api Exception")).when(apiClientMock).execute(any(), any());
-
+        DocumentDataRetrieval documentDataRetrieval = new DocumentDataRetrieval();
         try {
-
-            documentVerificationService.retrieveDocument(new DocumentDataRetrieval());
+            documentVerificationService.retrieveDocument(documentDataRetrieval);
             fail();
         } catch (ServiceException exp) {
-            Assert.assertEquals("Exception occurred while creating session context", exp.getMessage());
+            Assertions.assertEquals("Exception occurred while creating session context", exp.getMessage());
         }
     }
 
@@ -273,12 +272,12 @@ class DocumentVerificationServiceImplTest {
         doReturn(new ServiceException("Exception occurred while creating session context")).when(exceptionUtil).logAndConvertToServiceException(any());
 
         doThrow(new ApiException("Api Exception")).when(apiClientMock).execute(any(), any());
-
+        DocumentDataRetrieval documentDataRetrieval = new DocumentDataRetrieval();
         try {
-            documentVerificationService.retrieveDocument(new DocumentDataRetrieval());
+            documentVerificationService.retrieveDocument(documentDataRetrieval);
             fail();
         } catch (ServiceException exp) {
-            Assert.assertEquals("Exception occurred while creating session context", exp.getMessage());
+            Assertions.assertEquals("Exception occurred while creating session context", exp.getMessage());
         }
     }
 

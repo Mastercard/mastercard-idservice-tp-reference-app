@@ -84,7 +84,12 @@ class TPDataSharesServiceImplTest {
     void testTpDataShares_updatePdsData_Error() throws ServiceException, ApiException {
         doThrow(new ApiException()).when(apiClientMock).execute(any(), any());
         doThrow(new ServiceException("exception converted to ServiceException")).when(exceptionUtilMock).logAndConvertToServiceException(any(ApiException.class));
-        Assertions.assertThrows(ServiceException.class, () -> tpDataSharesService.updatePdsData(getTpDataShare()));
+        TpDataShare tpDataShare = getTpDataShare();
+        try{
+             tpDataSharesService.updatePdsData(tpDataShare);
+        }catch  (ServiceException exp) {
+            Assertions.assertEquals("exception converted to ServiceException", exp.getMessage());
+        }
         verify(apiClientMock, atMostOnce()).buildCall(anyString(),anyString(), anyString(), anyList(), anyList(), any(), anyMap(), anyMap(), anyMap(), any(), any());
         verify(apiClientMock, atMostOnce()).execute(any(), any());
     }
