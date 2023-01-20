@@ -9,19 +9,21 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.openapitools.client.ApiClient;
 import org.openapitools.client.ApiException;
 import org.openapitools.client.api.FraudDataApi;
 import org.openapitools.client.model.FraudDataResultSearch;
 
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
-class FraudSignalsServiceImplTest {
+public class FraudSignalsServiceImplTest {
+
 
     @InjectMocks
     private  FraudSignalsServiceImpl fraudSignalsServiceImpl;
@@ -31,6 +33,10 @@ class FraudSignalsServiceImplTest {
 
     @Mock
     private  ExceptionUtil exceptionUtil;
+
+    @Mock
+    private ApiClient apiClientMock;
+
 
     @Test
     void performFraudDataSearchSignals_ok() throws ApiException {
@@ -55,11 +61,13 @@ class FraudSignalsServiceImplTest {
 
         doThrow(new ServiceException("Error while processing request")).when(exceptionUtil).logAndConvertToServiceException(any(ApiException.class));
         doThrow(new ApiException()).when(fraudDataApi).searchFraudData(any());
+
         try{
             fraudSignalsServiceImpl.performFraudDataSearchSignals(any());
         }catch (ServiceException serviceException){
             Assertions.assertNotNull(serviceException);
         }
+
     }
 
     @Test
@@ -67,6 +75,7 @@ class FraudSignalsServiceImplTest {
 
         doThrow(new ServiceException("Error while processing request")).when(exceptionUtil).logAndConvertToServiceException(any(ApiException.class));
         doThrow(new ApiException()).when(fraudDataApi).createFraudData(any());
+
         try {
             fraudSignalsServiceImpl.createFraudSignal(any());
         }catch (ServiceException serviceException){
@@ -75,6 +84,8 @@ class FraudSignalsServiceImplTest {
 
     }
 
+
+
      public FraudDataResultSearch createFraudDataResultSearch(){
          FraudDataResultSearch fraudDataResultSearch = new FraudDataResultSearch();
          fraudDataResultSearch.setScoreBand("YELLOW");
@@ -82,4 +93,6 @@ class FraudSignalsServiceImplTest {
 
          return fraudDataResultSearch;
      }
+
+
 }

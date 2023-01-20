@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2021 Mastercard
+ Copyright (c) 2023 Mastercard
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -32,12 +32,14 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
+import javax.annotation.Nonnull;
 
 import java.io.IOException;
 import java.security.PrivateKey;
 import java.security.interfaces.RSAPrivateKey;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 @Slf4j
 @Component
@@ -67,6 +69,9 @@ public class EncryptionDecryptionInterceptor extends BaseInterceptor implements 
     @Value("${mastercard.client.decryption.enable}")
     private boolean isDecryptionEnable;
 
+    private static PrivateKey signingKey;
+
+    @Nonnull
     @Override
     public Response intercept(Chain chain) throws IOException {
         Request request = handleRequest(chain.request());
@@ -105,17 +110,19 @@ public class EncryptionDecryptionInterceptor extends BaseInterceptor implements 
         return request;
     }
 
-    private Response handleResponse(Request request, Response encryptedResponse) {
+    private synchronized Response handleResponse(Request request, Response encryptedResponse) {
         if (isDecryptionEnable && isDecryptionRequired(request)) {
             try {
                 if (encryptedResponse.code() != 200) {
                     return encryptedResponse; // We will receive encrypted payload only for 200 response
                 }
                 ResponseBody responseBody = encryptedResponse.body();
-                String encryptedResponseStr = responseBody.string();
+                String encryptedResponseStr = Objects.requireNonNull(responseBody).string();
                 log.info("Encrypted Payload received from server: {}", encryptedResponseStr);
                 JSONObject encryptedResponseJson = (JSONObject) JSONValue.parse(encryptedResponseStr);
-                PrivateKey signingKey = AuthenticationUtils.loadSigningKey(decryptionKeystore.getFile().getAbsolutePath(), decryptionKeystoreAlias, decryptionKeystorePassword);
+                if(signingKey == null){
+                    signingKey = AuthenticationUtils.loadSigningKey(decryptionKeystore.getURI().toString(), decryptionKeystoreAlias, decryptionKeystorePassword);
+                }
                 String decryptedPayload = EncryptionUtils.jweDecrypt(encryptedResponseJson.getAsString("encryptedData"), (RSAPrivateKey) signingKey);
 
                 JSONObject responseJson = (JSONObject) JSONValue.parse(decryptedPayload);

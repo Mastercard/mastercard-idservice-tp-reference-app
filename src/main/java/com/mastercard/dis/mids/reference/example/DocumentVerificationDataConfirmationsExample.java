@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2021 Mastercard
+ Copyright (c) 2023 Mastercard
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -21,11 +21,13 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.openapitools.client.model.DocumentVerificationConfirmData;
 
-import static com.mastercard.dis.mids.reference.util.Constants.ARID;
-import static com.mastercard.dis.mids.reference.util.Constants.COUNTRY_CODE;
-import static com.mastercard.dis.mids.reference.util.Constants.LOCALE;
-import static com.mastercard.dis.mids.reference.util.Constants.VISA_SUPPORTED_COUNTRY_CODE;
-import static com.mastercard.dis.mids.reference.util.Constants.VISA_VERIFY_REQUIRED;
+import java.util.UUID;
+
+import static com.mastercard.dis.mids.reference.constants.Constants.ARID_VALUE;
+import static com.mastercard.dis.mids.reference.constants.Constants.COUNTRY_CODE;
+import static com.mastercard.dis.mids.reference.constants.Constants.LOCALE;
+import static com.mastercard.dis.mids.reference.constants.Constants.VISA_SUPPORTED_COUNTRY_CODE;
+import static com.mastercard.dis.mids.reference.constants.Constants.VISA_VERIFY_REQUIRED;
 import static org.openapitools.client.model.UserConsent.ACCEPT;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
@@ -39,7 +41,7 @@ public class DocumentVerificationDataConfirmationsExample {
         documentVerificationConfirmData.setFraudDetection(FraudDetectionUtil.getFraudDetection());
         // Only set for Claim Sharing flow.
         if (claimSharingFlow) {
-            documentVerificationConfirmData.setArid(ARID);
+            documentVerificationConfirmData.setArid(UUID.fromString(ARID_VALUE));
         }
         //currently only Australian passports are supported for visa verification
         if (VISA_VERIFY_REQUIRED) {

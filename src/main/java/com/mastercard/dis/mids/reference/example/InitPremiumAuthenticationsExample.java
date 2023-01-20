@@ -5,9 +5,9 @@ import lombok.NoArgsConstructor;
 import org.openapitools.client.model.InitPremiumAuthentications;
 
 import static com.mastercard.dis.mids.reference.example.InitializeReAuthenticationExample.getSdkAuditEventsObject;
-import static com.mastercard.dis.mids.reference.util.Constants.COUNTRY_CODE;
-import static com.mastercard.dis.mids.reference.util.Constants.LOCALE;
-import static com.mastercard.dis.mids.reference.util.Constants.SDK_VERSION;
+import static com.mastercard.dis.mids.reference.constants.Constants.COUNTRY_CODE;
+import static com.mastercard.dis.mids.reference.constants.Constants.LOCALE;
+import static com.mastercard.dis.mids.reference.constants.Constants.SDK_VERSION;
 import static org.openapitools.client.model.UserConsent.ACCEPT;
 
 

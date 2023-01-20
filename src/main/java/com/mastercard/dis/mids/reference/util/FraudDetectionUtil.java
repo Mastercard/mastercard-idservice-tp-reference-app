@@ -6,12 +6,12 @@ import lombok.NoArgsConstructor;
 import org.openapitools.client.model.FraudDetection;
 import org.openapitools.client.model.FraudDetectionNuDetectMeta;
 
-import static com.mastercard.dis.mids.reference.util.Constants.BEHAVIOUR_DATA;
-import static com.mastercard.dis.mids.reference.util.Constants.REMOTE_IP;
-import static com.mastercard.dis.mids.reference.util.Constants.REQUEST_URL;
-import static com.mastercard.dis.mids.reference.util.Constants.SESSION_ID;
-import static com.mastercard.dis.mids.reference.util.Constants.USER_AGENT;
-import static com.mastercard.dis.mids.reference.util.Constants.X_FORWARDED_FOR;
+import static com.mastercard.dis.mids.reference.constants.Constants.BEHAVIOUR_DATA;
+import static com.mastercard.dis.mids.reference.constants.Constants.REMOTE_IP;
+import static com.mastercard.dis.mids.reference.constants.Constants.REQUEST_URL;
+import static com.mastercard.dis.mids.reference.constants.Constants.SESSION_ID;
+import static com.mastercard.dis.mids.reference.constants.Constants.USER_AGENT;
+import static com.mastercard.dis.mids.reference.constants.Constants.X_FORWARDED_FOR;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class FraudDetectionUtil {

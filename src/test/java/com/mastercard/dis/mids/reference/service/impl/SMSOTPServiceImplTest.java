@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2021 Mastercard
+ Copyright (c) 2023 Mastercard
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -20,7 +20,7 @@ import com.mastercard.dis.mids.reference.config.ApiClientConfiguration;
 import com.mastercard.dis.mids.reference.exception.ExceptionUtil;
 import com.mastercard.dis.mids.reference.exception.ServiceException;
 import com.mastercard.dis.mids.reference.session.SessionContext;
-import com.mastercard.dis.mids.reference.util.Constants;
+import com.mastercard.dis.mids.reference.constants.Constants;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -41,7 +41,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.mastercard.dis.mids.reference.util.Constants.X_USER_IDENTITY;
+import static com.mastercard.dis.mids.reference.constants.Constants.X_USER_IDENTITY;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;

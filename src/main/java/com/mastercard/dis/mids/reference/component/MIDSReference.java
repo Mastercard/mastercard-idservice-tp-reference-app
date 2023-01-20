@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2021 Mastercard
+ Copyright (c) 2023 Mastercard
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -100,11 +100,9 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-import static com.mastercard.dis.mids.reference.util.Constants.ARID;
-import static com.mastercard.dis.mids.reference.util.Constants.ARID_VALUE;
-import static com.mastercard.dis.mids.reference.util.Constants.BEHAVIOUR_DATA;
-import static com.mastercard.dis.mids.reference.util.Constants.EMAIL_ID;
-import static com.mastercard.dis.mids.reference.util.Constants.USER_PROFILE_ID_VALUE;
+import static com.mastercard.dis.mids.reference.constants.Constants.ARID_VALUE;
+import static com.mastercard.dis.mids.reference.constants.Constants.EMAIL_ID;
+import static com.mastercard.dis.mids.reference.constants.Constants.USER_PROFILE_ID_VALUE;
 import static org.openapitools.client.model.UserConsent.ACCEPT;
 
 @Component

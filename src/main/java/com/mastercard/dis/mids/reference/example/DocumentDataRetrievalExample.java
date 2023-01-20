@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2021 Mastercard
+ Copyright (c) 2023 Mastercard
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -23,11 +23,11 @@ import org.openapitools.client.model.TpAuditMetadata;
 
 import java.util.ArrayList;
 
-import static com.mastercard.dis.mids.reference.util.Constants.COUNTRY_CODE;
-import static com.mastercard.dis.mids.reference.util.Constants.LOCALE;
-import static com.mastercard.dis.mids.reference.util.Constants.PRIVACY_POLICY_VERSION;
-import static com.mastercard.dis.mids.reference.util.Constants.SESSION_ID;
-import static com.mastercard.dis.mids.reference.util.Constants.USER_PROFILE_ID;
+import static com.mastercard.dis.mids.reference.constants.Constants.COUNTRY_CODE;
+import static com.mastercard.dis.mids.reference.constants.Constants.LOCALE;
+import static com.mastercard.dis.mids.reference.constants.Constants.PRIVACY_POLICY_VERSION;
+import static com.mastercard.dis.mids.reference.constants.Constants.SESSION_ID;
+import static com.mastercard.dis.mids.reference.constants.Constants.USER_PROFILE_ID;
 import static org.openapitools.client.model.UserConsent.ACCEPT;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)

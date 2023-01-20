@@ -15,8 +15,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @ExtendWith(MockitoExtension.class)
 class DocumentVerificationUtilTest {
@@ -31,7 +31,7 @@ class DocumentVerificationUtilTest {
     private ApiClientConfiguration apiClientConfigurationMock;
 
     @Test
-    void test_construction(){
+    void test_construction() {
         this.documentVerificationUtil = new DocumentVerificationUtil(apiClientMock, apiClientConfigurationMock);
         assertNotNull(documentVerificationUtil);
     }
@@ -58,5 +58,4 @@ class DocumentVerificationUtilTest {
 
         assertNotNull(fraudDetection);
     }
-
 }

@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2021 Mastercard
+ Copyright (c) 2023 Mastercard
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -22,7 +22,7 @@ import org.openapitools.client.model.DocumentIdConfirmation;
 
 import java.util.ArrayList;
 
-import static com.mastercard.dis.mids.reference.util.Constants.COUNTRY_CODE;
+import static com.mastercard.dis.mids.reference.constants.Constants.COUNTRY_CODE;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class DocumentIdConfirmationExample {

@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2021 Mastercard
+ Copyright (c) 2023 Mastercard
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,25 +27,25 @@ import org.openapitools.client.model.VerifyAuthenticationDecisions;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.mastercard.dis.mids.reference.util.Constants.AUDIT;
-import static com.mastercard.dis.mids.reference.util.Constants.AUDIT_EVENT;
-import static com.mastercard.dis.mids.reference.util.Constants.AUDIT_EVENT_GENERATED_SOURCE;
-import static com.mastercard.dis.mids.reference.util.Constants.AUDIT_EVENT_TYPE;
-import static com.mastercard.dis.mids.reference.util.Constants.AUDIT_USER_PROFILE_ID;
-import static com.mastercard.dis.mids.reference.util.Constants.COUNTRY_CODE;
-import static com.mastercard.dis.mids.reference.util.Constants.DATE_TIME;
-import static com.mastercard.dis.mids.reference.util.Constants.DEVICE_MAKE;
-import static com.mastercard.dis.mids.reference.util.Constants.LOCALE;
-import static com.mastercard.dis.mids.reference.util.Constants.LOG_CORE_SDK_TP;
-import static com.mastercard.dis.mids.reference.util.Constants.LOG_EVENT;
-import static com.mastercard.dis.mids.reference.util.Constants.LOG_EVENT_TYPE;
-import static com.mastercard.dis.mids.reference.util.Constants.OS_VERSION;
-import static com.mastercard.dis.mids.reference.util.Constants.PRIVACY_POLICY_VERSION;
-import static com.mastercard.dis.mids.reference.util.Constants.SDK_VERSION;
-import static com.mastercard.dis.mids.reference.util.Constants.SESSION_ID;
-import static com.mastercard.dis.mids.reference.util.Constants.SOFTWARE_VERSION;
-import static com.mastercard.dis.mids.reference.util.Constants.TP;
-import static com.mastercard.dis.mids.reference.util.Constants.TRANSACTION_GROUP_ID;
+import static com.mastercard.dis.mids.reference.constants.Constants.AUDIT;
+import static com.mastercard.dis.mids.reference.constants.Constants.AUDIT_EVENT;
+import static com.mastercard.dis.mids.reference.constants.Constants.AUDIT_EVENT_GENERATED_SOURCE;
+import static com.mastercard.dis.mids.reference.constants.Constants.AUDIT_EVENT_TYPE;
+import static com.mastercard.dis.mids.reference.constants.Constants.AUDIT_USER_PROFILE_ID;
+import static com.mastercard.dis.mids.reference.constants.Constants.COUNTRY_CODE;
+import static com.mastercard.dis.mids.reference.constants.Constants.DATE_TIME;
+import static com.mastercard.dis.mids.reference.constants.Constants.DEVICE_MAKE;
+import static com.mastercard.dis.mids.reference.constants.Constants.LOCALE;
+import static com.mastercard.dis.mids.reference.constants.Constants.LOG_CORE_SDK_TP;
+import static com.mastercard.dis.mids.reference.constants.Constants.LOG_EVENT;
+import static com.mastercard.dis.mids.reference.constants.Constants.LOG_EVENT_TYPE;
+import static com.mastercard.dis.mids.reference.constants.Constants.OS_VERSION;
+import static com.mastercard.dis.mids.reference.constants.Constants.PRIVACY_POLICY_VERSION;
+import static com.mastercard.dis.mids.reference.constants.Constants.SDK_VERSION;
+import static com.mastercard.dis.mids.reference.constants.Constants.SESSION_ID;
+import static com.mastercard.dis.mids.reference.constants.Constants.SOFTWARE_VERSION;
+import static com.mastercard.dis.mids.reference.constants.Constants.TP;
+import static com.mastercard.dis.mids.reference.constants.Constants.TRANSACTION_GROUP_ID;
 import static org.openapitools.client.model.UserConsent.ACCEPT;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)

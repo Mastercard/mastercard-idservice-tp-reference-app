@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import org.openapitools.client.ApiClient;
 import org.openapitools.client.model.TpAuditMetadata;
 
-import static com.mastercard.dis.mids.reference.util.Constants.X_USER_IDENTITY;
+import static com.mastercard.dis.mids.reference.constants.Constants.X_USER_IDENTITY;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class SessionUtils {

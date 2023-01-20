@@ -8,21 +8,21 @@ import org.openapitools.client.model.FraudIdentifierData;
 import org.openapitools.client.model.FraudSearchData;
 import org.openapitools.client.model.FraudSignals;
 
-import java.util.Arrays;
+import java.util.Collections;
 
-import static com.mastercard.dis.mids.reference.util.Constants.ADDRESS;
-import static com.mastercard.dis.mids.reference.util.Constants.DOB;
-import static com.mastercard.dis.mids.reference.util.Constants.DOCUMENT_ID;
-import static com.mastercard.dis.mids.reference.util.Constants.IP_ADDRESS;
-import static com.mastercard.dis.mids.reference.util.Constants.NAME;
-import static com.mastercard.dis.mids.reference.util.Constants.NATIONAL_ID;
-import static com.mastercard.dis.mids.reference.util.Constants.N_DEVICE_ID;
-import static com.mastercard.dis.mids.reference.util.Constants.ORIGINATED_SOURCE;
-import static com.mastercard.dis.mids.reference.util.Constants.ORIGINATED_SYSTEM;
-import static com.mastercard.dis.mids.reference.util.Constants.ORIGINATED_SYSTEM_TRANSACTION_ID;
-import static com.mastercard.dis.mids.reference.util.Constants.PHONE_NUMBER;
-import static com.mastercard.dis.mids.reference.util.Constants.SCORE_BAND;
-import static com.mastercard.dis.mids.reference.util.Constants.SCORE_VALUE;
+import static com.mastercard.dis.mids.reference.constants.Constants.ADDRESS;
+import static com.mastercard.dis.mids.reference.constants.Constants.DOB;
+import static com.mastercard.dis.mids.reference.constants.Constants.DOCUMENT_ID;
+import static com.mastercard.dis.mids.reference.constants.Constants.IP_ADDRESS;
+import static com.mastercard.dis.mids.reference.constants.Constants.NAME;
+import static com.mastercard.dis.mids.reference.constants.Constants.NATIONAL_ID;
+import static com.mastercard.dis.mids.reference.constants.Constants.N_DEVICE_ID;
+import static com.mastercard.dis.mids.reference.constants.Constants.ORIGINATED_SOURCE;
+import static com.mastercard.dis.mids.reference.constants.Constants.ORIGINATED_SYSTEM;
+import static com.mastercard.dis.mids.reference.constants.Constants.ORIGINATED_SYSTEM_TRANSACTION_ID;
+import static com.mastercard.dis.mids.reference.constants.Constants.PHONE_NUMBER;
+import static com.mastercard.dis.mids.reference.constants.Constants.SCORE_BAND;
+import static com.mastercard.dis.mids.reference.constants.Constants.SCORE_VALUE;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class FraudDataExample {
@@ -48,7 +48,7 @@ public class FraudDataExample {
         FraudSignals fraudSignals = new FraudSignals();
         fraudSignals.setFraudSignalIdentifierData(fraudIdentifierData);
 
-        fraudData.setFraudSignals(Arrays.asList(fraudSignals));
+        fraudData.setFraudSignals(Collections.singletonList(fraudSignals));
 
         return fraudData;
     }
