@@ -23,7 +23,8 @@ import org.openapitools.client.model.ClaimScopes;
 import java.util.Arrays;
 import java.util.List;
 
-import static com.mastercard.dis.mids.reference.constants.Constants.TP_RP_SCOPES;
+import static com.mastercard.dis.mids.reference.constants.Constants.TP_RP_SCOPES_DATE_OF_BIRTH;
+import static com.mastercard.dis.mids.reference.constants.Constants.TP_RP_SCOPES_FIRST_NAME;
 import static org.openapitools.client.model.UserConsent.ACCEPT;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
@@ -37,6 +38,6 @@ public class TpRpClaimSharingExample {
     }
 
     private static List<String> getScopedFields() {
-        return Arrays.asList(TP_RP_SCOPES.split("\\s*,\\s*"));
+        return Arrays.asList(TP_RP_SCOPES_FIRST_NAME, TP_RP_SCOPES_DATE_OF_BIRTH);
     }
 }

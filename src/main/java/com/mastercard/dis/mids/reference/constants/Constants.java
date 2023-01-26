@@ -48,7 +48,8 @@ public class Constants {
     public static final String AUDIT_EVENT_TYPE = "Enrollment";
     public static final String AUDIT_EVENT_GENERATED_SOURCE = "CoreSDK";
     public static final String TP = "TP";
-    public static final String TP_RP_SCOPES = "passport.firstName,passport.dateOfBirth";
+    public static final String TP_RP_SCOPES_FIRST_NAME = "passport.firstName";
+    public static final String TP_RP_SCOPES_DATE_OF_BIRTH = "passport.dateOfBirth";
     public static final String REDIRECT_URL = "http://redirecturl.com";
     public static final String ARID_VALUE = "7ec89f22-8b4c-44ad-80a5-088c87bd61df";
     public static final String RELYING_PARTY_NAME = "RELYING_PARTY";
