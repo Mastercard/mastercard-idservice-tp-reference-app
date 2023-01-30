@@ -46,11 +46,9 @@ public class Menu {
         menuMap.put("19", "19)   TP Scopes");
         menuMap.put("20", "20)   TP Data Shares");
         menuMap.put("21", "21)   Update Identity");
-        menuMap.put("22", "22)   Create Watchlist Fraud Signal");
-        menuMap.put("23", "23)   Search for a Watchlist Fraud Signal");
-        menuMap.put("24", "24)   Delete Identity Attribute");
-        menuMap.put("25", "25)   Authentication Decisions");
-        menuMap.put("26", "26)   Exit");
+        menuMap.put("22", "22)   Delete Identity Attribute");
+        menuMap.put("23", "23)   Authentication Decisions");
+        menuMap.put("24", "24)   Exit");
     }
 
     public Map<String, String> get() {
