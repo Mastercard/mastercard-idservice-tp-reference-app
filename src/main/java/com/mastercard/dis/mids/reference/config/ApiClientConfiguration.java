@@ -24,7 +24,6 @@ import com.mastercard.dis.mids.reference.interceptor.SDKVersionInterceptor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.openapitools.client.ApiClient;
-import org.openapitools.client.api.FraudDataApi;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -44,9 +43,6 @@ public class ApiClientConfiguration {
 
     @Value("${mastercard.api.base.path}")
     private String basePath;
-
-    @Value("${mastercard.api.watchlist.base.path}")
-    private String watchlistBasePath;
 
     @Value("${mastercard.api.consumer.key}")
     private String consumerKey;
@@ -121,34 +117,6 @@ public class ApiClientConfiguration {
             log.error(ERROR_MSG_CONFIGURING_CLIENT, e);
             throw new ServiceException(ERROR_MSG_CONFIGURING_CLIENT);
         }
-    }
-
-    @Bean
-    public ApiClient watchlistApiClient(EncryptionDecryptionInterceptor encryptionDecryptionInterceptor, SDKVersionInterceptor sdkVersionInterceptor) {
-        ApiClient client = new ApiClient();
-        try {
-            PrivateKey signingKey = AuthenticationUtils.loadSigningKey(keyFile.getFile().getAbsolutePath(), keystoreAlias, keystorePassword);
-            client.setBasePath(watchlistBasePath);
-            client.setDebugging(true);
-            client.setReadTimeout(40000);
-            client.addDefaultHeader(X_ENCRYPTED_HEADER, encryptionEnabled? Boolean.TRUE.toString() : Boolean.FALSE.toString());
-
-            return client.setHttpClient(client.getHttpClient()
-                    .newBuilder()
-                    .addInterceptor(sdkVersionInterceptor)
-                    .addInterceptor(encryptionDecryptionInterceptor) // This interceptor will encrypt and decrypt the payload
-                    .addInterceptor(new OkHttpOAuth1Interceptor(consumerKey, signingKey))
-                    .build()
-            );
-        } catch (Exception e) {
-            log.error(ERROR_MSG_CONFIGURING_CLIENT, e);
-            throw new ServiceException(ERROR_MSG_CONFIGURING_CLIENT);
-        }
-    }
-
-    @Bean
-    public FraudDataApi fraudDataApi(ApiClient watchlistApiClient) {
-        return new FraudDataApi(watchlistApiClient);
     }
 
     public String getUserProfileId() {

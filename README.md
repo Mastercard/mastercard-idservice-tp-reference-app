@@ -131,11 +131,9 @@ Now that you have all the required dependencies, you can generate the sources. T
 19. TP Scopes
 20. TP Data Shares
 21. Update Identity
-22. Create Watchlist Fraud Signal
-23. Search for a Watchlist Fraud Signal
-24. Delete Identity Attribute
-25. Authentication Decisions
-26. Exit
+22. Delete Identity Attribute
+23. Authentication Decisions
+24. Exit
 
 ### Use cases <a name="use-cases"></a>
 The main use cases in ID for Trust Providers Reference APIs are Personal Data Storage, SMS One Time Password, Email One Time Password, Document Verification, Multi Document Verification, Re-Authentication, GPA-Authentication, Claims Sharing, Audit Events, User Profile, Delete ID, TP Scopes Request and Fraud Data.
@@ -144,7 +142,7 @@ The main use cases in ID for Trust Providers Reference APIs are Personal Data St
 
 - To develop a client application that consumes the ID for Trust Providers API with Spring Boot, refer to the  [ID for Trust Providers Reference](https://developer.mastercard.com/mastercard-id-for-tp/documentation/api-reference/).
 
-- The OpenAPI specification with `idservice` and `idwatchlist` endpoints can be found [here](https://developer.mastercard.com/mastercard-id-for-tp/documentation/reference-app/).
+- The OpenAPI specification with `idservice` endpoints can be found [here](https://developer.mastercard.com/mastercard-id-for-tp/documentation/reference-app/).
 
 ### Request Examples <a name="request-examples"></a>
 You can change the default input passed to APIs, modify values in following file:

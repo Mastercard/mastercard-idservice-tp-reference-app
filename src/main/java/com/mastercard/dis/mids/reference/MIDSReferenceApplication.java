@@ -17,7 +17,6 @@ limitations under the License.
 package com.mastercard.dis.mids.reference;
 
 import com.mastercard.dis.mids.reference.component.MIDSReference;
-import com.mastercard.dis.mids.reference.component.MIDSWatchlist;
 import com.mastercard.dis.mids.reference.constants.Menu;
 import lombok.extern.slf4j.Slf4j;
 import org.openapitools.client.model.CreatedEmailOtp;
@@ -36,13 +35,11 @@ public class MIDSReferenceApplication implements CommandLineRunner {
 
     private static final String ERROR = "Error : ";
     private final MIDSReference midsReference;
-    private final MIDSWatchlist midsWatchlist;
     private boolean exit = false;
     private Scanner scanner;
 
-    public MIDSReferenceApplication(MIDSReference midsReference, MIDSWatchlist midsWatchlist) {
+    public MIDSReferenceApplication(MIDSReference midsReference) {
         this.midsReference = midsReference;
-        this.midsWatchlist = midsWatchlist;
     }
 
     public static void main(String[] args) {
@@ -137,18 +134,12 @@ public class MIDSReferenceApplication implements CommandLineRunner {
                 updateIdentityAttributes();
                 break;
             case "22":
-                performFraudDataCreation();
-                break;
-            case "23":
-                performFraudDataSearch();
-                break;
-            case "24":
                 deleteIdentityAttribute();
                 break;
-            case "25":
+            case "23":
                 performAuthenticationDecisions();
                 break;
-            case "26":
+            case "24":
                 this.exit = true;
                 break;
             default:
@@ -409,28 +400,6 @@ public class MIDSReferenceApplication implements CommandLineRunner {
         } catch (Exception e) {
             log.info(ERROR + e.getMessage());
             log.info("<<--- performSMSOptions Failed Ended --->>");
-        }
-    }
-
-    void performFraudDataCreation() {
-        try {
-            log.info("<<--- performFraudDataCreation Started --->>");
-            midsWatchlist.createPerformFraudDataCreation();
-            log.info("<<--- performFraudDataCreation Successfully Ended --->>");
-        } catch (Exception e) {
-            log.info(ERROR + e.getMessage());
-            log.info("<<--- performFraudDataCreation Failed Ended --->>");
-        }
-    }
-
-    void performFraudDataSearch() {
-        try {
-            log.info("<<--- performFraudDataSearch Started --->>");
-            midsWatchlist.performFraudDataSearchSignals();
-            log.info("<<--- performFraudDataSearch Successfully Ended --->>");
-        } catch (Exception e) {
-            log.info(ERROR + e.getMessage());
-            log.info("<<--- performFraudDataSearch Failed Ended --->>");
         }
     }
 

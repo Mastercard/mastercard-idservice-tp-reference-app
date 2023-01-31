@@ -39,11 +39,9 @@ class MIDSReferenceApplicationTest {
         put("19", "19)   TP Scopes");
         put("20", "20)   TP Data Shares");
         put("21", "21)   Update Identity");
-        put("22", "22)   Create Watchlist Fraud Signal");
-        put("23", "23)   Search for a Watchlist Fraud Signal");
-        put("24", "24)   Delete Identity Attribute");
-        put("25", "25)   Authentication Decisions");
-        put("26", "26)   Exit");
+        put("22", "22)   Delete Identity Attribute");
+        put("23", "23)   Authentication Decisions");
+        put("24", "24)   Exit");
     }};
 
     @Test
@@ -57,14 +55,14 @@ class MIDSReferenceApplicationTest {
 
     @Test
     void console_showMenu_works() {
-        MIDSReferenceApplication spyMIDSReferenceApplication = spy(new MIDSReferenceApplication(null, null));
+        MIDSReferenceApplication spyMIDSReferenceApplication = spy(new MIDSReferenceApplication(null));
         spyMIDSReferenceApplication.showMenu();
         verify(spyMIDSReferenceApplication, times(1)).showMenu();
     }
 
     @Test
     void console_handleOption_works() {
-        MIDSReferenceApplication spyMIDSReferenceApplication = spy(new MIDSReferenceApplication(null, null));
+        MIDSReferenceApplication spyMIDSReferenceApplication = spy(new MIDSReferenceApplication(null));
         menuMapTest.put("99","Invalid option!");
         for (Map.Entry<String, String> entry : menuMapTest.entrySet()) {
             spyMIDSReferenceApplication.handleOption(entry.getKey());

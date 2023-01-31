@@ -13,11 +13,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 ### Removed
 - Delete Individual Attribute.
 
-## [7.1] - 2022-06-23
-### Added
-- Introduced new Watchlist API to fraud prevention:
-Watchlist Fraud Detection.
-
 ## [7.0] - 2022-05-10
 ### Added
 - Support for the cardNumber field added for Australian customers during enrollment.
