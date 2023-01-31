@@ -14,8 +14,8 @@
   * [Prerequisites](#prerequisites)
   * [Configuration](#configuration)
   * [Integrating with OpenAPI Generator](#integrating-with-openapi-generator)
-  * [OpenAPI Generator Plugin Configuration](#openAPI_generator_plugin_configuration)
-  * [Generating The API Client Sources](#generating_the_API_client_sources)
+  * [OpenAPI Generator Plugin Configuration](#openapi-generator-plugin-configuration)
+  * [Generating The API Client Sources](#generating-the-api-client-sources)
   * [Running the Project](#running-the-project)
   * [Use Cases](#use-cases)
 - [API Reference](#api-reference)
@@ -35,12 +35,12 @@ For more information regarding the program, refer to [ID Service](https://idserv
 
 ## Usage <a name="usage"></a>
 ### Prerequisites <a name="prerequisites"></a>
-* [Mastercard Developers Account](https://developer.mastercard.com/dashboard) with access to ID for Trust Providers API.
-* A text editor or IDE.
-* [Spring Boot 2.2+ up to 2.7.x](https://spring.io/projects/spring-boot).
-* [Apache Maven 3.3+](https://maven.apache.org/download.cgi).
-* [Java 8](http://www.oracle.com/technetwork/java/javase/downloads/index.html).
-* Set up the `JAVA_HOME` environment variable to match the location of your Java installation.
+* [Mastercard Developers Account](https://developer.mastercard.com/dashboard) with access to ID for Trust Providers API
+* IntelliJ IDEA (or any other IDE)
+* [Spring Boot 2.2+ up to 2.7.x](https://spring.io/projects/spring-boot)
+* [Apache Maven 3.3+](https://maven.apache.org/download.cgi)
+* [Java 8](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
+* Set up the `JAVA_HOME` environment variable to match the location of your Java installation
 
 ### Configuration <a name="configuration"></a>
 
@@ -59,7 +59,7 @@ See also:
 * [OpenAPI Generator (executable)](https://mvnrepository.com/artifact/org.openapitools/openapi-generator-cli)
 * [CONFIG OPTIONS for java](https://github.com/OpenAPITools/openapi-generator/blob/master/docs/generators/java.md)
 
-#### OpenAPI Generator Plugin Configuration <a name="openAPI_generator_plugin_configuration"></a>
+#### OpenAPI Generator Plugin Configuration <a name="openapi-generator-plugin-configuration"></a>
 ```xml
 <!-- https://mvnrepository.com/artifact/org.openapitools/openapi-generator-maven-plugin -->
 <plugin>
@@ -87,7 +87,7 @@ See also:
 </plugin>
 ```
 
-#### Generating The API Client Sources <a name="generating_the_API_client_sources"></a>
+#### Generating The API Client Sources <a name="generating-the-api-client-sources"></a>
 Now that you have all the required dependencies, you can generate the sources. To do this, use one of the following methods:
 
 * **Using IDE**<br/>
@@ -152,7 +152,7 @@ You can change the default input passed to APIs, modify values in following file
 
 ## Support <a name="support"></a>
 
-- For further information, send an e-mail to `ID.Network.Support@mastercard.com`.
+- For further information, send an e-mail to `apisupport@mastercard.com`.
 - For information regarding licensing, refer to the [LICENSE](LICENSE.md).
 - For copyright information, refer to the [COPYRIGHT](COPYRIGHT.md).
 - For instructions on how to contribute to this project, refer to the [CONTRIBUTING](CONTRIBUTING.md).
