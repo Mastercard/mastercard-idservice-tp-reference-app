@@ -195,10 +195,10 @@ More details can be found [here](https://developer.mastercard.com/mastercard-id-
 ### Execute the Use-Cases <a name="execute-use-cases"></a>
 1. Run mvn clean install from the root of the project directory.
 2. There are two ways to execute the user cases :
-  1. Execute the test cases
+   1. Execute the test cases
     - At the `src/test/java` which is the main root folder for all Junit tests of the application.
     - Run the tests.
-  2. Select the menu options provided by the application
+   2. Select the menu options provided by the application
     - Run ```mvn spring-boot:run``` command to run the application.
     - Once the application is running, you should be able chose the options.
 
