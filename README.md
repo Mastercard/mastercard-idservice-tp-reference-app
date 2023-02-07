@@ -56,11 +56,11 @@ For more information regarding the program, refer to [ID Service](https://idserv
 
     >**mastercard.api.key.file=**, path to keystore (.p12) file, just change the name as per the downloaded file in step 5.
     
-    >**mastercard.api.consumer.key=**, this refers to your consumer key. Copy it from "Keys" section on your project page in [Mastercard Developers](https://developer.mastercard.com/dashboard).
+    >**mastercard.api.consumer.key=**, this refers to your consumer key. Copy it from the "Keys" section on your project page in [Mastercard Developers](https://developer.mastercard.com/dashboard).
     
-    >**mastercard.api.keystore.alias=keyalias**, this is the default value of key alias. If it is modified, use the updated one from keys section in [Mastercard Developers](https://developer.mastercard.com/dashboard).
+    >**mastercard.api.keystore.alias=keyalias**, this is the default value of key alias. If it is modified, use the updated one from the keys section in [Mastercard Developers](https://developer.mastercard.com/dashboard).
     
-    >**mastercard.api.keystore.password=keystorepassword**, this is the default value of key alias. If it is modified, use the updated one from keys section in [Mastercard Developers](https://developer.mastercard.com/dashboard).
+    >**mastercard.api.keystore.password=keystorepassword**, this is the default value of key alias. If it is modified, use the updated one from the keys section in [Mastercard Developers](https://developer.mastercard.com/dashboard).
     
     >**mastercard.user.selectedCountry**, replace this country code as required.
     
@@ -80,7 +80,7 @@ For more information regarding the program, refer to [ID Service](https://idserv
     
     >**mastercard.api.encryption.certificateFile=classpath:**, copy certificate (.pem) file in src/main/resources and set value as classpath:mastercard-id-assistClientEnc1593529471.pem
     
-    >**mastercard.api.encryption.fingerPrint=**, fingerprint. Copy this from "Client Encryption Keys" section on your project page in [Mastercard Developers](https://developer.mastercard.com/dashboard).
+    >**mastercard.api.encryption.fingerPrint=**, fingerprint. Copy this from the "Client Encryption Keys" section on your project page in [Mastercard Developers](https://developer.mastercard.com/dashboard).
 
    **Decryption**
     
@@ -94,7 +94,7 @@ For more information regarding the program, refer to [ID Service](https://idserv
     
     >**mastercard.api.pds.update.conflict.attribute=**, replace this value with "FATHERS_NAME" or "MOTHERS_NAME" or "LEGAL_NAME".
     
-    >**mastercard.api.pds.update.conflict.attribute.value=**, this name should present in one of the scanned documents(Drivers License or Passport).
+    >**mastercard.api.pds.update.conflict.attribute.value=**, this name should be present in one of the scanned documents(Drivers License or Passport).
     
     >**mastercard.api.scanID=**, replace this value with updated value.
     
