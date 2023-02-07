@@ -18,6 +18,7 @@
   * [Generating The API Client Sources](#generating-the-api-client-sources)
   * [Running the Project](#running-the-project)
   * [Use Cases](#use-cases)
+  * [Execute the Use-Cases](#execute-use-cases)
 - [API Reference](#api-reference)
   * [Request Examples](#request-examples)
 - [Support](#support)
@@ -46,9 +47,58 @@ For more information regarding the program, refer to [ID Service](https://idserv
 
 1. Create an account at [Mastercard Developers](https://developer.mastercard.com/account/sign-up).
 2. Create a new project and add `ID for Trust Providers` API to your project.
-3. Download all the keys. It will download multiple files.
-4. Select all `.p12` files, `.pem` file and copy it to `src/main/resources` in the project folder.
-5. Open `${project.basedir}/src/main/resources/application.properties` and configure the parameters accordingly.
+3. Download Sandbox Signing Key, a .p12 file will be downloaded.
+4. In the Client Encryption Keys section of the dashboard, click on the Actions dropdown and download the client encryption key, a ``.pem``` file will be downloaded.
+5. Select all `.p12` files, `.pem` file and copy it to `src/main/resources` in the project folder.
+6. Open `${project.basedir}/src/main/resources/application.properties` and configure the below parameters.
+
+    **Authentication**
+
+    >**mastercard.api.key.file=**, path to keystore (.p12) file, just change the name as per the downloaded file in step 5.
+    
+    >**mastercard.api.consumer.key=**, this refers to your consumer key. Copy it from "Keys" section on your project page in [Mastercard Developers](https://developer.mastercard.com/dashboard).
+    
+    >**mastercard.api.keystore.alias=keyalias**, this is the default value of key alias. If it is modified, use the updated one from keys section in [Mastercard Developers](https://developer.mastercard.com/dashboard).
+    
+    >**mastercard.api.keystore.password=keystorepassword**, this is the default value of key alias. If it is modified, use the updated one from keys section in [Mastercard Developers](https://developer.mastercard.com/dashboard).
+    
+    >**mastercard.user.selectedCountry**, replace this country code as required.
+    
+    >**mastercard.client.userProfileId=**, this will be used by /user-profiles API to register a user profile using the given userProfileId. An error will be returned if the user profile already exists.
+    
+    >**mastercard.client.authentication.workflowId=**, this workflowId is created during the authentication of the user, and it will be used by /authentication-results API to validate authentication in a subsequent call.
+    
+    >**mastercard.client.enrollment.workflowId=**, this workflowId is created by the identity verification provider during the enrollment of the user, and it will be used by other APIs to retrieve the extracted data of the document in a subsequent call.
+    
+    >**mastercard.client.multidoc.workflowId=**, this is the workflow ID from the client for multidoc functionality.
+    
+    >**mastercard.client.sessionId=**, this sessionId is the tpAuditMetadata sessionId from the client.
+    
+    >**mastercard.client.transactionGroupId=**, this is the tpAuditMetadata transactionGroupId from the client.
+
+    **Encryption**
+    
+    >**mastercard.api.encryption.certificateFile=classpath:**, copy certificate (.pem) file in src/main/resources and set value as classpath:mastercard-id-assistClientEnc1593529471.pem
+    
+    >**mastercard.api.encryption.fingerPrint=**, fingerprint. Copy this from "Client Encryption Keys" section on your project page in [Mastercard Developers](https://developer.mastercard.com/dashboard).
+
+   **Decryption**
+    
+    >**mastercard.api.decryption.keystore=classpath:**, copy .p12 file in src/main/resources and set value as classpath:keyalias-encryption-mc.p12
+    
+    >**mastercard.api.decryption.alias=** key alias, this is the user provide keyalias that is used while creating the API project in [Mastercard Developers](https://developer.mastercard.com/dashboard).
+    
+    >**mastercard.api.decryption.keystore.password=** Keystore password, this is the password provided while creating the API project in [Mastercard Developers](https://developer.mastercard.com/dashboard).
+    
+    >**server.port=**, application port.
+    
+    >**mastercard.api.pds.update.conflict.attribute=**, replace this value with "FATHERS_NAME" or "MOTHERS_NAME" or "LEGAL_NAME".
+    
+    >**mastercard.api.pds.update.conflict.attribute.value=**, this name should present in one of the scanned documents(Drivers License or Passport).
+    
+    >**mastercard.api.scanID=**, replace this value with updated value.
+    
+    >**api.session.token=**, replace this value with X-user-identity obtained for the user profileID.
 
 ### Integrating with OpenAPI Generator <a name="integrating-with-openapi-generator"></a>
 [OpenAPI Generator](https://github.com/OpenAPITools/openapi-generator) generates API client libraries from [OpenAPI Specs](https://github.com/OAI/OpenAPI-Specification).
@@ -139,6 +189,18 @@ Now that you have all the required dependencies, you can generate the sources. T
 
 ### Use cases <a name="use-cases"></a>
 The main use cases in ID for Trust Providers Reference APIs are Personal Data Storage, SMS One Time Password, Email One Time Password, Document Verification, Multi Document Verification, Re-Authentication, GPA-Authentication, Claims Sharing, Audit Events, User Profile, Delete ID, TP Scopes Request and Fraud Data.
+
+More details can be found [here](https://developer.mastercard.com/mastercard-id-for-tp/documentation/use-cases/).
+
+### Execute the Use-Cases <a name="execute-use-cases"></a>
+1. Run mvn clean install from the root of the project directory.
+2. There are two ways to execute the user cases :
+  1. Execute the test cases
+    - At the `src/test/java` which is the main root folder for all Junit tests of the application.
+    - Run the tests.
+  2. Select the menu options provided by the application
+    - Run ```mvn spring-boot:run``` command to run the application.
+    - Once the application is running, you should be able chose the options.
 
 ## API Reference <a name="api-reference"></a>
 
