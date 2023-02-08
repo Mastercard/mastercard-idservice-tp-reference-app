@@ -48,7 +48,7 @@ For more information regarding the program, refer to [ID Service](https://idserv
 1. Create an account at [Mastercard Developers](https://developer.mastercard.com/account/sign-up).
 2. Create a new project and add `ID for Trust Providers` API to your project.
 3. Download Sandbox Signing Key, a .p12 file will be downloaded.
-4. In the Client Encryption Keys section of the dashboard, click on the Actions dropdown and download the client encryption key, a ``.pem``` file will be downloaded.
+4. In the Client Encryption Keys section of the dashboard, click on the Actions dropdown and download the client encryption key, a `.pem` file will be downloaded.
 5. Select all `.p12` files, `.pem` file and copy it to `src/main/resources` in the project folder.
 6. Open `${project.basedir}/src/main/resources/application.properties` and configure the below parameters.
 
