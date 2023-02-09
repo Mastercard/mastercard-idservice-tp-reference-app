@@ -22,7 +22,7 @@ public class Constants {
     public static final String X_USER_IDENTITY = "x-user-identity";
     public static final String ACCEPT = "Accept";
     //attributes
-    public static final String ATTRIBUTE_ID = "868e9531-71e5-4bc9-a19d-d09fb4797dea";
+    //Input Constants
     public static final String USER_PROFILE_ID = "user profile id";
     public static final String USER_PROFILE_ID_VALUE = "17005442-51cd-4e46-ab74-7a3a25c503ec";
     public static final String AUDIT_USER_PROFILE_ID = "17005442-51cd-4e46-ab74-7a3a25c503ec";
@@ -31,7 +31,6 @@ public class Constants {
     public static final String SDK_VERSION = "1.0.0";
     public static final String PDS = "pds";
     public static final String LOCALE = "en-US";
-    public static final String USER_SELECTED_COUNTRY = "USA";
     public static final String PRIVACY_POLICY_VERSION = "1.0.0";
     public static final String OTP_CODE = "123456";
     public static final String DATE_TIME = "2020-01-28T13:16:01.714-05:00";
@@ -89,7 +88,9 @@ public class Constants {
     public static final String ADDRESS = "123 Second Street";
     public static final String N_DEVICE_ID = "0630fd7c-3e89-4a1c-9271-d1e264386318";
 
-
+    //Input test Constants
+    public static final String ATTRIBUTE_ID = "868e9531-71e5-4bc9-a19d-d09fb4797dea";
+    public static final String USER_SELECTED_COUNTRY = "USA";
 
 
     private Constants() {

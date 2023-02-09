@@ -14,10 +14,11 @@
   * [Prerequisites](#prerequisites)
   * [Configuration](#configuration)
   * [Integrating with OpenAPI Generator](#integrating-with-openapi-generator)
-  * [OpenAPI Generator Plugin Configuration](#openAPI_generator_plugin_configuration)
-  * [Generating The API Client Sources](#generating_the_API_client_sources)
+  * [OpenAPI Generator Plugin Configuration](#openapi-generator-plugin-configuration)
+  * [Generating The API Client Sources](#generating-the-api-client-sources)
   * [Running the Project](#running-the-project)
   * [Use Cases](#use-cases)
+  * [Execute the Use-Cases](#execute-use-cases)
 - [API Reference](#api-reference)
   * [Request Examples](#request-examples)
 - [Support](#support)
@@ -35,20 +36,69 @@ For more information regarding the program, refer to [ID Service](https://idserv
 
 ## Usage <a name="usage"></a>
 ### Prerequisites <a name="prerequisites"></a>
-* [Mastercard Developers Account](https://developer.mastercard.com/dashboard) with access to ID for Trust Providers API.
-* A text editor or IDE.
-* [Spring Boot 2.2+ up to 2.7.x](https://spring.io/projects/spring-boot).
-* [Apache Maven 3.3+](https://maven.apache.org/download.cgi).
-* [Java 8](http://www.oracle.com/technetwork/java/javase/downloads/index.html).
-* Set up the `JAVA_HOME` environment variable to match the location of your Java installation.
+* [Mastercard Developers Account](https://developer.mastercard.com/dashboard) with access to ID for Trust Providers API
+* IntelliJ IDEA (or any other IDE)
+* [Spring Boot 2.2+ up to 2.7.x](https://spring.io/projects/spring-boot)
+* [Apache Maven 3.3+](https://maven.apache.org/download.cgi)
+* [Java 8](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
+* Set up the `JAVA_HOME` environment variable to match the location of your Java installation
 
 ### Configuration <a name="configuration"></a>
 
 1. Create an account at [Mastercard Developers](https://developer.mastercard.com/account/sign-up).
 2. Create a new project and add `ID for Trust Providers` API to your project.
-3. Download all the keys. It will download multiple files.
-4. Select all `.p12` files, `.pem` file and copy it to `src/main/resources` in the project folder.
-5. Open `${project.basedir}/src/main/resources/application.properties` and configure the parameters accordingly.
+3. Download Sandbox Signing Key, a .p12 file will be downloaded.
+4. In the Client Encryption Keys section of the dashboard, click on the `Actions` dropdown and download the client encryption key, a `.pem` file will be downloaded.
+5. Select all `.p12` and `.pem` files, and copy them to `src/main/resources` in the project folder.
+6. Open `${project.basedir}/src/main/resources/application.properties` and configure the below parameters.
+
+    **Authentication**
+
+    >**mastercard.api.key.file=classpath:** Path to keystore (.p12) file, just change the name as per the downloaded file in step 5 and set value as "classpath:your-Mastercard_ID_Service_MTF-sandbox.p12"
+    
+    >**mastercard.api.consumer.key=** This refers to your consumer key. Copy it from the "Keys" section on your project page in [Mastercard Developers](https://developer.mastercard.com/dashboard).
+    
+    >**mastercard.api.keystore.alias=** Alias of your key. Default key alias for sandbox is `keyalias`.
+    
+    >**mastercard.api.keystore.password=** Password of your Keystore. Default keystore password for sandbox project is `keystorepassword`.
+    
+    >**mastercard.user.selectedCountry=** Replace this country code as required.
+    
+    >**mastercard.client.userProfileId=** This will be used by /user-profiles API to register a user profile using the given userProfileId. An error will be returned if the user profile already exists.
+    
+    >**mastercard.client.authentication.workflowId=** This workflowId is created during the authentication of the user, and it will be used by /authentication-results API to validate authentication in a subsequent call.
+    
+    >**mastercard.client.enrollment.workflowId=** This workflowId is created by the identity verification provider during the enrollment of the user, and it will be used by other APIs to retrieve the extracted data of the document in a subsequent call.
+    
+    >**mastercard.client.multidoc.workflowId=** This is the workflow ID from the client for multidoc functionality.
+    
+    >**mastercard.client.sessionId=** This sessionId is the tpAuditMetadata sessionId from the client.
+    
+    >**mastercard.client.transactionGroupId=** This is the tpAuditMetadata transactionGroupId from the client.
+
+    **Encryption**
+    
+    >**mastercard.api.encryption.certificateFile=classpath:** Copy your downloaded certificate (.pem) file to src/main/resources and set value as "classpath:your-mastercard-ID-ServiceClientEnc.pem"
+    
+    >**mastercard.api.encryption.fingerPrint=** Fingerprint, copy this from the "Client Encryption Keys" section on your project page in [Mastercard Developers](https://developer.mastercard.com/dashboard).
+
+   **Decryption**
+    
+    >**mastercard.api.decryption.keystore=classpath:** Copy your downloaded .p12 file to src/main/resources and set value as "classpath:keyalias-encryption-mc.p12"
+    
+    >**mastercard.api.decryption.alias=** Alias of your key. Default key alias for sandbox is `keyalias`.
+    
+    >**mastercard.api.decryption.keystore.password=** Password of your Keystore. Default keystore password for sandbox project is `keystorepassword`.
+    
+    >**server.port=** Application port.
+    
+    >**mastercard.api.pds.update.conflict.attribute=** Replace this value with "FATHERS_NAME" or "MOTHERS_NAME" or "LEGAL_NAME".
+    
+    >**mastercard.api.pds.update.conflict.attribute.value=** This name should be present in one of the scanned documents(Drivers License or Passport).
+    
+    >**mastercard.api.scanID=** Replace this value with updated value.
+    
+    >**api.session.token=** Replace this value with X-user-identity obtained for the user profileID.
 
 ### Integrating with OpenAPI Generator <a name="integrating-with-openapi-generator"></a>
 [OpenAPI Generator](https://github.com/OpenAPITools/openapi-generator) generates API client libraries from [OpenAPI Specs](https://github.com/OAI/OpenAPI-Specification).
@@ -59,7 +109,7 @@ See also:
 * [OpenAPI Generator (executable)](https://mvnrepository.com/artifact/org.openapitools/openapi-generator-cli)
 * [CONFIG OPTIONS for java](https://github.com/OpenAPITools/openapi-generator/blob/master/docs/generators/java.md)
 
-#### OpenAPI Generator Plugin Configuration <a name="openAPI_generator_plugin_configuration"></a>
+#### OpenAPI Generator Plugin Configuration <a name="openapi-generator-plugin-configuration"></a>
 ```xml
 <!-- https://mvnrepository.com/artifact/org.openapitools/openapi-generator-maven-plugin -->
 <plugin>
@@ -87,7 +137,7 @@ See also:
 </plugin>
 ```
 
-#### Generating The API Client Sources <a name="generating_the_API_client_sources"></a>
+#### Generating The API Client Sources <a name="generating-the-api-client-sources"></a>
 Now that you have all the required dependencies, you can generate the sources. To do this, use one of the following methods:
 
 * **Using IDE**<br/>
@@ -138,6 +188,18 @@ Now that you have all the required dependencies, you can generate the sources. T
 ### Use cases <a name="use-cases"></a>
 The main use cases in ID for Trust Providers Reference APIs are Personal Data Storage, SMS One Time Password, Email One Time Password, Document Verification, Multi Document Verification, Re-Authentication, GPA-Authentication, Claims Sharing, Audit Events, User Profile, Delete ID, TP Scopes Request and Fraud Data.
 
+More details can be found [here](https://developer.mastercard.com/mastercard-id-for-tp/documentation/use-cases/).
+
+### Execute the Use-Cases <a name="execute-use-cases"></a>
+1. Run mvn clean install from the root of the project directory.
+2. There are two ways to execute the user cases :
+   1. Execute the test cases
+    - At the `src/test/java` which is the main root folder for all Junit tests of the application.
+    - Run the tests.
+   2. Select the menu options provided by the application
+    - Run ```mvn spring-boot:run``` command to run the application.
+    - Once the application is running, you should be able chose the options.
+
 ## API Reference <a name="api-reference"></a>
 
 - To develop a client application that consumes the ID for Trust Providers API with Spring Boot, refer to the  [ID for Trust Providers Reference](https://developer.mastercard.com/mastercard-id-for-tp/documentation/api-reference/).
@@ -150,7 +212,7 @@ You can change the default input passed to APIs, modify values in following file
 
 ## Support <a name="support"></a>
 
-- For further information, send an e-mail to `ID.Network.Support@mastercard.com`.
+- For further information, send an e-mail to `apisupport@mastercard.com`.
 - For information regarding licensing, refer to the [LICENSE](LICENSE.md).
 - For copyright information, refer to the [COPYRIGHT](COPYRIGHT.md).
 - For instructions on how to contribute to this project, refer to the [CONTRIBUTING](CONTRIBUTING.md).
