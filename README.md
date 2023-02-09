@@ -48,57 +48,57 @@ For more information regarding the program, refer to [ID Service](https://idserv
 1. Create an account at [Mastercard Developers](https://developer.mastercard.com/account/sign-up).
 2. Create a new project and add `ID for Trust Providers` API to your project.
 3. Download Sandbox Signing Key, a .p12 file will be downloaded.
-4. In the Client Encryption Keys section of the dashboard, click on the Actions dropdown and download the client encryption key, a `.pem` file will be downloaded.
-5. Select all `.p12` files, `.pem` file and copy it to `src/main/resources` in the project folder.
+4. In the Client Encryption Keys section of the dashboard, click on the `Actions` dropdown and download the client encryption key, a `.pem` file will be downloaded.
+5. Select all `.p12` and `.pem` files, and copy them to `src/main/resources` in the project folder.
 6. Open `${project.basedir}/src/main/resources/application.properties` and configure the below parameters.
 
     **Authentication**
 
-    >**mastercard.api.key.file=**, path to keystore (.p12) file, just change the name as per the downloaded file in step 5.
+    >**mastercard.api.key.file=classpath:** Path to keystore (.p12) file, just change the name as per the downloaded file in step 5 and set value as "classpath:your-Mastercard_ID_Service_MTF-sandbox.p12"
     
-    >**mastercard.api.consumer.key=**, this refers to your consumer key. Copy it from the "Keys" section on your project page in [Mastercard Developers](https://developer.mastercard.com/dashboard).
+    >**mastercard.api.consumer.key=** This refers to your consumer key. Copy it from the "Keys" section on your project page in [Mastercard Developers](https://developer.mastercard.com/dashboard).
     
-    >**mastercard.api.keystore.alias=keyalias**, this is the default value of key alias. If it is modified, use the updated one from the keys section in [Mastercard Developers](https://developer.mastercard.com/dashboard).
+    >**mastercard.api.keystore.alias=** Alias of your key. Default key alias for sandbox is `keyalias`.
     
-    >**mastercard.api.keystore.password=keystorepassword**, this is the default value of key alias. If it is modified, use the updated one from the keys section in [Mastercard Developers](https://developer.mastercard.com/dashboard).
+    >**mastercard.api.keystore.password=** Password of your Keystore. Default keystore password for sandbox project is `keystorepassword`.
     
-    >**mastercard.user.selectedCountry**, replace this country code as required.
+    >**mastercard.user.selectedCountry=** Replace this country code as required.
     
-    >**mastercard.client.userProfileId=**, this will be used by /user-profiles API to register a user profile using the given userProfileId. An error will be returned if the user profile already exists.
+    >**mastercard.client.userProfileId=** This will be used by /user-profiles API to register a user profile using the given userProfileId. An error will be returned if the user profile already exists.
     
-    >**mastercard.client.authentication.workflowId=**, this workflowId is created during the authentication of the user, and it will be used by /authentication-results API to validate authentication in a subsequent call.
+    >**mastercard.client.authentication.workflowId=** This workflowId is created during the authentication of the user, and it will be used by /authentication-results API to validate authentication in a subsequent call.
     
-    >**mastercard.client.enrollment.workflowId=**, this workflowId is created by the identity verification provider during the enrollment of the user, and it will be used by other APIs to retrieve the extracted data of the document in a subsequent call.
+    >**mastercard.client.enrollment.workflowId=** This workflowId is created by the identity verification provider during the enrollment of the user, and it will be used by other APIs to retrieve the extracted data of the document in a subsequent call.
     
-    >**mastercard.client.multidoc.workflowId=**, this is the workflow ID from the client for multidoc functionality.
+    >**mastercard.client.multidoc.workflowId=** This is the workflow ID from the client for multidoc functionality.
     
-    >**mastercard.client.sessionId=**, this sessionId is the tpAuditMetadata sessionId from the client.
+    >**mastercard.client.sessionId=** This sessionId is the tpAuditMetadata sessionId from the client.
     
-    >**mastercard.client.transactionGroupId=**, this is the tpAuditMetadata transactionGroupId from the client.
+    >**mastercard.client.transactionGroupId=** This is the tpAuditMetadata transactionGroupId from the client.
 
     **Encryption**
     
-    >**mastercard.api.encryption.certificateFile=classpath:**, copy certificate (.pem) file in src/main/resources and set value as classpath:mastercard-id-assistClientEnc1593529471.pem
+    >**mastercard.api.encryption.certificateFile=classpath:** Copy your downloaded certificate (.pem) file to src/main/resources and set value as "classpath:your-mastercard-ID-ServiceClientEnc.pem"
     
-    >**mastercard.api.encryption.fingerPrint=**, fingerprint. Copy this from the "Client Encryption Keys" section on your project page in [Mastercard Developers](https://developer.mastercard.com/dashboard).
+    >**mastercard.api.encryption.fingerPrint=** Fingerprint, copy this from the "Client Encryption Keys" section on your project page in [Mastercard Developers](https://developer.mastercard.com/dashboard).
 
    **Decryption**
     
-    >**mastercard.api.decryption.keystore=classpath:**, copy .p12 file in src/main/resources and set value as classpath:keyalias-encryption-mc.p12
+    >**mastercard.api.decryption.keystore=classpath:** Copy your downloaded .p12 file to src/main/resources and set value as "classpath:keyalias-encryption-mc.p12"
     
-    >**mastercard.api.decryption.alias=** key alias, this is the user provide keyalias that is used while creating the API project in [Mastercard Developers](https://developer.mastercard.com/dashboard).
+    >**mastercard.api.decryption.alias=** Alias of your key. Default key alias for sandbox is `keyalias`.
     
-    >**mastercard.api.decryption.keystore.password=** Keystore password, this is the password provided while creating the API project in [Mastercard Developers](https://developer.mastercard.com/dashboard).
+    >**mastercard.api.decryption.keystore.password=** Password of your Keystore. Default keystore password for sandbox project is `keystorepassword`.
     
-    >**server.port=**, application port.
+    >**server.port=** Application port.
     
-    >**mastercard.api.pds.update.conflict.attribute=**, replace this value with "FATHERS_NAME" or "MOTHERS_NAME" or "LEGAL_NAME".
+    >**mastercard.api.pds.update.conflict.attribute=** Replace this value with "FATHERS_NAME" or "MOTHERS_NAME" or "LEGAL_NAME".
     
-    >**mastercard.api.pds.update.conflict.attribute.value=**, this name should be present in one of the scanned documents(Drivers License or Passport).
+    >**mastercard.api.pds.update.conflict.attribute.value=** This name should be present in one of the scanned documents(Drivers License or Passport).
     
-    >**mastercard.api.scanID=**, replace this value with updated value.
+    >**mastercard.api.scanID=** Replace this value with updated value.
     
-    >**api.session.token=**, replace this value with X-user-identity obtained for the user profileID.
+    >**api.session.token=** Replace this value with X-user-identity obtained for the user profileID.
 
 ### Integrating with OpenAPI Generator <a name="integrating-with-openapi-generator"></a>
 [OpenAPI Generator](https://github.com/OpenAPITools/openapi-generator) generates API client libraries from [OpenAPI Specs](https://github.com/OAI/OpenAPI-Specification).
