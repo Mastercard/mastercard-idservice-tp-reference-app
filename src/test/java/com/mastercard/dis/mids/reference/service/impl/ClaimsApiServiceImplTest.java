@@ -20,6 +20,7 @@ import org.springframework.test.util.ReflectionTestUtils;
 
 import java.util.UUID;
 
+import static com.mastercard.dis.mids.reference.constants.Constants.ARID_VALUE;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
@@ -53,6 +54,7 @@ class ClaimsApiServiceImplTest {
     @Test
     void getUserConsentStatusTest_Exception() throws ApiException {
         ReflectionTestUtils.setField(claimsApiService, "claimsSharingApi", claimsSharingApi);
+        ARID_VALUE="7ec89f22-8b4c-44ad-80a5-088c87bd61df";
         RPClaimsUserConsent rpClaimsUserConsent = ClaimsApiExample.getUserConsentStatusExample();
         RPClaimsUserConsentData rpClaimsUserConsentData = new RPClaimsUserConsentData();
         rpClaimsUserConsentData.setPds("ZGZnZGVmZ2RnZGVnZXJnZXJncmRnZXJ5aGdld3J0eWJld3J5dHdleXd5d3l3cmFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFh");

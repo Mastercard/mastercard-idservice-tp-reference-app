@@ -21,7 +21,7 @@ import org.openapitools.client.model.MultiRetrieveAccessToken;
 import org.openapitools.client.model.UpdateIdentityAttributesData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import static com.mastercard.dis.mids.reference.constants.Constants.MULTI_DOCUMENT_WORKFLOW_ID;
 import static com.mastercard.dis.mids.reference.constants.Constants.X_USER_IDENTITY;
 
 @Slf4j
@@ -62,7 +62,7 @@ public class MultiDocumentVerificationServiceImpl implements MultiDocumentVerifi
         try {
             util.setupUserIdentityTokens();
             multiDocumentDataRetrieval.userProfileId(apiClientConfiguration.getUserProfileId())
-                    .workflowId(apiClientConfiguration.getMultidocWorkFlowId())
+                    .workflowId(MULTI_DOCUMENT_WORKFLOW_ID)
                     .tpAuditMetadata(util.getTpAuditMetadata())
                     .userSelectedCountry(apiClientConfiguration.getSelectedUserCountry())
                     .pds(multiDocumentDataRetrieval.getPds());
@@ -79,7 +79,7 @@ public class MultiDocumentVerificationServiceImpl implements MultiDocumentVerifi
         try {
             util.setupUserIdentityTokens();
             multiDocConfirmData.setUserProfileId(apiClientConfiguration.getUserProfileId());
-            multiDocConfirmData.getDocumentData().setWorkflowId(apiClientConfiguration.getMultidocWorkFlowId());
+            multiDocConfirmData.getDocumentData().setWorkflowId(MULTI_DOCUMENT_WORKFLOW_ID);
             multiDocConfirmData.setTpAuditMetadata(util.getTpAuditMetadata());
             FraudDetection fraudDetection = new FraudDetection();
             fraudDetection.setNuDetectMeta(util.createFraudDetectMeta());

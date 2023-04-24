@@ -112,6 +112,7 @@ class DocumentVerificationServiceImplTest {
         headers.put(X_MIDS_USERAUTH_SESSIONID, headersList);
         headers.put(X_USER_IDENTITY, headersList);
         SessionContext.create(X_USER_IDENTITY);
+        ARID_VALUE="7ec89f22-8b4c-44ad-80a5-088c87bd61df";
     }
 
     @Test

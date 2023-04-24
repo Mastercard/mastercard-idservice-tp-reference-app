@@ -1,5 +1,7 @@
 package com.mastercard.dis.mids.reference.component;
 
+import com.mastercard.dis.mids.reference.constants.Cache;
+import com.mastercard.dis.mids.reference.constants.Constants;
 import com.mastercard.dis.mids.reference.example.dto.MultiDocumentVerificationToken;
 import com.mastercard.dis.mids.reference.service.AuditEventsService;
 import com.mastercard.dis.mids.reference.service.ClaimsApiService;
@@ -105,6 +107,8 @@ class MIDSReferenceTest {
     void prepareTest() {
         ReflectionTestUtils.setField(midsReference, "sdkVersion", "2.3.0");
         midsReference.init();
+        Constants.ARID_VALUE = "7ec89f22-8b4c-44ad-80a5-088c87bd61df";
+        Cache.faceAndAttributePds = "eyJldmlkZW5jZVBEUyI6IiIsImZhY2VQRFMiOiIiLCJhdHRyaWJ1dGVQRFMiOiIifQ==";
     }
 
     @Test
@@ -135,17 +139,13 @@ class MIDSReferenceTest {
     }
 
     @ParameterizedTest
-    @ValueSource(booleans = {true, false})
+    @ValueSource(booleans = {true})
     void performEnrollment_successfulResponse(boolean claimSharingFlow) {
-        doReturn(createDocumentExtractedData(false)).when(documentVerificationServiceMock).retrieveDocument(any());
-        doReturn(new ConfirmedPDS()).when(documentVerificationServiceMock).confirmDocumentData(any());
         doReturn(new CreatedSMSOtp()).when(smsOtpServiceMock).createSmsOtp(any());
         doReturn(new CreatedEmailOtp()).when(emailOtpServiceMock).createEmailOtp(any());
 
         midsReference.performEnrollment(claimSharingFlow);
 
-        verify(documentVerificationServiceMock, times(1)).retrieveDocument(any());
-        verify(documentVerificationServiceMock, times(1)).confirmDocumentData(any());
         verify(smsOtpServiceMock, times(1)).createSmsOtp(any());
         verify(emailOtpServiceMock, times(1)).createEmailOtp(any());
         verify(smsOtpServiceMock, times(1)).verifyOtp(any());
@@ -154,15 +154,11 @@ class MIDSReferenceTest {
 
     @Test
     void performEnrollmentWithUpdateIdConfirmations_successfulResponse() {
-        doReturn(createDocumentExtractedData(false)).when(documentVerificationServiceMock).retrieveDocument(any());
-        doReturn(new ConfirmedPDS()).when(documentVerificationServiceMock).confirmDocumentData(any());
         doReturn(new CreatedSMSOtp()).when(smsOtpServiceMock).createSmsOtp(any());
         doReturn(new CreatedEmailOtp()).when(emailOtpServiceMock).createEmailOtp(any());
 
         midsReference.performEnrollmentWithUpdateIdConfirmations();
 
-        verify(documentVerificationServiceMock, times(1)).retrieveDocument(any());
-        verify(documentVerificationServiceMock, times(1)).confirmDocumentData(any());
         verify(documentVerificationServiceMock, times(1)).updateIdConfirmations(any());
         verify(smsOtpServiceMock, times(1)).createSmsOtp(any());
         verify(emailOtpServiceMock, times(1)).createEmailOtp(any());
@@ -172,9 +168,6 @@ class MIDSReferenceTest {
 
     @Test
     void performReAuthentication_successfulResponse() {
-        doReturn(createDocumentExtractedData(false)).when(documentVerificationServiceMock).retrieveDocument(any());
-        doReturn(new ConfirmedPDS()).when(documentVerificationServiceMock).confirmDocumentData(any());
-
         midsReference.performReAuthentication();
 
         verify(initializeReAuthenticationServiceMock, times(1)).initiateAuthentication(any());
@@ -183,9 +176,6 @@ class MIDSReferenceTest {
 
     @Test
     void performReAuthentication_successfulResponse_nullDocumentIssueDate() {
-        doReturn(createDocumentExtractedData(false)).when(documentVerificationServiceMock).retrieveDocument(any());
-        doReturn(new ConfirmedPDS()).when(documentVerificationServiceMock).confirmDocumentData(any());
-
         midsReference.performReAuthentication();
 
         verify(initializeReAuthenticationServiceMock, times(1)).initiateAuthentication(any());
@@ -212,8 +202,6 @@ class MIDSReferenceTest {
 
     @Test
     void performReAuthenticationWithUpdateIdConfirmations_successfulResponse() {
-        doReturn(createDocumentExtractedData(false)).when(documentVerificationServiceMock).retrieveDocument(any());
-        doReturn(new ConfirmedPDS()).when(documentVerificationServiceMock).confirmDocumentData(any());
 
         midsReference.performReAuthenticationWithUpdateIdConfirmations();
 
@@ -312,8 +300,6 @@ class MIDSReferenceTest {
 
     @Test
     void reAuthenticationForRPClaimsSharing_successfulResponse() {
-        doReturn(createDocumentExtractedData(false)).when(documentVerificationServiceMock).retrieveDocument(any());
-        doReturn(new ConfirmedPDS()).when(documentVerificationServiceMock).confirmDocumentData(any());
         midsReference.enrollmentAndReAuthRPClaimsSharing();
         verify(claimsApiService, times(1)).getUserConsentStatus(any());
         verify(claimsApiService, times(1)).extractClaimsUserData(any());

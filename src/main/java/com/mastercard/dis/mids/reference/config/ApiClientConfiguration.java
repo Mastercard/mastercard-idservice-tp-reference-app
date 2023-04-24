@@ -68,12 +68,6 @@ public class ApiClientConfiguration {
     @Value("${mastercard.client.transactionGroupId}")
     private String transactionGroupId;
 
-    @Value("${mastercard.client.authentication.workflowId}")
-    private String authenticationWorkflowId;
-
-    @Value("${mastercard.client.multidoc.workflowId}")
-    private String multidocWorkFlowId;
-
     @Value("${mastercard.user.selectedCountry}")
     private String selectedUserCountry;
 
@@ -133,14 +127,6 @@ public class ApiClientConfiguration {
 
     public String getTransactionGroupId() {
         return transactionGroupId;
-    }
-
-    public String getAuthenticationWorkflowId() {
-        return authenticationWorkflowId;
-    }
-
-    public String getMultidocWorkFlowId() {
-        return multidocWorkFlowId;
     }
 
     public String getSelectedUserCountry() {

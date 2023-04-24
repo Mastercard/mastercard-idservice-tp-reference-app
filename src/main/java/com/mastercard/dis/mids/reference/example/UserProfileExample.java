@@ -22,7 +22,7 @@ public class UserProfileExample {
     public static IdentitySearch getIdentitySearchObject() {
         IdentitySearch identitySearch = new IdentitySearch();
         identitySearch.setUserConsent(ACCEPT);
-        identitySearch.setScopedFields(Collections.singletonList(IdentitySearch.ScopedFieldsEnum.ALL));
+        identitySearch.setScopedFields(Collections.singletonList(IdentitySearch.ScopedFieldsEnum.PASSPORT));
         return identitySearch;
     }
 

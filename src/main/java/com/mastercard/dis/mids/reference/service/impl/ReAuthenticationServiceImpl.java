@@ -33,6 +33,7 @@ import org.openapitools.client.model.VerifyAuthenticationDecisions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import static com.mastercard.dis.mids.reference.constants.Constants.WORKFLOW_ID_RE_AUTH;
 
 
 @Slf4j
@@ -75,7 +76,7 @@ public class ReAuthenticationServiceImpl implements ReAuthenticationService {
     public AuthenticationResults authenticationResults(final VerifyAuthentication verifyAuthentication) {
         try {
             verifyAuthentication.setUserProfileId(apiClientConfiguration.getUserProfileId());
-            verifyAuthentication.setWorkflowId(apiClientConfiguration.getAuthenticationWorkflowId());
+            verifyAuthentication.setWorkflowId(WORKFLOW_ID_RE_AUTH);
             verifyAuthentication.setTpAuditMetadata(getTpAuditMetadata());
             return reAuthenticationApi.getAuthenticationResults(verifyAuthentication);
         } catch (ApiException e) {

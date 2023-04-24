@@ -35,7 +35,7 @@ public class SMSOTPExample {
         smsOtp.setUserConsent(ACCEPT);
 
         //to receive an actual otp, change this to a real phone number
-        smsOtp.setPhoneNumber("11234567890");
+        smsOtp.setPhoneNumber("5512345678");
 
         return smsOtp;
     }
@@ -44,7 +44,6 @@ public class SMSOTPExample {
         OtpVerification verifyOtp = new OtpVerification();
         verifyOtp.setCountryCode(COUNTRY_CODE);
         verifyOtp.setUserConsent(ACCEPT);
-        verifyOtp.setCode(OTP_CODE);
 
         return verifyOtp;
     }
