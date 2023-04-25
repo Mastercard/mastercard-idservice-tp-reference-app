@@ -10,32 +10,24 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.openapitools.client.model.ClientIdentities;
-import org.openapitools.client.model.ConfirmedPDS;
 import org.openapitools.client.model.CreatedEmailOtp;
 import org.openapitools.client.model.CreatedSMSOtp;
 import org.springframework.test.util.ReflectionTestUtils;
-
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
-
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.anyString;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
 class MIDSReferenceApplicationTest {
-
-   // @Mock
-   // Scanner scanner;
 
     @InjectMocks
     private MIDSReferenceApplication midsReferenceApplication;
@@ -68,11 +60,11 @@ class MIDSReferenceApplicationTest {
     }};
 
     private static final Map<String, String> menuMapErrorTest = new HashMap<String, String>() {{
-         put("5", "5)   Access User Identity");
-          put("7", "7)   Update ID Confirmations (Re-authentication)");
-          put("16", "16)   Share User Identity (TP-RP) (Enrollment)");
-         put("18", "18)   Share User Identity (TP-RP) (Re-authentication)");
-          put("19", "19)   TP Scopes");
+        put("5", "5)   Access User Identity");
+        put("7", "7)   Update ID Confirmations (Re-authentication)");
+        put("16", "16)   Share User Identity (TP-RP) (Enrollment)");
+        put("18", "18)   Share User Identity (TP-RP) (Re-authentication)");
+        put("19", "19)   TP Scopes");
     }};
 
     @BeforeEach
@@ -108,7 +100,7 @@ class MIDSReferenceApplicationTest {
     }
 
     @Test
-    void console_handleOption_works_Error(){
+    void console_handleOption_works_prompt(){
         ReflectionTestUtils.setField(midsReferenceApplication, "scanner",new Scanner("12345 \n 54321 "));
         for (Map.Entry<String, String> entry : menuMapErrorTest.entrySet()) {
             midsReferenceApplication.handleOption(entry.getKey());

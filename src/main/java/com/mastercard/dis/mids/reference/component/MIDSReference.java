@@ -240,7 +240,7 @@ public class MIDSReference {
         //Adding email address to the original PDS
         CreatedEmailOtp emailOtp = callCreateEmailOtpsApi(smsOtp.getPds());
         //Calling verifications Api for both sms and email, using a fix otp number, expected invalid response.
-        callSmsOtpVerificationsApi(smsOtp.getOtpId(), emailOtp.getPds());
+        callSmsOtpVerificationsApi(smsOtp.getOtpId(), smsOtp.getPds());
         callEmailOtpVerificationsApi(emailOtp.getOtpId(), emailOtp.getPds());
     }
 

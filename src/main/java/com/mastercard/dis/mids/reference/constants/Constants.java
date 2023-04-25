@@ -26,8 +26,8 @@ public class Constants {
     public static  String MULTI_DOCUMENT_WORKFLOW_ID;
     public static  String WORKFLOW_ID_RE_AUTH;
     public static final String USER_PROFILE_ID = "user profile id";
-    public static final String USER_PROFILE_ID_VALUE = "d30c1be1-1c52-4f82-9783-baa314249277";
-    public static final String AUDIT_USER_PROFILE_ID = "d30c1be1-1c52-4f82-9783-baa314249277";
+    public static final String USER_PROFILE_ID_VALUE = "bea70b33-aa30-430a-96f3-99ed04849e70";
+    public static final String AUDIT_USER_PROFILE_ID = "bea70b33-aa30-430a-96f3-99ed04849e70";
     public static final String COUNTRY_CODE = "AU";
     public static final String ENROLLMENT_ORIGIN_VALUE = "RETAIL";
     public static final String SDK_VERSION = "1.0.0";
@@ -62,7 +62,7 @@ public class Constants {
     public static final String USER_AGENT = "Mozilla: Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:47.0) Gecko/20100101 Firefox/47.3 Mozilla/5.0 (Macintosh; Intel Mac OS X x.y; rv:42.0) Gecko/20100101 Firefox/43.4.";
     public static final String X_FORWARDED_FOR = "203.0.113.195, 70.41.3.18, 150.172.238.178";
     public static final String REQUEST_URL = "http://bla.com/hello/world/yellow";
-    public static final String DEVICE_ID = "06522504a24a8eb3";
+    public static final String DEVICE_ID = "1234567890";
     public static final String MAKE = "samsung";
     public static final String MODEL = "SM-G780G";
     public static final boolean VISA_VERIFY_REQUIRED = false;
