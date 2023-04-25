@@ -15,6 +15,8 @@ limitations under the License.
 */
 package com.mastercard.dis.mids.reference.component;
 
+import com.mastercard.dis.mids.reference.constants.Cache;
+import com.mastercard.dis.mids.reference.constants.Constants;
 import com.mastercard.dis.mids.reference.example.AuditEventsTokenExample;
 import com.mastercard.dis.mids.reference.example.BackUpAndRestoreExample;
 import com.mastercard.dis.mids.reference.example.ClaimsApiExample;
@@ -90,7 +92,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
-
+import java.util.UUID;
 import javax.annotation.PostConstruct;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -99,9 +101,9 @@ import java.util.Base64;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-
-import static com.mastercard.dis.mids.reference.constants.Constants.ARID_VALUE;
+import static com.mastercard.dis.mids.reference.constants.Constants.EMAIL_CODE;
 import static com.mastercard.dis.mids.reference.constants.Constants.EMAIL_ID;
+import static com.mastercard.dis.mids.reference.constants.Constants.OTP_CODE;
 import static com.mastercard.dis.mids.reference.constants.Constants.USER_PROFILE_ID_VALUE;
 import static org.openapitools.client.model.UserConsent.ACCEPT;
 
@@ -166,21 +168,18 @@ public class MIDSReference {
     }
 
     public void performEnrollment(boolean claimSharingFlow) {
-        String pds = getPDS(claimSharingFlow, Collections.singletonList(ATTRIBUTE_PDS));
-        callOtpFlows(pds);
+        callOtpFlows(Cache.pdsEnrollment);
     }
 
     public void performEnrollmentWithUpdateIdConfirmations() {
-        String pds = getPDS(false, Collections.singletonList(ATTRIBUTE_PDS));
         callUpdateIdConfirmationsApi();
-        callOtpFlows(pds);
+        callOtpFlows(Cache.pdsEnrollment);
     }
 
     public void performReAuthentication() {
-        String pds = getPDS(false, Collections.singletonList(FACE_PDS));
-        callInitiateAuthenticationsApi(pds);
-        callAuthenticationResultsApi(pds);
-        callStrongerAuthenticationApi(pds);
+        callInitiateAuthenticationsApi(Cache.facePds);
+        callAuthenticationResultsApi(Cache.facePds);
+        callStrongerAuthenticationApi(Cache.facePds);
     }
 
     public void performAuthenticationDecisions() {
@@ -189,9 +188,8 @@ public class MIDSReference {
     }
 
     public void performReAuthenticationWithUpdateIdConfirmations() {
-        String pds = getPDS(false, Collections.singletonList(FACE_PDS));
-        callInitiateAuthenticationsApi(pds);
-        callAuthenticationResultsApi(pds);
+        callInitiateAuthenticationsApi(Cache.facePds);
+        callAuthenticationResultsApi(Cache.facePds);
         callUpdateIdConfirmationsApi();
     }
 
@@ -242,7 +240,7 @@ public class MIDSReference {
         //Adding email address to the original PDS
         CreatedEmailOtp emailOtp = callCreateEmailOtpsApi(smsOtp.getPds());
         //Calling verifications Api for both sms and email, using a fix otp number, expected invalid response.
-        callSmsOtpVerificationsApi(smsOtp.getOtpId(), emailOtp.getPds());
+        callSmsOtpVerificationsApi(smsOtp.getOtpId(), smsOtp.getPds());
         callEmailOtpVerificationsApi(emailOtp.getOtpId(), emailOtp.getPds());
     }
 
@@ -260,6 +258,7 @@ public class MIDSReference {
 
     public void callSmsOtpVerificationsApi(String otpId, String pds) {
         OtpVerification smsOtpVerification = SMSOTPExample.getSmsOtpVerificationObject();
+        smsOtpVerification.setCode(OTP_CODE);
         smsOtpVerification.setOtpId(otpId);
         smsOtpVerification.setPds(pds);
         smsOtpService.verifyOtp(smsOtpVerification);
@@ -269,7 +268,8 @@ public class MIDSReference {
         OtpVerification emailOtpVerification = EmailOtpExample.getEmailOtpVerificationObject();
         emailOtpVerification.setOtpId(otpId);
         emailOtpVerification.setPds(pds);
-        emailOtpService.verifyEmailOtp(emailOtpVerification);
+       emailOtpVerification.setCode(EMAIL_CODE);
+        emailOtpService.verifyEmailOtp(emailOtpVerification); // email
     }
 
     private DocumentVerificationExtractedData callDocumentDataRetrievalsApi() {
@@ -354,7 +354,7 @@ public class MIDSReference {
         gpaAuthenticationService.initPremiumAuthentications(initPremiumAuthenticationsPayload);
     }
 
-    private void callUpdateIdConfirmationsApi() {
+    public void callUpdateIdConfirmationsApi() {
         documentVerificationService.updateIdConfirmations(DocumentIdConfirmationExample.getDocumentIdConfirmationExampleObject());
     }
 
@@ -387,10 +387,9 @@ public class MIDSReference {
     }
 
     public MultiDocumentConfirmedPDS multiDocTasks() {
-        String pds = getPDS(false, Arrays.asList(FACE_PDS, ATTRIBUTE_PDS, EVIDENCE_PDS));
-        DocumentVerificationExtractedData multiDocumentVerificationExtractedData = callMultiDocumentDataRetrievalsApi(extractPds(pds, Arrays.asList(FACE_PDS)));
+        DocumentVerificationExtractedData multiDocumentVerificationExtractedData = callMultiDocumentDataRetrievalsApi(extractPds(Cache.pdsMultiDocument, Arrays.asList(FACE_PDS)));
         DocumentVerificationConfirmData documentData = createDocumentVerificationConfirmData(multiDocumentVerificationExtractedData);
-        return callMultiDocumentDataConfirmationApi(documentData, extractPds(pds, Arrays.asList(ATTRIBUTE_PDS, EVIDENCE_PDS)));
+        return callMultiDocumentDataConfirmationApi(documentData, extractPds(Cache.pdsMultiDocument, Arrays.asList(ATTRIBUTE_PDS, EVIDENCE_PDS)));
     }
 
     private MultiDocumentConfirmedPDS callMultiDocumentDataConfirmationApi(DocumentVerificationConfirmData documentVerificationConfirmDataDocumentData, String pds) {
@@ -403,7 +402,7 @@ public class MIDSReference {
     private DocumentVerificationExtractedData callMultiDocumentDataRetrievalsApi(String pds) {
         MultiDocumentDataRetrieval multiDocumentDataRetrieval = MultiDocumentVerificationExample.getMultiDocumentDataRetrieval();
         multiDocumentDataRetrieval.setPds(pds);
-        multiDocumentDataRetrieval.setDocumentType(MultiDocumentDataRetrieval.DocumentTypeEnum.PASSPORT);
+        multiDocumentDataRetrieval.setDocumentType(MultiDocumentDataRetrieval.DocumentTypeEnum.DRIVING_LICENSE);
 
         return multiDocumentVerificationService.multiDocumentVerificationStatus(multiDocumentDataRetrieval);
     }
@@ -415,10 +414,9 @@ public class MIDSReference {
     }
 
     public void enrollmentAndReAuthRPClaimsSharing() {
-        String pds = getPDS(true, Collections.singletonList(ATTRIBUTE_PDS));
         getRpRequestedScopes();
-        extractClaimsUserData(pds);
-        getUserConsentStatus(pds);
+        extractClaimsUserData(Cache.faceAndAttributePds);
+        getUserConsentStatus(Cache.faceAndAttributePds);
     }
 
     private void getUserConsentStatus(String pds) {
@@ -430,11 +428,12 @@ public class MIDSReference {
     private void extractClaimsUserData(String pds) {
         RPClaimsUserDetails rpClaimsUserDetails = ClaimsApiExample.extractClaimsUserDataExample();
         rpClaimsUserDetails.setPds(pds);
+        rpClaimsUserDetails.setArid(UUID.fromString(Constants.ARID_VALUE));
         claimsApiService.extractClaimsUserData(rpClaimsUserDetails);
     }
 
     public void getRpRequestedScopes() {
-        scopesService.getRpScopes(ARID_VALUE);
+        scopesService.getRpScopes(Constants.ARID_VALUE);
     }
 
     public void updatePdsData() {
@@ -476,9 +475,13 @@ public class MIDSReference {
             attributeId = attributes.get("driverLicense").entrySet().iterator().next().getKey();
         }
 
+        if (attributes.containsKey("passport")) {
+            attributeId = attributes.get("passport").entrySet().iterator().next().getKey();
+        }
+
         identityAttributeDeletions.setPds(pds);
         identityAttributeDeletions.setUserConsent(ACCEPT);
-        identityAttributeDeletions.setAttributeName(IdentityAttributeDeletions.AttributeNameEnum.DRIVER_LICENSE);
+        identityAttributeDeletions.setAttributeName(IdentityAttributeDeletions.AttributeNameEnum.PASSPORT);
         identityAttributeDeletions.setAttributeId(attributeId);
 
         userProfileService.deleteIdentityAttribute(identityAttributeDeletions);

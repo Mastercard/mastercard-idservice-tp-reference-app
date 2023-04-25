@@ -35,7 +35,7 @@ public class EmailOtpExample {
         emailOtp.setUserConsent(ACCEPT);
 
         //to receive an actual otp, change this to a real email address
-        emailOtp.setEmailAddress("test@mc.com");
+        emailOtp.setEmailAddress("email@email.com");
 
         return emailOtp;
     }
@@ -44,7 +44,6 @@ public class EmailOtpExample {
         OtpVerification otpVerification = new OtpVerification();
         otpVerification.setCountryCode(COUNTRY_CODE);
         otpVerification.setUserConsent(ACCEPT);
-        otpVerification.setCode(OTP_CODE);
 
         return otpVerification;
     }

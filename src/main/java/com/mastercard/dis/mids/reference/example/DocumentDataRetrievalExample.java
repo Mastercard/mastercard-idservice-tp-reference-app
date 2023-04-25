@@ -42,7 +42,7 @@ public class DocumentDataRetrievalExample {
         documentDataRetrieval.setPrivacyPolicyVersion(PRIVACY_POLICY_VERSION);
         documentDataRetrieval.setSdkAuditEvents(new ArrayList<>());
         documentDataRetrieval.setLocale(LOCALE);
-        documentDataRetrieval.setDocumentType(DocumentDataRetrieval.DocumentTypeEnum.DRIVING_LICENSE);
+        documentDataRetrieval.setDocumentType(DocumentDataRetrieval.DocumentTypeEnum.PASSPORT);
         TpAuditMetadata tpAuditMetadata = new TpAuditMetadata();
         tpAuditMetadata.setSessionId(SESSION_ID);
         tpAuditMetadata.setTransactionGroupId(TpAuditMetadata.SERIALIZED_NAME_TRANSACTION_GROUP_ID);

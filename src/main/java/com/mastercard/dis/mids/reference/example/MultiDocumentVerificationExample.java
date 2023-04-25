@@ -51,7 +51,7 @@ public class MultiDocumentVerificationExample {
         documentDataRetrieval.setPrivacyPolicyVersion(PRIVACY_POLICY_VERSION);
         documentDataRetrieval.setSdkAuditEvents(new ArrayList<>());
         documentDataRetrieval.setLocale(LOCALE);
-        documentDataRetrieval.setDocumentType(MultiDocumentDataRetrieval.DocumentTypeEnum.DRIVING_LICENSE);
+        documentDataRetrieval.setDocumentType(MultiDocumentDataRetrieval.DocumentTypeEnum.PASSPORT);
         TpAuditMetadata tpAuditMetadata = new TpAuditMetadata();
         tpAuditMetadata.setSessionId(SESSION_ID);
         tpAuditMetadata.setTransactionGroupId(TpAuditMetadata.SERIALIZED_NAME_TRANSACTION_GROUP_ID);
