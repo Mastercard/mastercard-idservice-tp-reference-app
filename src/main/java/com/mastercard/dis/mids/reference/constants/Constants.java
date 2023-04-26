@@ -99,7 +99,7 @@ public class Constants {
     public static final String ATTRIBUTE_PDS = "attributePDS";
     public static final String FACE_PDS = "facePDS";
     public static final String EVIDENCE_PDS = "evidencePDS";
-
+    public static final String ARID_SENTENCE = "Enter the Arid value";
 
     private Constants() {
     }

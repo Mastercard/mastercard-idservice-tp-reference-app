@@ -31,6 +31,7 @@ import java.util.Collections;
 import java.util.Map;
 import java.util.Scanner;
 
+import static com.mastercard.dis.mids.reference.constants.Constants.ARID_SENTENCE;
 import static com.mastercard.dis.mids.reference.constants.Constants.ATTRIBUTE_PDS;
 import static com.mastercard.dis.mids.reference.constants.Constants.EVIDENCE_PDS;
 import static com.mastercard.dis.mids.reference.constants.Constants.FACE_PDS;
@@ -359,7 +360,7 @@ public class MIDSReferenceApplication implements CommandLineRunner {
         try {
             log.info(claimSharingFlow ? "<<--- Claim Sharing Enrollment Started --->>" : "<<--- Enrollment Started --->>");
 
-            log.info("Enter the Arid value");
+            log.info(ARID_SENTENCE);
             Constants.ARID_VALUE = scanner.nextLine();
 
             if(Cache.faceAndAttributePds==null){
@@ -379,7 +380,7 @@ public class MIDSReferenceApplication implements CommandLineRunner {
         try {
             log.info("<<--- RPClaimsSharing ReAuthentication Started --->>");
 
-            log.info("Enter the Arid value");
+            log.info(ARID_SENTENCE);
             Constants.ARID_VALUE = scanner.nextLine();
 
             if(Cache.faceAndAttributePds==null){
@@ -397,7 +398,7 @@ public class MIDSReferenceApplication implements CommandLineRunner {
     synchronized void getRpScopes() {
         try {
             log.info("<<--- RetrieveRpScopes Started --->>");
-            log.info("Enter the Arid value");
+            log.info(ARID_SENTENCE);
             Constants.ARID_VALUE = scanner.nextLine();
 
             midsReference.getRpRequestedScopes();
