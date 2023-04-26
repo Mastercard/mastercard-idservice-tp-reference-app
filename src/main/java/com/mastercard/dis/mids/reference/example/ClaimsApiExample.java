@@ -1,5 +1,6 @@
 package com.mastercard.dis.mids.reference.example;
 
+import com.mastercard.dis.mids.reference.constants.Constants;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.openapitools.client.model.RPClaimsUserConsent;
@@ -7,7 +8,7 @@ import org.openapitools.client.model.RPClaimsUserDetails;
 
 import java.util.UUID;
 
-import static com.mastercard.dis.mids.reference.constants.Constants.ARID_VALUE;
+
 import static com.mastercard.dis.mids.reference.constants.Constants.COUNTRY_CODE;
 import static com.mastercard.dis.mids.reference.constants.Constants.LOCALE;
 import static com.mastercard.dis.mids.reference.constants.Constants.PDS;
@@ -18,7 +19,7 @@ public class ClaimsApiExample {
     public static RPClaimsUserConsent getUserConsentStatusExample() {
         RPClaimsUserConsent rpClaimsUserConsent = new RPClaimsUserConsent();
         rpClaimsUserConsent.pds(PDS);
-        rpClaimsUserConsent.arid(UUID.fromString(ARID_VALUE));
+        rpClaimsUserConsent.arid(UUID.fromString(Constants.getAridValue()));
         rpClaimsUserConsent.userConsent(RPClaimsUserConsent.UserConsentEnum.ACCEPT);
         rpClaimsUserConsent.setCountryCode(COUNTRY_CODE);
         rpClaimsUserConsent.setLocale(LOCALE);
@@ -28,7 +29,7 @@ public class ClaimsApiExample {
     public static RPClaimsUserDetails extractClaimsUserDataExample() {
         RPClaimsUserDetails rpClaimsUserDetails = new RPClaimsUserDetails();
         rpClaimsUserDetails.pds(PDS);
-        rpClaimsUserDetails.arid(UUID.fromString(ARID_VALUE));
+        rpClaimsUserDetails.arid(UUID.fromString(Constants.getAridValue()));
         rpClaimsUserDetails.setCountryCode(COUNTRY_CODE);
         rpClaimsUserDetails.setLocale(LOCALE);
         return rpClaimsUserDetails;

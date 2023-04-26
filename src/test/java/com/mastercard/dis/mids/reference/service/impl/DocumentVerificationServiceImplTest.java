@@ -17,6 +17,7 @@ limitations under the License.
 package com.mastercard.dis.mids.reference.service.impl;
 
 import com.mastercard.dis.mids.reference.config.ApiClientConfiguration;
+import com.mastercard.dis.mids.reference.constants.Constants;
 import com.mastercard.dis.mids.reference.example.DocumentDataRetrievalExample;
 import com.mastercard.dis.mids.reference.example.DocumentVerificationTokenExample;
 import com.mastercard.dis.mids.reference.example.dto.DocumentVerificationToken;
@@ -58,7 +59,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import static com.mastercard.dis.mids.reference.constants.Constants.ARID_VALUE;
 import static com.mastercard.dis.mids.reference.constants.Constants.COUNTRY_CODE;
 import static com.mastercard.dis.mids.reference.constants.Constants.SDK_VERSION;
 import static com.mastercard.dis.mids.reference.constants.Constants.VISA_SUPPORTED_COUNTRY_CODE;
@@ -112,7 +112,7 @@ class DocumentVerificationServiceImplTest {
         headers.put(X_MIDS_USERAUTH_SESSIONID, headersList);
         headers.put(X_USER_IDENTITY, headersList);
         SessionContext.create(X_USER_IDENTITY);
-        ARID_VALUE="7ec89f22-8b4c-44ad-80a5-088c87bd61df";
+        Constants.setAridValue("7ec89f22-8b4c-44ad-80a5-088c87bd61df");
     }
 
     @Test
@@ -423,7 +423,7 @@ class DocumentVerificationServiceImplTest {
         documentVerificationConfirmData.setDocumentData(new ConfirmDocumentData());
         documentVerificationConfirmData.setFraudDetection(new FraudDetection());
         if (claimSharingFlow) {
-            documentVerificationConfirmData.setArid(UUID.fromString(ARID_VALUE));
+            documentVerificationConfirmData.setArid(UUID.fromString(Constants.getAridValue()));
         }
         if (verifyIfVisaMatched) {
             documentVerificationConfirmData.setVisaMatched(verifyIfVisaMatched);

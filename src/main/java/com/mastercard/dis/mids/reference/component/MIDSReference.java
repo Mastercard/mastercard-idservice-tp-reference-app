@@ -103,11 +103,9 @@ import java.util.List;
 import java.util.Map;
 
 import static com.mastercard.dis.mids.reference.constants.Constants.ATTRIBUTE_PDS;
-import static com.mastercard.dis.mids.reference.constants.Constants.EMAIL_CODE;
 import static com.mastercard.dis.mids.reference.constants.Constants.EMAIL_ID;
 import static com.mastercard.dis.mids.reference.constants.Constants.EVIDENCE_PDS;
 import static com.mastercard.dis.mids.reference.constants.Constants.FACE_PDS;
-import static com.mastercard.dis.mids.reference.constants.Constants.OTP_CODE;
 import static com.mastercard.dis.mids.reference.constants.Constants.USER_PROFILE_ID_VALUE;
 import static org.openapitools.client.model.UserConsent.ACCEPT;
 
@@ -260,7 +258,7 @@ public class MIDSReference {
 
     public void callSmsOtpVerificationsApi(String otpId, String pds) {
         OtpVerification smsOtpVerification = SMSOTPExample.getSmsOtpVerificationObject();
-        smsOtpVerification.setCode(OTP_CODE);
+        smsOtpVerification.setCode(Constants.getOtpCode());
         smsOtpVerification.setOtpId(otpId);
         smsOtpVerification.setPds(pds);
         smsOtpService.verifyOtp(smsOtpVerification);
@@ -270,7 +268,7 @@ public class MIDSReference {
         OtpVerification emailOtpVerification = EmailOtpExample.getEmailOtpVerificationObject();
         emailOtpVerification.setOtpId(otpId);
         emailOtpVerification.setPds(pds);
-       emailOtpVerification.setCode(EMAIL_CODE);
+       emailOtpVerification.setCode(Constants.getEmailCode());
         emailOtpService.verifyEmailOtp(emailOtpVerification); // email
     }
 
@@ -430,12 +428,12 @@ public class MIDSReference {
     private void extractClaimsUserData(String pds) {
         RPClaimsUserDetails rpClaimsUserDetails = ClaimsApiExample.extractClaimsUserDataExample();
         rpClaimsUserDetails.setPds(pds);
-        rpClaimsUserDetails.setArid(UUID.fromString(Constants.ARID_VALUE));
+        rpClaimsUserDetails.setArid(UUID.fromString(Constants.getAridValue()));
         claimsApiService.extractClaimsUserData(rpClaimsUserDetails);
     }
 
     public void getRpRequestedScopes() {
-        scopesService.getRpScopes(Constants.ARID_VALUE);
+        scopesService.getRpScopes(Constants.getAridValue());
     }
 
     public void updatePdsData() {

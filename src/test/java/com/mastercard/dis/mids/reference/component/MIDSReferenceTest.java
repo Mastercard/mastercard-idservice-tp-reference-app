@@ -107,7 +107,7 @@ class MIDSReferenceTest {
     void prepareTest() {
         ReflectionTestUtils.setField(midsReference, "sdkVersion", "2.3.0");
         midsReference.init();
-        Constants.ARID_VALUE = "7ec89f22-8b4c-44ad-80a5-088c87bd61df";
+        Constants.setAridValue("7ec89f22-8b4c-44ad-80a5-088c87bd61df");
         Cache.setFaceAndAttributePds("eyJldmlkZW5jZVBEUyI6IiIsImZhY2VQRFMiOiIiLCJhdHRyaWJ1dGVQRFMiOiIifQ==");
     }
 
