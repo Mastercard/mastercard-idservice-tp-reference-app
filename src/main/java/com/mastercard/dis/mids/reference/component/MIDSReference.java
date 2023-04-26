@@ -167,7 +167,8 @@ public class MIDSReference {
         multiDocumentVerificationService.documentVerificationMultiAccessSDKToken(multiDocumentVerificationToken);
     }
 
-    public void performEnrollment(boolean claimSharingFlow) {
+    public void performEnrollment() {
+
         callOtpFlows(Cache.pdsEnrollment);
     }
 

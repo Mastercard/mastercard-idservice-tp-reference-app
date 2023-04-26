@@ -79,7 +79,7 @@ public class MIDSReferenceApplication implements CommandLineRunner {
                 generateSDKToken();
                 break;
             case "3":
-                performEnrollment(false);
+                performEnrollment();
                 break;
             case "4":
                 generateMultiSDKToken();
@@ -151,11 +151,11 @@ public class MIDSReferenceApplication implements CommandLineRunner {
 
 
 
-     void performMultiDocEnrollment() {
+    synchronized void performMultiDocEnrollment() {
         try {
             log.info("<<--- MultiDocEnrollment Started --->>");
             Cache.pdsMultiDocument = midsReference.getPDS(false, Arrays.asList("facePDS", "attributePDS", "evidencePDS"));
-            System.out.println("Enter the workflowId multiDoc");
+            log.info("Enter the workflowId multiDoc");
             Constants.MULTI_DOCUMENT_WORKFLOW_ID = scanner.nextLine();
 
             midsReference.addMultiDoc();
@@ -210,40 +210,29 @@ public class MIDSReferenceApplication implements CommandLineRunner {
         }
     }
 
-    void performEnrollment(boolean claimSharingFlow) {
+    synchronized void performEnrollment( ) {
         try {
-            log.info(claimSharingFlow ? "<<--- Claim Sharing Enrollment Started --->>" : "<<--- Enrollment Started --->>");
+            log.info( "<<--- Enrollment Started --->>");
 
-            Cache.pdsEnrollment = midsReference.getPDS(claimSharingFlow, Collections.singletonList("attributePDS"));
+            Cache.pdsEnrollment = midsReference.getPDS(false, Collections.singletonList("attributePDS"));
 
-            CreatedSMSOtp smsOtp = midsReference.callCreateSmsOtpsApi(Cache.pdsEnrollment);
-            //Adding email address to the original PDS
-            CreatedEmailOtp emailOtp = midsReference.callCreateEmailOtpsApi(smsOtp.getPds());
+            enrollmentVerification();
 
-            System.out.println("Enter the Sms Code");
-            Constants.OTP_CODE  = scanner.nextLine();
-
-            System.out.println("Enter the Email Code");
-            Constants.EMAIL_CODE = scanner.nextLine();
-
-            midsReference.callSmsOtpVerificationsApi(smsOtp.getOtpId(), smsOtp.getPds());
-            midsReference.callEmailOtpVerificationsApi(emailOtp.getOtpId(), emailOtp.getPds());
-
-            log.info(claimSharingFlow ? "<<--- Claim Sharing Enrollment Successfully Ended --->>" : "<<--- Enrollment Successfully Ended --->>");
+            log.info("<<--- Enrollment Successfully Ended --->>");
         } catch (Exception e) {
             log.info(ERROR + e.getMessage());
-            log.info(claimSharingFlow ? "<<--- Claim Sharing Enrollment Failed Ended --->>" : "<<--- Enrollment Failed Ended --->>");
+            log.info( "<<--- Enrollment Failed Ended --->>");
         }
     }
 
-    void performReAuthentication() {
+    synchronized  void performReAuthentication() {
         try {
             log.info("<<--- ReAuthentication Started --->>");
             if(Cache.facePds== null){
                 Cache.facePds = midsReference.getPDS(false, Collections.singletonList("facePDS"));
             }
 
-            System.out.println("enter the workflow id reAuth");
+            log.info("enter the workflow id reAuth");
             Constants.WORKFLOW_ID_RE_AUTH = scanner.nextLine();
 
             midsReference.performReAuthentication();
@@ -265,27 +254,14 @@ public class MIDSReferenceApplication implements CommandLineRunner {
         }
     }
 
-    void performEnrollmentWithUpdateIdConfirmations() {
+    synchronized void performEnrollmentWithUpdateIdConfirmations() {
         try {
             log.info("<<--- Enrollment With Update Id Confirmations Started --->>");
 
            Cache.pdsEnrollment = midsReference.getPDS(false, Collections.singletonList("attributePDS"));
             midsReference.callUpdateIdConfirmationsApi();
 
-            CreatedSMSOtp smsOtp = midsReference.callCreateSmsOtpsApi(Cache.pdsEnrollment);
-            //Adding email address to the original PDS
-            CreatedEmailOtp emailOtp = midsReference.callCreateEmailOtpsApi(smsOtp.getPds());
-
-
-            System.out.println("Enter the Sms Code");
-            Constants.OTP_CODE = scanner.nextLine();
-
-            System.out.println("Enter the Email Code");
-             Constants.EMAIL_CODE = scanner.nextLine();
-
-            //Calling verifications Api for both sms and email, using a fix otp number, expected invalid response.
-            midsReference.callSmsOtpVerificationsApi(smsOtp.getOtpId(), smsOtp.getPds());
-            midsReference.callEmailOtpVerificationsApi(emailOtp.getOtpId(), emailOtp.getPds()); //
+            enrollmentVerification();
 
             log.info("<<--- Enrollment With Update Id Confirmations Successfully Ended --->>");
         } catch (Exception e) {
@@ -294,7 +270,7 @@ public class MIDSReferenceApplication implements CommandLineRunner {
         }
     }
 
-    void performReAuthenticationWithUpdateIdConfirmations() {
+    synchronized void performReAuthenticationWithUpdateIdConfirmations() {
         try {
             log.info("<<--- ReAuthentication With Update Id Confirmations Started --->>");
 
@@ -302,7 +278,7 @@ public class MIDSReferenceApplication implements CommandLineRunner {
                 Cache.facePds = midsReference.getPDS(false, Collections.singletonList("facePDS"));
             }
 
-            System.out.println("enter the workflow id reAuth");
+            log.info("enter the workflow id reAuth");
             Constants.WORKFLOW_ID_RE_AUTH = scanner.nextLine();
 
             midsReference.performReAuthenticationWithUpdateIdConfirmations();
@@ -375,11 +351,11 @@ public class MIDSReferenceApplication implements CommandLineRunner {
         }
     }
 
-    void performRPClaimsSharingEnrollment(boolean claimSharingFlow) {
+    synchronized void performRPClaimsSharingEnrollment(boolean claimSharingFlow) {
         try {
             log.info(claimSharingFlow ? "<<--- Claim Sharing Enrollment Started --->>" : "<<--- Enrollment Started --->>");
 
-            System.out.println("Enter the Arid value");
+            log.info("Enter the Arid value");
             Constants.ARID_VALUE = scanner.nextLine();
 
             if(Cache.faceAndAttributePds==null){
@@ -395,11 +371,11 @@ public class MIDSReferenceApplication implements CommandLineRunner {
         }
     }
 
-    void performRPClaimsSharingReAuthentication() {
+    synchronized void performRPClaimsSharingReAuthentication() {
         try {
             log.info("<<--- RPClaimsSharing ReAuthentication Started --->>");
 
-            System.out.println("Enter the Arid value");
+            log.info("Enter the Arid value");
             Constants.ARID_VALUE = scanner.nextLine();
 
             if(Cache.faceAndAttributePds==null){
@@ -414,10 +390,10 @@ public class MIDSReferenceApplication implements CommandLineRunner {
         }
     }
 
-    void getRpScopes() {
+    synchronized void getRpScopes() {
         try {
             log.info("<<--- RetrieveRpScopes Started --->>");
-            System.out.println("Enter the Arid value");
+            log.info("Enter the Arid value");
             Constants.ARID_VALUE = scanner.nextLine();
 
             midsReference.getRpRequestedScopes();
@@ -439,11 +415,11 @@ public class MIDSReferenceApplication implements CommandLineRunner {
         }
     }
 
-    void updateIdentityAttributes() {
+    synchronized void updateIdentityAttributes() {
         try {
             log.info("<<--- updateIdentityAttributes Started --->>");
             Cache.pdsMultiDocument = midsReference.getPDS(false, Arrays.asList("facePDS", "attributePDS", "evidencePDS"));
-            System.out.println("Enter the workflowId multiDoc");
+            log.info("Enter the workflowId multiDoc");
             Constants.MULTI_DOCUMENT_WORKFLOW_ID = scanner.nextLine();
             midsReference.updateIdentiyAttributes();
             log.info("<<--- updateIdentityAttributes Successfully Ended --->>");
@@ -454,13 +430,13 @@ public class MIDSReferenceApplication implements CommandLineRunner {
         }
     }
 
-    void performEmailOptions(boolean claimSharingFlow) {
+    synchronized void performEmailOptions(boolean claimSharingFlow) {
         try {
             log.info("<<--- performEmailOptions Started --->>");
             String pds = midsReference.getPDS(claimSharingFlow, Collections.singletonList("attributePDS"));
             CreatedEmailOtp emailOtp = midsReference.callCreateEmailOtpsApi(pds);
 
-            System.out.println("Enter the Email Code");
+            log.info("Enter the Email Code");
             Constants.EMAIL_CODE = scanner.nextLine();
 
             midsReference.callEmailOtpVerificationsApi(emailOtp.getOtpId(), emailOtp.getPds());
@@ -471,13 +447,13 @@ public class MIDSReferenceApplication implements CommandLineRunner {
         }
     }
 
-    void performSMSOptions(boolean claimSharingFlow) {
+    synchronized  void performSMSOptions(boolean claimSharingFlow) {
         try {
             log.info("<<--- performSMSOptions Started --->>");
             String pds = midsReference.getPDS(claimSharingFlow, Collections.singletonList("attributePDS"));
             CreatedSMSOtp smsOtp = midsReference.callCreateSmsOtpsApi(pds);
 
-            System.out.println("Enter the Sms Code");
+            log.info("Enter the Sms Code");
             Constants.OTP_CODE = scanner.nextLine();
 
             midsReference.callSmsOtpVerificationsApi(smsOtp.getOtpId(), smsOtp.getPds());
@@ -499,5 +475,22 @@ public class MIDSReferenceApplication implements CommandLineRunner {
             log.info("<<--- deleteIdentityAttribute Failed Ended --->>");
         }
     }
+
+    private synchronized void enrollmentVerification(){
+        CreatedSMSOtp smsOtp = midsReference.callCreateSmsOtpsApi(Cache.pdsEnrollment);
+        //Adding email address to the original PDS
+        CreatedEmailOtp emailOtp = midsReference.callCreateEmailOtpsApi(smsOtp.getPds());
+
+        log.info("Enter the Sms Code");
+        Constants.OTP_CODE = scanner.nextLine();
+
+        log.info("Enter the Email Code");
+        Constants.EMAIL_CODE = scanner.nextLine();
+
+        //Calling verifications Api for both sms and email, using a fix otp number, expected invalid response.
+        midsReference.callSmsOtpVerificationsApi(smsOtp.getOtpId(), smsOtp.getPds());
+        midsReference.callEmailOtpVerificationsApi(emailOtp.getOtpId(), emailOtp.getPds());
+    }
+
 
 }

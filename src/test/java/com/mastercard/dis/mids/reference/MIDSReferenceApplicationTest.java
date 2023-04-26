@@ -161,7 +161,7 @@ class MIDSReferenceApplicationTest {
 
         ReflectionTestUtils.setField(midsReferenceApplication, "scanner",scanner );
 
-        midsReferenceApplication.performEnrollment(false);
+        midsReferenceApplication.performEnrollment();
         verify(midsReference, times(1)).getPDS(false, Collections.singletonList("attributePDS"));
     }
 

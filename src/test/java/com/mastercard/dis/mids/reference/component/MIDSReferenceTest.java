@@ -144,7 +144,7 @@ class MIDSReferenceTest {
         doReturn(new CreatedSMSOtp()).when(smsOtpServiceMock).createSmsOtp(any());
         doReturn(new CreatedEmailOtp()).when(emailOtpServiceMock).createEmailOtp(any());
 
-        midsReference.performEnrollment(claimSharingFlow);
+        midsReference.performEnrollment();
 
         verify(smsOtpServiceMock, times(1)).createSmsOtp(any());
         verify(emailOtpServiceMock, times(1)).createEmailOtp(any());
