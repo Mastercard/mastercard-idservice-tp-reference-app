@@ -101,8 +101,12 @@ import java.util.Base64;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+
+import static com.mastercard.dis.mids.reference.constants.Constants.ATTRIBUTE_PDS;
 import static com.mastercard.dis.mids.reference.constants.Constants.EMAIL_CODE;
 import static com.mastercard.dis.mids.reference.constants.Constants.EMAIL_ID;
+import static com.mastercard.dis.mids.reference.constants.Constants.EVIDENCE_PDS;
+import static com.mastercard.dis.mids.reference.constants.Constants.FACE_PDS;
 import static com.mastercard.dis.mids.reference.constants.Constants.OTP_CODE;
 import static com.mastercard.dis.mids.reference.constants.Constants.USER_PROFILE_ID_VALUE;
 import static org.openapitools.client.model.UserConsent.ACCEPT;
@@ -112,9 +116,6 @@ import static org.openapitools.client.model.UserConsent.ACCEPT;
 @Slf4j
 public class MIDSReference {
 
-    private static final String ATTRIBUTE_PDS = "attributePDS";
-    private static final String FACE_PDS = "facePDS";
-    private static final String EVIDENCE_PDS = "evidencePDS";
     private static final String MINIMUM_SPLIT_SDK_VERSION = "2.3.0";
     public static final String ANDROID = "ANDROID";
 

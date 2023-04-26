@@ -95,6 +95,11 @@ public class Constants {
     public static final String ATTRIBUTE_ID = "868e9531-71e5-4bc9-a19d-d09fb4797dea";
     public static final String USER_SELECTED_COUNTRY = "USA";
 
+    // default values
+    public static final String ATTRIBUTE_PDS = "attributePDS";
+    public static final String FACE_PDS = "facePDS";
+    public static final String EVIDENCE_PDS = "evidencePDS";
+
 
     private Constants() {
     }
