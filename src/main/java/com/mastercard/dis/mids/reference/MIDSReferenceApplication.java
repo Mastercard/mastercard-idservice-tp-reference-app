@@ -159,7 +159,7 @@ public class MIDSReferenceApplication implements CommandLineRunner {
     synchronized void performMultiDocEnrollment() {
         try {
             log.info("<<--- MultiDocEnrollment Started --->>");
-            Cache.pdsMultiDocument = midsReference.getPDS(false, Arrays.asList(FACE_PDS, ATTRIBUTE_PDS, EVIDENCE_PDS));
+            Cache.setPdsMultiDocument(midsReference.getPDS(false, Arrays.asList(FACE_PDS, ATTRIBUTE_PDS, EVIDENCE_PDS)));
             log.info("Enter the workflowId multiDoc");
             Constants.MULTI_DOCUMENT_WORKFLOW_ID = scanner.nextLine();
 
@@ -218,9 +218,7 @@ public class MIDSReferenceApplication implements CommandLineRunner {
     synchronized void performEnrollment( ) {
         try {
             log.info( "<<--- Enrollment Started --->>");
-
-            Cache.pdsEnrollment = midsReference.getPDS(false, Collections.singletonList(ATTRIBUTE_PDS));
-
+            Cache.setPdsEnrollment(midsReference.getPDS(false, Collections.singletonList(ATTRIBUTE_PDS)));
             enrollmentVerification();
 
             log.info("<<--- Enrollment Successfully Ended --->>");
@@ -233,8 +231,8 @@ public class MIDSReferenceApplication implements CommandLineRunner {
     synchronized  void performReAuthentication() {
         try {
             log.info("<<--- ReAuthentication Started --->>");
-            if(Cache.facePds== null){
-                Cache.facePds = midsReference.getPDS(false, Collections.singletonList(FACE_PDS));
+            if(Cache.getFacePds()== null){
+                Cache.setFacePds(midsReference.getPDS(false, Collections.singletonList(FACE_PDS)));
             }
 
             log.info("enter the workflow id reAuth");
@@ -262,8 +260,7 @@ public class MIDSReferenceApplication implements CommandLineRunner {
     synchronized void performEnrollmentWithUpdateIdConfirmations() {
         try {
             log.info("<<--- Enrollment With Update Id Confirmations Started --->>");
-
-           Cache.pdsEnrollment = midsReference.getPDS(false, Collections.singletonList(ATTRIBUTE_PDS));
+            Cache.setPdsEnrollment(midsReference.getPDS(false, Collections.singletonList(ATTRIBUTE_PDS)));
             midsReference.callUpdateIdConfirmationsApi();
 
             enrollmentVerification();
@@ -279,8 +276,8 @@ public class MIDSReferenceApplication implements CommandLineRunner {
         try {
             log.info("<<--- ReAuthentication With Update Id Confirmations Started --->>");
 
-            if(Cache.facePds== null){
-                Cache.facePds = midsReference.getPDS(false, Collections.singletonList(FACE_PDS));
+            if(Cache.getFacePds()== null){
+                Cache.setFacePds(midsReference.getPDS(false, Collections.singletonList(FACE_PDS)));
             }
 
             log.info("enter the workflow id reAuth");
@@ -363,8 +360,8 @@ public class MIDSReferenceApplication implements CommandLineRunner {
             log.info(ARID_SENTENCE);
             Constants.ARID_VALUE = scanner.nextLine();
 
-            if(Cache.faceAndAttributePds==null){
-             Cache.faceAndAttributePds= midsReference.getPDS(true, Arrays.asList(ATTRIBUTE_PDS,FACE_PDS));
+            if(Cache.getFaceAndAttributePds()==null){
+             Cache.setFaceAndAttributePds(midsReference.getPDS(true, Arrays.asList(ATTRIBUTE_PDS,FACE_PDS)));
             }
 
             midsReference.enrollmentAndReAuthRPClaimsSharing();
@@ -383,8 +380,8 @@ public class MIDSReferenceApplication implements CommandLineRunner {
             log.info(ARID_SENTENCE);
             Constants.ARID_VALUE = scanner.nextLine();
 
-            if(Cache.faceAndAttributePds==null){
-                Cache.faceAndAttributePds= midsReference.getPDS(true, Arrays.asList(ATTRIBUTE_PDS,FACE_PDS));
+            if(Cache.getFaceAndAttributePds()==null){
+                Cache.setFaceAndAttributePds(midsReference.getPDS(true, Arrays.asList(ATTRIBUTE_PDS,FACE_PDS)));
             }
 
             midsReference.enrollmentAndReAuthRPClaimsSharing();
@@ -423,7 +420,7 @@ public class MIDSReferenceApplication implements CommandLineRunner {
     synchronized void updateIdentityAttributes() {
         try {
             log.info("<<--- updateIdentityAttributes Started --->>");
-            Cache.pdsMultiDocument = midsReference.getPDS(false, Arrays.asList(FACE_PDS, ATTRIBUTE_PDS, EVIDENCE_PDS));
+            Cache.setPdsMultiDocument(midsReference.getPDS(false, Arrays.asList(FACE_PDS, ATTRIBUTE_PDS, EVIDENCE_PDS)));
             log.info("Enter the workflowId multiDoc");
             Constants.MULTI_DOCUMENT_WORKFLOW_ID = scanner.nextLine();
             midsReference.updateIdentiyAttributes();
@@ -482,7 +479,7 @@ public class MIDSReferenceApplication implements CommandLineRunner {
     }
 
     private synchronized void enrollmentVerification(){
-        CreatedSMSOtp smsOtp = midsReference.callCreateSmsOtpsApi(Cache.pdsEnrollment);
+        CreatedSMSOtp smsOtp = midsReference.callCreateSmsOtpsApi(Cache.getPdsEnrollment());
         //Adding email address to the original PDS
         CreatedEmailOtp emailOtp = midsReference.callCreateEmailOtpsApi(smsOtp.getPds());
 

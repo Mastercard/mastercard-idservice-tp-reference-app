@@ -170,18 +170,18 @@ public class MIDSReference {
 
     public void performEnrollment() {
 
-        callOtpFlows(Cache.pdsEnrollment);
+        callOtpFlows(Cache.getPdsEnrollment());
     }
 
     public void performEnrollmentWithUpdateIdConfirmations() {
         callUpdateIdConfirmationsApi();
-        callOtpFlows(Cache.pdsEnrollment);
+        callOtpFlows(Cache.getPdsEnrollment());
     }
 
     public void performReAuthentication() {
-        callInitiateAuthenticationsApi(Cache.facePds);
-        callAuthenticationResultsApi(Cache.facePds);
-        callStrongerAuthenticationApi(Cache.facePds);
+        callInitiateAuthenticationsApi(Cache.getFacePds());
+        callAuthenticationResultsApi(Cache.getFacePds());
+        callStrongerAuthenticationApi(Cache.getFacePds());
     }
 
     public void performAuthenticationDecisions() {
@@ -190,8 +190,8 @@ public class MIDSReference {
     }
 
     public void performReAuthenticationWithUpdateIdConfirmations() {
-        callInitiateAuthenticationsApi(Cache.facePds);
-        callAuthenticationResultsApi(Cache.facePds);
+        callInitiateAuthenticationsApi(Cache.getFacePds());
+        callAuthenticationResultsApi(Cache.getFacePds());
         callUpdateIdConfirmationsApi();
     }
 
@@ -389,9 +389,9 @@ public class MIDSReference {
     }
 
     public MultiDocumentConfirmedPDS multiDocTasks() {
-        DocumentVerificationExtractedData multiDocumentVerificationExtractedData = callMultiDocumentDataRetrievalsApi(extractPds(Cache.pdsMultiDocument, Arrays.asList(FACE_PDS)));
+        DocumentVerificationExtractedData multiDocumentVerificationExtractedData = callMultiDocumentDataRetrievalsApi(extractPds(Cache.getPdsMultiDocument(), Arrays.asList(FACE_PDS)));
         DocumentVerificationConfirmData documentData = createDocumentVerificationConfirmData(multiDocumentVerificationExtractedData);
-        return callMultiDocumentDataConfirmationApi(documentData, extractPds(Cache.pdsMultiDocument, Arrays.asList(ATTRIBUTE_PDS, EVIDENCE_PDS)));
+        return callMultiDocumentDataConfirmationApi(documentData, extractPds(Cache.getPdsMultiDocument(), Arrays.asList(ATTRIBUTE_PDS, EVIDENCE_PDS)));
     }
 
     private MultiDocumentConfirmedPDS callMultiDocumentDataConfirmationApi(DocumentVerificationConfirmData documentVerificationConfirmDataDocumentData, String pds) {
@@ -417,8 +417,8 @@ public class MIDSReference {
 
     public void enrollmentAndReAuthRPClaimsSharing() {
         getRpRequestedScopes();
-        extractClaimsUserData(Cache.faceAndAttributePds);
-        getUserConsentStatus(Cache.faceAndAttributePds);
+        extractClaimsUserData(Cache.getFaceAndAttributePds());
+        getUserConsentStatus(Cache.getFaceAndAttributePds());
     }
 
     private void getUserConsentStatus(String pds) {

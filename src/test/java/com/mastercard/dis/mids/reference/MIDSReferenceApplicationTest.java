@@ -69,7 +69,7 @@ class MIDSReferenceApplicationTest {
 
     @BeforeEach
     void setUp(){
-        Cache.faceAndAttributePds = null;
+        Cache.setFaceAndAttributePds(null);
          pds = "eyJldmlkZW5jZVBEUyI6IiIsImZhY2VQRFMiOiIiLCJhdHRyaWJ1dGVQRFMiOiIifQ==";
     }
 
