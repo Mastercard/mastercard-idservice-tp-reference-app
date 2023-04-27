@@ -121,7 +121,10 @@ public class EncryptionDecryptionInterceptor extends BaseInterceptor implements 
                 log.info("Encrypted Payload received from server: {}", encryptedResponseStr);
                 JSONObject encryptedResponseJson = (JSONObject) JSONValue.parse(encryptedResponseStr);
                 if(signingKey == null){
-                    signingKey = AuthenticationUtils.loadSigningKey(decryptionKeystore.getURI().toString(), decryptionKeystoreAlias, decryptionKeystorePassword);
+                    String filePath = "src/main/resources/";
+                    String[] fileName = decryptionKeystore.getURI().toString().split("/");
+                    String finalFile = filePath+fileName[fileName.length-1];
+                    signingKey = AuthenticationUtils.loadSigningKey(finalFile, decryptionKeystoreAlias, decryptionKeystorePassword);
                 }
                 String decryptedPayload = EncryptionUtils.jweDecrypt(encryptedResponseJson.getAsString("encryptedData"), (RSAPrivateKey) signingKey);
 
