@@ -16,7 +16,6 @@ limitations under the License.
 
 package com.mastercard.dis.mids.reference.example;
 
-import com.mastercard.dis.mids.reference.constants.Constants;
 import com.mastercard.dis.mids.reference.constants.TpVariables;
 import com.mastercard.dis.mids.reference.util.FraudDetectionUtil;
 import lombok.AccessLevel;

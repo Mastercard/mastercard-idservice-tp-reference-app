@@ -17,7 +17,6 @@ limitations under the License.
 package com.mastercard.dis.mids.reference.service.impl;
 
 import com.mastercard.dis.mids.reference.config.ApiClientConfiguration;
-import com.mastercard.dis.mids.reference.constants.Constants;
 import com.mastercard.dis.mids.reference.constants.TpVariables;
 import com.mastercard.dis.mids.reference.exception.ExceptionUtil;
 import com.mastercard.dis.mids.reference.service.ReAuthenticationService;
