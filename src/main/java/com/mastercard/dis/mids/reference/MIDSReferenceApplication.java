@@ -159,7 +159,9 @@ public class MIDSReferenceApplication implements CommandLineRunner {
     synchronized void performMultiDocEnrollment() {
         try {
             log.info("<<--- MultiDocEnrollment Started --->>");
-            Cache.setPdsMultiDocument(midsReference.getPDS(false, Arrays.asList(FACE_PDS, ATTRIBUTE_PDS, EVIDENCE_PDS)));
+            if(Cache.getPdsMultiDocument()==null){
+                Cache.setPdsMultiDocument(midsReference.getPDS(false, Arrays.asList(FACE_PDS, ATTRIBUTE_PDS, EVIDENCE_PDS)));
+            }
             log.info("Enter the workflowId multiDoc");
             Constants.setMultiDocumentWorkflowId( scanner.nextLine());
 
@@ -218,7 +220,9 @@ public class MIDSReferenceApplication implements CommandLineRunner {
     synchronized void performEnrollment( ) {
         try {
             log.info( "<<--- Enrollment Started --->>");
-            Cache.setPdsEnrollment(midsReference.getPDS(false, Collections.singletonList(ATTRIBUTE_PDS)));
+            if(Cache.getPdsEnrollment()==null){
+                Cache.setPdsEnrollment(midsReference.getPDS(false, Collections.singletonList(ATTRIBUTE_PDS)));
+            }
             enrollmentVerification();
 
             log.info("<<--- Enrollment Successfully Ended --->>");
@@ -260,7 +264,9 @@ public class MIDSReferenceApplication implements CommandLineRunner {
     synchronized void performEnrollmentWithUpdateIdConfirmations() {
         try {
             log.info("<<--- Enrollment With Update Id Confirmations Started --->>");
-            Cache.setPdsEnrollment(midsReference.getPDS(false, Collections.singletonList(ATTRIBUTE_PDS)));
+            if(Cache.getPdsEnrollment()==null){
+                Cache.setPdsEnrollment(midsReference.getPDS(false, Collections.singletonList(ATTRIBUTE_PDS)));
+            }
             midsReference.callUpdateIdConfirmationsApi();
 
             enrollmentVerification();
@@ -420,7 +426,9 @@ public class MIDSReferenceApplication implements CommandLineRunner {
     synchronized void updateIdentityAttributes() {
         try {
             log.info("<<--- updateIdentityAttributes Started --->>");
-            Cache.setPdsMultiDocument(midsReference.getPDS(false, Arrays.asList(FACE_PDS, ATTRIBUTE_PDS, EVIDENCE_PDS)));
+            if(Cache.getPdsMultiDocument()==null){
+                Cache.setPdsMultiDocument(midsReference.getPDS(false, Arrays.asList(FACE_PDS, ATTRIBUTE_PDS, EVIDENCE_PDS)));
+            }
             log.info("Enter the workflowId multiDoc");
             Constants.setMultiDocumentWorkflowId(scanner.nextLine());
             midsReference.updateIdentiyAttributes();
