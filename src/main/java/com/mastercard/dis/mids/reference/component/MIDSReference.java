@@ -16,7 +16,6 @@ limitations under the License.
 package com.mastercard.dis.mids.reference.component;
 
 import com.mastercard.dis.mids.reference.constants.Cache;
-import com.mastercard.dis.mids.reference.constants.Constants;
 import com.mastercard.dis.mids.reference.constants.TpVariables;
 import com.mastercard.dis.mids.reference.example.AuditEventsTokenExample;
 import com.mastercard.dis.mids.reference.example.BackUpAndRestoreExample;
