@@ -1,7 +1,7 @@
 package com.mastercard.dis.mids.reference.component;
 
 import com.mastercard.dis.mids.reference.constants.Cache;
-import com.mastercard.dis.mids.reference.constants.Constants;
+import com.mastercard.dis.mids.reference.constants.TpVariables;
 import com.mastercard.dis.mids.reference.example.dto.MultiDocumentVerificationToken;
 import com.mastercard.dis.mids.reference.service.AuditEventsService;
 import com.mastercard.dis.mids.reference.service.ClaimsApiService;
@@ -107,7 +107,7 @@ class MIDSReferenceTest {
     void prepareTest() {
         ReflectionTestUtils.setField(midsReference, "sdkVersion", "2.3.0");
         midsReference.init();
-        Constants.setAridValue("7ec89f22-8b4c-44ad-80a5-088c87bd61df");
+        TpVariables.setAridValue("7ec89f22-8b4c-44ad-80a5-088c87bd61df");
         Cache.setFaceAndAttributePds("eyJldmlkZW5jZVBEUyI6IiIsImZhY2VQRFMiOiIiLCJhdHRyaWJ1dGVQRFMiOiIifQ==");
     }
 

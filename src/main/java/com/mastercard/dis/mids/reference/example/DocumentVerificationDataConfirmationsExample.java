@@ -17,6 +17,7 @@ limitations under the License.
 package com.mastercard.dis.mids.reference.example;
 
 import com.mastercard.dis.mids.reference.constants.Constants;
+import com.mastercard.dis.mids.reference.constants.TpVariables;
 import com.mastercard.dis.mids.reference.util.FraudDetectionUtil;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -41,7 +42,7 @@ public class DocumentVerificationDataConfirmationsExample {
         documentVerificationConfirmData.setFraudDetection(FraudDetectionUtil.getFraudDetection());
         // Only set for Claim Sharing flow.
         if (claimSharingFlow) {
-            documentVerificationConfirmData.setArid(UUID.fromString(Constants.getAridValue()));
+            documentVerificationConfirmData.setArid(UUID.fromString(TpVariables.getAridValue()));
         }
         //currently only Australian passports are supported for visa verification
         if (VISA_VERIFY_REQUIRED) {

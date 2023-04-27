@@ -44,4 +44,21 @@ public class Cache {
     public static void setPdsMultiDocument(String pdsMultiDocument) {
         Cache.pdsMultiDocument = pdsMultiDocument;
     }
+
+    public static boolean isFacePdsNull(){
+        return facePds == null;
+    }
+
+    public static boolean isFaceAndAttributePdsNull(){
+        return faceAndAttributePds == null;
+    }
+
+    public static boolean isPdsEnrollmentNull(){
+        return pdsEnrollment==null;
+    }
+
+    public static boolean isPdsMultiDocumentNull(){
+        return pdsMultiDocument==null;
+    }
+
 }

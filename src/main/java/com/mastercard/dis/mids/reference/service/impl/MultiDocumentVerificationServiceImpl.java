@@ -2,6 +2,7 @@ package com.mastercard.dis.mids.reference.service.impl;
 
 import com.mastercard.dis.mids.reference.config.ApiClientConfiguration;
 import com.mastercard.dis.mids.reference.constants.Constants;
+import com.mastercard.dis.mids.reference.constants.TpVariables;
 import com.mastercard.dis.mids.reference.example.dto.MultiDocumentVerificationToken;
 import com.mastercard.dis.mids.reference.exception.ExceptionUtil;
 import com.mastercard.dis.mids.reference.service.MultiDocumentVerificationService;
@@ -62,7 +63,7 @@ public class MultiDocumentVerificationServiceImpl implements MultiDocumentVerifi
         try {
             util.setupUserIdentityTokens();
             multiDocumentDataRetrieval.userProfileId(apiClientConfiguration.getUserProfileId())
-                    .workflowId(Constants.getMultiDocumentWorkflowId())
+                    .workflowId(TpVariables.getMultiDocumentWorkflowId())
                     .tpAuditMetadata(util.getTpAuditMetadata())
                     .userSelectedCountry(apiClientConfiguration.getSelectedUserCountry())
                     .pds(multiDocumentDataRetrieval.getPds());
@@ -79,7 +80,7 @@ public class MultiDocumentVerificationServiceImpl implements MultiDocumentVerifi
         try {
             util.setupUserIdentityTokens();
             multiDocConfirmData.setUserProfileId(apiClientConfiguration.getUserProfileId());
-            multiDocConfirmData.getDocumentData().setWorkflowId(Constants.getMultiDocumentWorkflowId());
+            multiDocConfirmData.getDocumentData().setWorkflowId(TpVariables.getMultiDocumentWorkflowId());
             multiDocConfirmData.setTpAuditMetadata(util.getTpAuditMetadata());
             FraudDetection fraudDetection = new FraudDetection();
             fraudDetection.setNuDetectMeta(util.createFraudDetectMeta());

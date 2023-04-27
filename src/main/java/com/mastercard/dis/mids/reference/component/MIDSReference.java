@@ -17,6 +17,7 @@ package com.mastercard.dis.mids.reference.component;
 
 import com.mastercard.dis.mids.reference.constants.Cache;
 import com.mastercard.dis.mids.reference.constants.Constants;
+import com.mastercard.dis.mids.reference.constants.TpVariables;
 import com.mastercard.dis.mids.reference.example.AuditEventsTokenExample;
 import com.mastercard.dis.mids.reference.example.BackUpAndRestoreExample;
 import com.mastercard.dis.mids.reference.example.ClaimsApiExample;
@@ -258,7 +259,7 @@ public class MIDSReference {
 
     public void callSmsOtpVerificationsApi(String otpId, String pds) {
         OtpVerification smsOtpVerification = SMSOTPExample.getSmsOtpVerificationObject();
-        smsOtpVerification.setCode(Constants.getOtpCode());
+        smsOtpVerification.setCode(TpVariables.getOtpCode());
         smsOtpVerification.setOtpId(otpId);
         smsOtpVerification.setPds(pds);
         smsOtpService.verifyOtp(smsOtpVerification);
@@ -268,7 +269,7 @@ public class MIDSReference {
         OtpVerification emailOtpVerification = EmailOtpExample.getEmailOtpVerificationObject();
         emailOtpVerification.setOtpId(otpId);
         emailOtpVerification.setPds(pds);
-       emailOtpVerification.setCode(Constants.getEmailCode());
+       emailOtpVerification.setCode(TpVariables.getEmailCode());
         emailOtpService.verifyEmailOtp(emailOtpVerification); // email
     }
 
@@ -428,12 +429,12 @@ public class MIDSReference {
     private void extractClaimsUserData(String pds) {
         RPClaimsUserDetails rpClaimsUserDetails = ClaimsApiExample.extractClaimsUserDataExample();
         rpClaimsUserDetails.setPds(pds);
-        rpClaimsUserDetails.setArid(UUID.fromString(Constants.getAridValue()));
+        rpClaimsUserDetails.setArid(UUID.fromString(TpVariables.getAridValue()));
         claimsApiService.extractClaimsUserData(rpClaimsUserDetails);
     }
 
     public void getRpRequestedScopes() {
-        scopesService.getRpScopes(Constants.getAridValue());
+        scopesService.getRpScopes(TpVariables.getAridValue());
     }
 
     public void updatePdsData() {

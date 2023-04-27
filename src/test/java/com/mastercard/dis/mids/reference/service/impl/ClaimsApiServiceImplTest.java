@@ -1,6 +1,6 @@
 package com.mastercard.dis.mids.reference.service.impl;
 
-import com.mastercard.dis.mids.reference.constants.Constants;
+import com.mastercard.dis.mids.reference.constants.TpVariables;
 import com.mastercard.dis.mids.reference.example.ClaimsApiExample;
 import com.mastercard.dis.mids.reference.exception.ExceptionUtil;
 import com.mastercard.dis.mids.reference.exception.ServiceException;
@@ -55,7 +55,7 @@ class ClaimsApiServiceImplTest {
     @Test
     void getUserConsentStatusTest_Exception() throws ApiException {
         ReflectionTestUtils.setField(claimsApiService, "claimsSharingApi", claimsSharingApi);
-        Constants.setAridValue("7ec89f22-8b4c-44ad-80a5-088c87bd61df");
+        TpVariables.setAridValue("7ec89f22-8b4c-44ad-80a5-088c87bd61df");
         RPClaimsUserConsent rpClaimsUserConsent = ClaimsApiExample.getUserConsentStatusExample();
         RPClaimsUserConsentData rpClaimsUserConsentData = new RPClaimsUserConsentData();
         rpClaimsUserConsentData.setPds("ZGZnZGVmZ2RnZGVnZXJnZXJncmRnZXJ5aGdld3J0eWJld3J5dHdleXd5d3l3cmFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFh");

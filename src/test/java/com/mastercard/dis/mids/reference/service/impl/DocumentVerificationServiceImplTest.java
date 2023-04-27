@@ -17,7 +17,7 @@ limitations under the License.
 package com.mastercard.dis.mids.reference.service.impl;
 
 import com.mastercard.dis.mids.reference.config.ApiClientConfiguration;
-import com.mastercard.dis.mids.reference.constants.Constants;
+import com.mastercard.dis.mids.reference.constants.TpVariables;
 import com.mastercard.dis.mids.reference.example.DocumentDataRetrievalExample;
 import com.mastercard.dis.mids.reference.example.DocumentVerificationTokenExample;
 import com.mastercard.dis.mids.reference.example.dto.DocumentVerificationToken;
@@ -112,7 +112,7 @@ class DocumentVerificationServiceImplTest {
         headers.put(X_MIDS_USERAUTH_SESSIONID, headersList);
         headers.put(X_USER_IDENTITY, headersList);
         SessionContext.create(X_USER_IDENTITY);
-        Constants.setAridValue("7ec89f22-8b4c-44ad-80a5-088c87bd61df");
+        TpVariables.setAridValue("7ec89f22-8b4c-44ad-80a5-088c87bd61df");
     }
 
     @Test
@@ -423,7 +423,7 @@ class DocumentVerificationServiceImplTest {
         documentVerificationConfirmData.setDocumentData(new ConfirmDocumentData());
         documentVerificationConfirmData.setFraudDetection(new FraudDetection());
         if (claimSharingFlow) {
-            documentVerificationConfirmData.setArid(UUID.fromString(Constants.getAridValue()));
+            documentVerificationConfirmData.setArid(UUID.fromString(TpVariables.getAridValue()));
         }
         if (verifyIfVisaMatched) {
             documentVerificationConfirmData.setVisaMatched(verifyIfVisaMatched);

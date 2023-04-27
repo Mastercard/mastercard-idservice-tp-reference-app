@@ -23,8 +23,6 @@ public class Constants {
     public static final String ACCEPT = "Accept";
     //attributes
     //Input Constants
-    private static  String MULTI_DOCUMENT_WORKFLOW_ID;
-    private static  String WORKFLOW_ID_RE_AUTH;
     public static final String USER_PROFILE_ID = "user profile id";
     public static final String USER_PROFILE_ID_VALUE = "bea70b33-aa30-430a-96f3-99ed04849e70";
     public static final String AUDIT_USER_PROFILE_ID = "bea70b33-aa30-430a-96f3-99ed04849e70";
@@ -34,8 +32,6 @@ public class Constants {
     public static final String PDS = "pds";
     public static final String LOCALE = "en-US";
     public static final String PRIVACY_POLICY_VERSION = "1.0.0";
-    private  static  String OTP_CODE ;
-    private  static  String EMAIL_CODE ;
     public static final String DATE_TIME = "2020-01-28T13:16:01.714-05:00";
     public static final String DEVICE_MAKE = "Samsung SM-G780G";
     public static final String LOG_EVENT = "ID Enrollment";
@@ -53,7 +49,6 @@ public class Constants {
     public static final String TP_RP_SCOPES_FIRST_NAME = "passport.firstName";
     public static final String TP_RP_SCOPES_DATE_OF_BIRTH = "passport.dateOfBirth";
     public static final String REDIRECT_URL = "http://redirecturl.com";
-    private static  String ARID_VALUE ;
     public static final String RELYING_PARTY_NAME = "RELYING_PARTY";
     //fraudDetection
     public static final String BEHAVIOUR_DATA = "ewogICJuZHMtcG1kIiA6ICJ7XCJmdnFcIjpcIjBONjROOVAzLVBPM1ItNDcyNi04MDBPLTNQMzM2Mzg2Tk5RT1wiLFwianZxdHJnUW5nblwiOntcInp2cXNpXCI6XCJRUTYzOTc5Ny1OUFAyLTQ0OVItOVA0MS04UTM0NDdOODU5UzdcIixcInpjdlwiOlwidmJmXCIsXCJ6b3pzXCI6XCJOY2N5clwiLFwiemZ6XCI6MTcxNzk4NjkxODQsXCJqeGVcIjo0OTcwLFwiem9vXCI6XCJOY2N5clwiLFwienVmXCI6W1wienZ6Z1wiXSxcInF2cWdtXCI6NDIwLFwidmNlXCI6XCJhcHZjLDAsNXM5bzg0MXAsMywxO2ZnLDAsYXF2Y2V2YWNoZzAsMCxhcXZjZXZhY2hnMSwwO3NzLDAsYXF2Y2V2YWNoZzA7eHEsc3A7eHEsNG47eHEsNW87eHEsNjY7eHEsMjUzO3hxLDg1O3hxLHBxO3hxLDM4O3hxLDVuO3hxLDcyO3hxLDU2O3hxLDUyO3hxLDJwO3NvLG45LGFxdmNldmFjaGcwO3NzLDEsYXF2Y2V2YWNoZzE7eHEsMTI1O3hxLDQwO3hxLG82O3hxLDRyO3hxLG87Z3IscXMsNzcsMjM0LGFxdmNlcGJhZ2VieTBcIixcInpjemlcIjoxMixcInpvelwiOlwidkN1YmFyXCIsXCJ6Y3p2aVwiOjIsXCJ6ZmZcIjo0OTk5NjMxNzQ5MTIsXCJ6dW9wZlwiOi0xLFwiem9jXCI6XCJ2Q3ViYXIgS8qAXCIsXCJ6dmh2XCI6XCJjdWJhclwiLFwiZmVcIjpcIjE3OTJrODI4XCIsXCJoblwiOlwiMi4yLjEzODA2NVwiLFwiemh5XCI6XCJIRlwifSxcImpnXCI6XCIxLmotNDUxNjgwLjEuMi56U0dVQk56cHZNeUFoQjBOR2h2ZlRqLCwuM3hCRWhxSGhKZFREb1ZYY0hjYXJOSDUzVWFFS2t2amxNVF9RQTl5dUlYcWUwbV9iX0k0WWtBWGExUExTVXJzS1R4c0NFWHB2bkJjNkpEajhNTzhGZFVXMEcyaE9BWXZDRWZ5NXRLOHdJdVN4MzBnZmszZDF0MWhnc2NJODdFTG9MVlozNi1BcjhhV0pFSjJ1Ungza3RJYW5teDktOExZZmZsMWlFbVhSd1pqQ3FaQTVVMUZ1dzYzUERKZ2lIYzFUendFVjN3ak8yZDBrbUZIWUJaZTAxd0hnajVKQThTM0R6Z3FydE9pN1d3Q0VqZldZMHFITXFGT1g1d2RBYkl5LVNmOGVkYXBaeHNxaTItc0N6ejhRN2osLFwifSIsCiAgInNpZCIgOiAiMEE2NEE5QzMtQ0IzRS00NzI2LTgwMEItM0MzMzYzODZBQURCIgp9";
@@ -104,43 +99,4 @@ public class Constants {
     private Constants() {
     }
 
-    public static String getMultiDocumentWorkflowId() {
-        return MULTI_DOCUMENT_WORKFLOW_ID;
-    }
-
-    public static void setMultiDocumentWorkflowId(String multiDocumentWorkflowId) {
-        MULTI_DOCUMENT_WORKFLOW_ID = multiDocumentWorkflowId;
-    }
-
-    public static String getWorkflowIdReAuth() {
-        return WORKFLOW_ID_RE_AUTH;
-    }
-
-    public static void setWorkflowIdReAuth(String workflowIdReAuth) {
-        WORKFLOW_ID_RE_AUTH = workflowIdReAuth;
-    }
-
-    public static String getOtpCode() {
-        return OTP_CODE;
-    }
-
-    public static void setOtpCode(String otpCode) {
-        OTP_CODE = otpCode;
-    }
-
-    public static String getEmailCode() {
-        return EMAIL_CODE;
-    }
-
-    public static void setEmailCode(String emailCode) {
-        EMAIL_CODE = emailCode;
-    }
-
-    public static String getAridValue() {
-        return ARID_VALUE;
-    }
-
-    public static void setAridValue(String aridValue) {
-        ARID_VALUE = aridValue;
-    }
 }
