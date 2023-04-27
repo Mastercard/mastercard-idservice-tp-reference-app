@@ -6,50 +6,50 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access= AccessLevel.PRIVATE)
 public class TpVariables {
 
-    private static  String OTP_CODE ;
-    private static  String EMAIL_CODE ;
-    private static  String MULTI_DOCUMENT_WORKFLOW_ID;
-    private static  String WORKFLOW_ID_RE_AUTH;
-    private static  String ARID_VALUE ;
+    private static  String otpCode;
+    private static  String emailCode;
+    private static  String multiDocumentWorkflowId;
+    private static  String workflowIdReAuth;
+    private static  String aridValue;
 
     public static String getOtpCode() {
-        return OTP_CODE;
+        return otpCode;
     }
 
     public static void setOtpCode(String otpCode) {
-        OTP_CODE = otpCode;
+        TpVariables.otpCode = otpCode;
     }
 
     public static String getEmailCode() {
-        return EMAIL_CODE;
+        return emailCode;
     }
 
     public static void setEmailCode(String emailCode) {
-        EMAIL_CODE = emailCode;
+        TpVariables.emailCode = emailCode;
     }
 
     public static String getMultiDocumentWorkflowId() {
-        return MULTI_DOCUMENT_WORKFLOW_ID;
+        return multiDocumentWorkflowId;
     }
 
     public static void setMultiDocumentWorkflowId(String multiDocumentWorkflowId) {
-        MULTI_DOCUMENT_WORKFLOW_ID = multiDocumentWorkflowId;
+        TpVariables.multiDocumentWorkflowId = multiDocumentWorkflowId;
     }
 
     public static String getWorkflowIdReAuth() {
-        return WORKFLOW_ID_RE_AUTH;
+        return workflowIdReAuth;
     }
 
     public static void setWorkflowIdReAuth(String workflowIdReAuth) {
-        WORKFLOW_ID_RE_AUTH = workflowIdReAuth;
+        TpVariables.workflowIdReAuth = workflowIdReAuth;
     }
 
     public static String getAridValue() {
-        return ARID_VALUE;
+        return aridValue;
     }
 
     public static void setAridValue(String aridValue) {
-        ARID_VALUE = aridValue;
+        TpVariables.aridValue = aridValue;
     }
 
 }
