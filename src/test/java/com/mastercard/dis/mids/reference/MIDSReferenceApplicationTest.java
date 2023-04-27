@@ -51,9 +51,7 @@ class MIDSReferenceApplicationTest {
         put("13", "13)   RP Activity Searches");
         put("14", "14)   Audit Events");
         put("15", "15)   Delete ID");
-        put("17", "17)   Additional Document Support");
         put("20", "20)   TP Data Shares");
-        put("21", "21)   Update Identity");
         put("22", "22)   Delete Identity Attribute");
         put("23", "23)   Authentication Decisions");
         put("24", "24)   Exit");
@@ -63,8 +61,10 @@ class MIDSReferenceApplicationTest {
         put("5", "5)   Access User Identity");
         put("7", "7)   Update ID Confirmations (Re-authentication)");
         put("16", "16)   Share User Identity (TP-RP) (Enrollment)");
+        put("17", "17)   Additional Document Support");
         put("18", "18)   Share User Identity (TP-RP) (Re-authentication)");
         put("19", "19)   TP Scopes");
+        put("21", "21)   Update Identity");
     }};
 
     @BeforeEach
@@ -106,7 +106,7 @@ class MIDSReferenceApplicationTest {
             midsReferenceApplication.handleOption(entry.getKey());
         }
 
-       Assertions.assertEquals(5,menuMapErrorTest.size());
+       Assertions.assertEquals(7,menuMapErrorTest.size());
     }
 
     @Test
@@ -152,8 +152,7 @@ class MIDSReferenceApplicationTest {
     void performEnrollment_test(){
         CreatedSMSOtp smsOtp = new CreatedSMSOtp();
         CreatedEmailOtp emailOtp = new CreatedEmailOtp();
-
-        doReturn(pds).when(midsReference).getPDS(false, Collections.singletonList("attributePDS"));
+        Cache.setPdsEnrollment(null);
 
         doReturn(smsOtp).when(midsReference).callCreateSmsOtpsApi(any());
         doReturn(emailOtp).when(midsReference).callCreateEmailOtpsApi(any());
@@ -162,7 +161,7 @@ class MIDSReferenceApplicationTest {
         ReflectionTestUtils.setField(midsReferenceApplication, "scanner",scanner );
 
         midsReferenceApplication.performEnrollment();
-        verify(midsReference, times(1)).getPDS(false, Collections.singletonList("attributePDS"));
+        verify(midsReference, times(1)).callCreateSmsOtpsApi(Cache.getPdsEnrollment());
     }
 
 
@@ -236,7 +235,8 @@ class MIDSReferenceApplicationTest {
 
     @Test
     void performMultiDocEnrollment(){
-        doReturn(pds).when(midsReference).getPDS(false, Arrays.asList("facePDS", "attributePDS", "evidencePDS"));
+       // doReturn(pds).when(midsReference).getPDS(false, Arrays.asList("facePDS", "attributePDS", "evidencePDS"));
+        Cache.setPdsMultiDocument(null);
         Scanner scanner =  new Scanner("e1b33934-6ff3-45b8-bcbf-c3a2f31c80c8");
         ReflectionTestUtils.setField(midsReferenceApplication, "scanner",scanner );
 
