@@ -16,7 +16,7 @@ limitations under the License.
 package com.mastercard.dis.mids.reference.component;
 
 import com.mastercard.dis.mids.reference.constants.Cache;
-import com.mastercard.dis.mids.reference.constants.Constants;
+import com.mastercard.dis.mids.reference.constants.TpVariables;
 import com.mastercard.dis.mids.reference.example.AuditEventsTokenExample;
 import com.mastercard.dis.mids.reference.example.BackUpAndRestoreExample;
 import com.mastercard.dis.mids.reference.example.ClaimsApiExample;
@@ -101,9 +101,11 @@ import java.util.Base64;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import static com.mastercard.dis.mids.reference.constants.Constants.EMAIL_CODE;
+
+import static com.mastercard.dis.mids.reference.constants.Constants.ATTRIBUTE_PDS;
 import static com.mastercard.dis.mids.reference.constants.Constants.EMAIL_ID;
-import static com.mastercard.dis.mids.reference.constants.Constants.OTP_CODE;
+import static com.mastercard.dis.mids.reference.constants.Constants.EVIDENCE_PDS;
+import static com.mastercard.dis.mids.reference.constants.Constants.FACE_PDS;
 import static com.mastercard.dis.mids.reference.constants.Constants.USER_PROFILE_ID_VALUE;
 import static org.openapitools.client.model.UserConsent.ACCEPT;
 
@@ -112,9 +114,6 @@ import static org.openapitools.client.model.UserConsent.ACCEPT;
 @Slf4j
 public class MIDSReference {
 
-    private static final String ATTRIBUTE_PDS = "attributePDS";
-    private static final String FACE_PDS = "facePDS";
-    private static final String EVIDENCE_PDS = "evidencePDS";
     private static final String MINIMUM_SPLIT_SDK_VERSION = "2.3.0";
     public static final String ANDROID = "ANDROID";
 
@@ -167,19 +166,20 @@ public class MIDSReference {
         multiDocumentVerificationService.documentVerificationMultiAccessSDKToken(multiDocumentVerificationToken);
     }
 
-    public void performEnrollment(boolean claimSharingFlow) {
-        callOtpFlows(Cache.pdsEnrollment);
+    public void performEnrollment() {
+
+        callOtpFlows(Cache.getPdsEnrollment());
     }
 
     public void performEnrollmentWithUpdateIdConfirmations() {
         callUpdateIdConfirmationsApi();
-        callOtpFlows(Cache.pdsEnrollment);
+        callOtpFlows(Cache.getPdsEnrollment());
     }
 
     public void performReAuthentication() {
-        callInitiateAuthenticationsApi(Cache.facePds);
-        callAuthenticationResultsApi(Cache.facePds);
-        callStrongerAuthenticationApi(Cache.facePds);
+        callInitiateAuthenticationsApi(Cache.getFacePds());
+        callAuthenticationResultsApi(Cache.getFacePds());
+        callStrongerAuthenticationApi(Cache.getFacePds());
     }
 
     public void performAuthenticationDecisions() {
@@ -188,8 +188,8 @@ public class MIDSReference {
     }
 
     public void performReAuthenticationWithUpdateIdConfirmations() {
-        callInitiateAuthenticationsApi(Cache.facePds);
-        callAuthenticationResultsApi(Cache.facePds);
+        callInitiateAuthenticationsApi(Cache.getFacePds());
+        callAuthenticationResultsApi(Cache.getFacePds());
         callUpdateIdConfirmationsApi();
     }
 
@@ -258,7 +258,7 @@ public class MIDSReference {
 
     public void callSmsOtpVerificationsApi(String otpId, String pds) {
         OtpVerification smsOtpVerification = SMSOTPExample.getSmsOtpVerificationObject();
-        smsOtpVerification.setCode(OTP_CODE);
+        smsOtpVerification.setCode(TpVariables.getOtpCode());
         smsOtpVerification.setOtpId(otpId);
         smsOtpVerification.setPds(pds);
         smsOtpService.verifyOtp(smsOtpVerification);
@@ -268,7 +268,7 @@ public class MIDSReference {
         OtpVerification emailOtpVerification = EmailOtpExample.getEmailOtpVerificationObject();
         emailOtpVerification.setOtpId(otpId);
         emailOtpVerification.setPds(pds);
-       emailOtpVerification.setCode(EMAIL_CODE);
+       emailOtpVerification.setCode(TpVariables.getEmailCode());
         emailOtpService.verifyEmailOtp(emailOtpVerification); // email
     }
 
@@ -387,9 +387,9 @@ public class MIDSReference {
     }
 
     public MultiDocumentConfirmedPDS multiDocTasks() {
-        DocumentVerificationExtractedData multiDocumentVerificationExtractedData = callMultiDocumentDataRetrievalsApi(extractPds(Cache.pdsMultiDocument, Arrays.asList(FACE_PDS)));
+        DocumentVerificationExtractedData multiDocumentVerificationExtractedData = callMultiDocumentDataRetrievalsApi(extractPds(Cache.getPdsMultiDocument(), Arrays.asList(FACE_PDS)));
         DocumentVerificationConfirmData documentData = createDocumentVerificationConfirmData(multiDocumentVerificationExtractedData);
-        return callMultiDocumentDataConfirmationApi(documentData, extractPds(Cache.pdsMultiDocument, Arrays.asList(ATTRIBUTE_PDS, EVIDENCE_PDS)));
+        return callMultiDocumentDataConfirmationApi(documentData, extractPds(Cache.getPdsMultiDocument(), Arrays.asList(ATTRIBUTE_PDS, EVIDENCE_PDS)));
     }
 
     private MultiDocumentConfirmedPDS callMultiDocumentDataConfirmationApi(DocumentVerificationConfirmData documentVerificationConfirmDataDocumentData, String pds) {
@@ -415,8 +415,8 @@ public class MIDSReference {
 
     public void enrollmentAndReAuthRPClaimsSharing() {
         getRpRequestedScopes();
-        extractClaimsUserData(Cache.faceAndAttributePds);
-        getUserConsentStatus(Cache.faceAndAttributePds);
+        extractClaimsUserData(Cache.getFaceAndAttributePds());
+        getUserConsentStatus(Cache.getFaceAndAttributePds());
     }
 
     private void getUserConsentStatus(String pds) {
@@ -428,12 +428,12 @@ public class MIDSReference {
     private void extractClaimsUserData(String pds) {
         RPClaimsUserDetails rpClaimsUserDetails = ClaimsApiExample.extractClaimsUserDataExample();
         rpClaimsUserDetails.setPds(pds);
-        rpClaimsUserDetails.setArid(UUID.fromString(Constants.ARID_VALUE));
+        rpClaimsUserDetails.setArid(UUID.fromString(TpVariables.getAridValue()));
         claimsApiService.extractClaimsUserData(rpClaimsUserDetails);
     }
 
     public void getRpRequestedScopes() {
-        scopesService.getRpScopes(Constants.ARID_VALUE);
+        scopesService.getRpScopes(TpVariables.getAridValue());
     }
 
     public void updatePdsData() {

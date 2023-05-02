@@ -1,7 +1,7 @@
 package com.mastercard.dis.mids.reference.component;
 
 import com.mastercard.dis.mids.reference.constants.Cache;
-import com.mastercard.dis.mids.reference.constants.Constants;
+import com.mastercard.dis.mids.reference.constants.TpVariables;
 import com.mastercard.dis.mids.reference.example.dto.MultiDocumentVerificationToken;
 import com.mastercard.dis.mids.reference.service.AuditEventsService;
 import com.mastercard.dis.mids.reference.service.ClaimsApiService;
@@ -107,8 +107,8 @@ class MIDSReferenceTest {
     void prepareTest() {
         ReflectionTestUtils.setField(midsReference, "sdkVersion", "2.3.0");
         midsReference.init();
-        Constants.ARID_VALUE = "7ec89f22-8b4c-44ad-80a5-088c87bd61df";
-        Cache.faceAndAttributePds = "eyJldmlkZW5jZVBEUyI6IiIsImZhY2VQRFMiOiIiLCJhdHRyaWJ1dGVQRFMiOiIifQ==";
+        TpVariables.setAridValue("7ec89f22-8b4c-44ad-80a5-088c87bd61df");
+        Cache.setFaceAndAttributePds("eyJldmlkZW5jZVBEUyI6IiIsImZhY2VQRFMiOiIiLCJhdHRyaWJ1dGVQRFMiOiIifQ==");
     }
 
     @Test
@@ -144,7 +144,7 @@ class MIDSReferenceTest {
         doReturn(new CreatedSMSOtp()).when(smsOtpServiceMock).createSmsOtp(any());
         doReturn(new CreatedEmailOtp()).when(emailOtpServiceMock).createEmailOtp(any());
 
-        midsReference.performEnrollment(claimSharingFlow);
+        midsReference.performEnrollment();
 
         verify(smsOtpServiceMock, times(1)).createSmsOtp(any());
         verify(emailOtpServiceMock, times(1)).createEmailOtp(any());

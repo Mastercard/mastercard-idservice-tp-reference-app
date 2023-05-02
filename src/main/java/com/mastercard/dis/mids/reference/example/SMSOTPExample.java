@@ -22,7 +22,6 @@ import org.openapitools.client.model.OtpVerification;
 import org.openapitools.client.model.SMSOtp;
 
 import static com.mastercard.dis.mids.reference.constants.Constants.COUNTRY_CODE;
-import static com.mastercard.dis.mids.reference.constants.Constants.OTP_CODE;
 import static org.openapitools.client.model.UserConsent.ACCEPT;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)

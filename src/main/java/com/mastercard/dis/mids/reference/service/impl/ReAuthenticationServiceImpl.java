@@ -17,6 +17,7 @@ limitations under the License.
 package com.mastercard.dis.mids.reference.service.impl;
 
 import com.mastercard.dis.mids.reference.config.ApiClientConfiguration;
+import com.mastercard.dis.mids.reference.constants.TpVariables;
 import com.mastercard.dis.mids.reference.exception.ExceptionUtil;
 import com.mastercard.dis.mids.reference.service.ReAuthenticationService;
 import lombok.extern.slf4j.Slf4j;
@@ -33,7 +34,6 @@ import org.openapitools.client.model.VerifyAuthenticationDecisions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import static com.mastercard.dis.mids.reference.constants.Constants.WORKFLOW_ID_RE_AUTH;
 
 
 @Slf4j
@@ -76,7 +76,7 @@ public class ReAuthenticationServiceImpl implements ReAuthenticationService {
     public AuthenticationResults authenticationResults(final VerifyAuthentication verifyAuthentication) {
         try {
             verifyAuthentication.setUserProfileId(apiClientConfiguration.getUserProfileId());
-            verifyAuthentication.setWorkflowId(WORKFLOW_ID_RE_AUTH);
+            verifyAuthentication.setWorkflowId(TpVariables.getWorkflowIdReAuth());
             verifyAuthentication.setTpAuditMetadata(getTpAuditMetadata());
             return reAuthenticationApi.getAuthenticationResults(verifyAuthentication);
         } catch (ApiException e) {
