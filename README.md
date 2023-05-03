@@ -40,7 +40,7 @@ For more information regarding the program, refer to [ID Service](https://idserv
 * IntelliJ IDEA (or any other IDE)
 * [Spring Boot 2.2+ up to 2.7.x](https://spring.io/projects/spring-boot)
 * [Apache Maven 3.3+](https://maven.apache.org/download.cgi)
-* [Java 8](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
+* [Java 8 or later is installed](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
 * Set up the `JAVA_HOME` environment variable to match the location of your Java installation
 
 ### Configuration <a name="configuration"></a>
@@ -62,7 +62,7 @@ For more information regarding the program, refer to [ID Service](https://idserv
     
     >**mastercard.api.keystore.password=** Password of your Keystore. Default keystore password for sandbox project is `keystorepassword`.
     
-    >**mastercard.user.selectedCountry=** Replace this country code as required.
+    >**mastercard.user.selectedCountry=** Replace this country code as required. Following ISO 3166-1 alpha-3 standard. Example: USA.
     
     >**mastercard.client.userProfileId=** This will be used by /user-profiles API to register a user profile using the given userProfileId. An error will be returned if the user profile already exists.
     
@@ -92,7 +92,7 @@ For more information regarding the program, refer to [ID Service](https://idserv
     
     >**server.port=** Application port.
     
-    >**mastercard.api.pds.update.conflict.attribute=** Replace this value with "FATHERS_NAME" or "MOTHERS_NAME" or "LEGAL_NAME".
+    >**mastercard.api.pds.update.conflict.attribute=** Replace this value with "FATHERS_NAME" or "MOTHERS_NAME" or "LEGAL_NAME". More information about it. Please search for IdentityAttributeItem at the mids-reference-app-spec.yaml file.
     
     >**mastercard.api.pds.update.conflict.attribute.value=** This name should be present in one of the scanned documents(Drivers License or Passport).
     
