@@ -6,12 +6,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
 ## [9.0] - 2023-05-03
 ### Updates
-- Receive inputs from the user doing the execution of the program SMS Code, Email Code, WorkflowID (Multi Doc) and WorkflowID (Re Auth).
-- Fixed the process to read the decrypt key file.
-- Keep in memory the pds value in order to avoid calling the same end-point at another option.
-
-### Removed
-- Remove from the application properties variables WorkflowID (Multi Doc) and WorkflowID (Re Auth).
+- Claim Sharing Improvements - Global Users
 
 ## [8.0] - 2022-08-22
 ### Updates
