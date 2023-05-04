@@ -75,6 +75,9 @@ public class ApiClientConfiguration {
     @Value("${mastercard.client.encryption.enable}")
     private boolean encryptionEnabled;
 
+    @Value("${api.session.token}")
+    private String sessionToken;
+
     private String clientId;
 
     private static final String ERROR_MSG_CONFIGURING_CLIENT = "Error occurred while configuring ApiClient";
@@ -99,6 +102,10 @@ public class ApiClientConfiguration {
             client.setDebugging(true);
             client.setReadTimeout(40000);
             client.addDefaultHeader(X_ENCRYPTED_HEADER, encryptionEnabled? Boolean.TRUE.toString() : Boolean.FALSE.toString());
+
+             if((!StringUtils.isBlank(sessionToken)) && (!sessionToken.contains("*")) ){
+                 client.addDefaultHeader("x-user-identity",sessionToken);
+             }
 
             return client.setHttpClient(client.getHttpClient()
                     .newBuilder()
