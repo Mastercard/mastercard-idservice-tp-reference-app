@@ -65,13 +65,9 @@ For more information regarding the program, refer to [ID Service](https://idserv
     >**mastercard.user.selectedCountry=** Replace this country code as required. Following ISO 3166-1 alpha-3 standard. Example: USA.
     
     >**mastercard.client.userProfileId=** This will be used by /user-profiles API to register a user profile using the given userProfileId. An error will be returned if the user profile already exists.
-    
-    >**mastercard.client.authentication.workflowId=** This workflowId is created during the authentication of the user, and it will be used by /authentication-results API to validate authentication in a subsequent call.
-    
+
     >**mastercard.client.enrollment.workflowId=** This workflowId is created by the identity verification provider during the enrollment of the user, and it will be used by other APIs to retrieve the extracted data of the document in a subsequent call.
-    
-    >**mastercard.client.multidoc.workflowId=** This is the workflow ID from the client for multidoc functionality.
-    
+
     >**mastercard.client.sessionId=** This sessionId is the tpAuditMetadata sessionId from the client.
     
     >**mastercard.client.transactionGroupId=** This is the tpAuditMetadata transactionGroupId from the client.
