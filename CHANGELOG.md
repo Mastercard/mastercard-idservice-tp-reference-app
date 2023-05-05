@@ -1,6 +1,6 @@
 # Changelog
 All notable changes to the Application should be documented in this file.
-Versioning will follow the values set for the main API [Mastercard ID for Trust Providers](https://developer.mastercard.com/mastercard-id-for-tp/documentation/).
+Versioning will follow the values set for the main API [Mastercard ID for Trust Providers](https://developer.mastercard.com/mastercard-id-for-tp/documentation/release-history/).
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
