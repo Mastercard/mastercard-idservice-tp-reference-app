@@ -4,7 +4,7 @@ Versioning will follow the values set for the main API [Mastercard ID for Trust 
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
-## [9.0] - 2023-05-03
+## [9.0] - 2023-01-05
 ### Updates
 - Claim Sharing Improvements - Global Users
 
