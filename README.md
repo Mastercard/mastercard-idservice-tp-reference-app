@@ -186,16 +186,6 @@ The main use cases in ID for Trust Providers Reference APIs are Personal Data St
 
 More details can be found [here](https://developer.mastercard.com/mastercard-id-for-tp/documentation/use-cases/).
 
-### Execute the Use-Cases <a name="execute-use-cases"></a>
-1. Run mvn clean install from the root of the project directory.
-2. There are two ways to execute the user cases :
-   1. Execute the test cases
-    - At the `src/test/java` which is the main root folder for all Junit tests of the application.
-    - Run the tests.
-   2. Select the menu options provided by the application
-    - Run ```mvn spring-boot:run``` command to run the application.
-    - Once the application is running, you should be able chose the options.
-
 ## API Reference <a name="api-reference"></a>
 
 - To develop a client application that consumes the ID for Trust Providers API with Spring Boot, refer to the  [ID for Trust Providers Reference](https://developer.mastercard.com/mastercard-id-for-tp/documentation/api-reference/).
