@@ -96,6 +96,11 @@ public class Constants {
     public static final String EVIDENCE_PDS = "evidencePDS";
     public static final String ARID_SENTENCE = "Enter the Arid value";
 
+    //Encryption
+    public static final String ENCRYPTION_ALGORITHM = "RSA-OAEP-256";
+    public static final String ENCRYPTION_METHOD = "A256GCM";
+
+
     private Constants() {
     }
 

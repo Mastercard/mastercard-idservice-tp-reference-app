@@ -23,8 +23,7 @@ import com.mastercard.developer.encryption.JweConfigBuilder;
 import com.mastercard.developer.encryption.jwe.JweHeader;
 import com.mastercard.developer.encryption.jwe.JweObject;
 import com.mastercard.developer.json.JsonEngine;
-import com.mastercard.dis.mids.reference.constants.EncryptionMethod;
-import com.mastercard.dis.mids.reference.constants.JweAlgorithm;
+import com.mastercard.dis.mids.reference.constants.Constants;
 import com.mastercard.dis.mids.reference.exception.ServiceException;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -67,9 +66,10 @@ public class EncryptionUtils {
     private static String encryptWithPublicKey(String plainData, String keyFingerPrint, String certificateFilePath) {
         // Encrypt the JWE with the RSA public key + specified AES CEK
         final JweHeader jweHeader = new JweHeader(
-                JweAlgorithm.RSA_OAEP_256.getValue(),
-                EncryptionMethod.A256GCM.getValue(),
-                keyFingerPrint, null);
+                Constants.ENCRYPTION_ALGORITHM,
+                Constants.ENCRYPTION_METHOD,
+                keyFingerPrint,
+                null);
 
         try {
             Certificate encCert = loadEncryptionCertificate(certificateFilePath);
