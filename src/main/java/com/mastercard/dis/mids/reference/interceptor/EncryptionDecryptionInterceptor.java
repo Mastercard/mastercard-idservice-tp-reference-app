@@ -157,10 +157,11 @@ public class EncryptionDecryptionInterceptor extends BaseInterceptor implements 
 
     private boolean isEncryptionRequired(Request request) {
         List<String> list = Arrays.asList(
-                "/idservice/access-tokens",
-                "/document-verifications/document-data-retrievals",
+                "/idservice/claims/user-consents",
+             //   "/idservice/access-tokens",
+               // "/document-verifications/document-data-retrievals",
                 "/idservice/document-verifications/document-data-confirmations",
-                "/idservice/multi-access-tokens",
+               // "/idservice/multi-access-tokens",
                 "/idservice/sms-otps",
                 "/idservice/email-otps",
                 "/idservice/sms-otp-verifications",
@@ -170,7 +171,7 @@ public class EncryptionDecryptionInterceptor extends BaseInterceptor implements 
 
     private boolean isDecryptionRequired(Request request) {
         List<String> list = Arrays.asList(
-                "/idservice/access-tokens",
+               // "/idservice/access-tokens",
                 "/idservice/document-verifications/document-data-retrievals",
                 "/idservice/initiate-authentications",
                 "/idservice/retrieve-rp-activities",

@@ -16,6 +16,7 @@ limitations under the License.
 
 package com.mastercard.dis.mids.reference.example;
 
+import com.mastercard.dis.mids.reference.constants.TpVariables;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.openapitools.client.model.AuditEventsItem;
@@ -31,7 +32,6 @@ import static com.mastercard.dis.mids.reference.constants.Constants.AUDIT;
 import static com.mastercard.dis.mids.reference.constants.Constants.AUDIT_EVENT;
 import static com.mastercard.dis.mids.reference.constants.Constants.AUDIT_EVENT_GENERATED_SOURCE;
 import static com.mastercard.dis.mids.reference.constants.Constants.AUDIT_EVENT_TYPE;
-import static com.mastercard.dis.mids.reference.constants.Constants.AUDIT_USER_PROFILE_ID;
 import static com.mastercard.dis.mids.reference.constants.Constants.COUNTRY_CODE;
 import static com.mastercard.dis.mids.reference.constants.Constants.DATE_TIME;
 import static com.mastercard.dis.mids.reference.constants.Constants.DEVICE_MAKE;
@@ -93,7 +93,7 @@ public class InitializeReAuthenticationExample {
         auditEventsItem.setSoftwareVersion(SOFTWARE_VERSION);
         auditEventsItem.setTransactionGroupId(TRANSACTION_GROUP_ID);
         auditEventsItem.setType(AUDIT);
-        auditEventsItem.setUserProfileId(AUDIT_USER_PROFILE_ID);
+        auditEventsItem.setUserProfileId(TpVariables.getUserProfileId());
         auditEventsItemList.add(auditEventsItem);
         return auditEventsItemList;
     }

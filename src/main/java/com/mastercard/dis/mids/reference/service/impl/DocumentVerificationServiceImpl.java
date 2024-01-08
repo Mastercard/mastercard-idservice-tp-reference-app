@@ -17,6 +17,7 @@ limitations under the License.
 package com.mastercard.dis.mids.reference.service.impl;
 
 import com.mastercard.dis.mids.reference.config.ApiClientConfiguration;
+import com.mastercard.dis.mids.reference.constants.TpVariables;
 import com.mastercard.dis.mids.reference.example.dto.DocumentVerificationToken;
 import com.mastercard.dis.mids.reference.exception.ExceptionUtil;
 import com.mastercard.dis.mids.reference.service.DocumentVerificationService;
@@ -65,7 +66,7 @@ public class DocumentVerificationServiceImpl implements DocumentVerificationServ
                     .countryCode(documentVerificationToken.getCountryCode())
                     .sdkVersion(documentVerificationToken.getSdkVersion())
                     .enrollmentOrigin(documentVerificationToken.getEnrollmentOrigin())
-                    .userProfileId(apiClientConfiguration.getUserProfileId());
+                    .userProfileId(TpVariables.getUserProfileId());
             return documentVerificationApi.getAccessToken(retrieveAccessToken);
         } catch (ApiException e) {
             throw exceptionUtil.logAndConvertToServiceException(e);
@@ -75,8 +76,8 @@ public class DocumentVerificationServiceImpl implements DocumentVerificationServ
     @Override
     public DocumentVerificationExtractedData retrieveDocument(DocumentDataRetrieval documentDataRetrieval) {
         try {
-            documentDataRetrieval.setUserProfileId(apiClientConfiguration.getUserProfileId());
-            documentDataRetrieval.setWorkflowId(apiClientConfiguration.getWorkflowId());
+            documentDataRetrieval.setUserProfileId(TpVariables.getUserProfileId());
+            documentDataRetrieval.setWorkflowId(TpVariables.getWorkflowId());
             documentDataRetrieval.setTpAuditMetadata(util.getTpAuditMetadata());
             documentDataRetrieval.setUserSelectedCountry(apiClientConfiguration.getSelectedUserCountry());
 
@@ -93,8 +94,8 @@ public class DocumentVerificationServiceImpl implements DocumentVerificationServ
     public ConfirmedPDS confirmDocumentData(DocumentVerificationConfirmData documentVerificationConfirmData) {
         try {
             util.setupUserIdentityTokens();
-            documentVerificationConfirmData.setUserProfileId(apiClientConfiguration.getUserProfileId());
-            documentVerificationConfirmData.getDocumentData().setWorkflowId(apiClientConfiguration.getWorkflowId());
+            documentVerificationConfirmData.setUserProfileId(TpVariables.getUserProfileId());
+            documentVerificationConfirmData.getDocumentData().setWorkflowId(TpVariables.getWorkflowId());
             documentVerificationConfirmData.setTpAuditMetadata(util.getTpAuditMetadata());
             FraudDetection fraudDetection = new FraudDetection();
             fraudDetection.setNuDetectMeta(util.createFraudDetectMeta());
@@ -111,8 +112,8 @@ public class DocumentVerificationServiceImpl implements DocumentVerificationServ
     public void updateIdConfirmations(DocumentIdConfirmation documentIdConfirmation) {
         try {
             util.setupUserIdentityTokens();
-            documentIdConfirmation.setUserProfileId(apiClientConfiguration.getUserProfileId());
-            documentIdConfirmation.setWorkflowId(apiClientConfiguration.getWorkflowId());
+            documentIdConfirmation.setUserProfileId(TpVariables.getUserProfileId());
+            documentIdConfirmation.setWorkflowId(TpVariables.getWorkflowId());
             documentIdConfirmation.setTpAuditMetadata(util.getTpAuditMetadata());
             documentVerificationApi.updateIdConfirmation(documentIdConfirmation, X_USER_IDENTITY);
         } catch (ApiException e) {

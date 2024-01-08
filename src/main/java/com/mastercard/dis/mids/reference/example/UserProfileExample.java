@@ -1,6 +1,7 @@
 package com.mastercard.dis.mids.reference.example;
 
 
+import com.mastercard.dis.mids.reference.constants.TpVariables;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.openapitools.client.model.IdentitySearch;
@@ -13,7 +14,6 @@ import java.util.Collections;
 import static com.mastercard.dis.mids.reference.constants.Constants.COUNTRY_CODE;
 import static com.mastercard.dis.mids.reference.constants.Constants.SESSION_ID;
 import static com.mastercard.dis.mids.reference.constants.Constants.TRANSACTION_GROUP_ID;
-import static com.mastercard.dis.mids.reference.constants.Constants.USER_PROFILE_ID_VALUE;
 import static org.openapitools.client.model.UserConsent.ACCEPT;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
@@ -28,7 +28,7 @@ public class UserProfileExample {
 
     public static UserProfile getUserProfile() {
         UserProfile userProfile = new UserProfile();
-        userProfile.setUserProfileId(USER_PROFILE_ID_VALUE);
+        userProfile.setUserProfileId(TpVariables.getUserProfileId());
         userProfile.setCountryCode(COUNTRY_CODE);
         userProfile.setSdkAuditEvents(new ArrayList<>());
         TpAuditMetadata tpAuditMetadata = new TpAuditMetadata();
@@ -37,6 +37,5 @@ public class UserProfileExample {
         userProfile.setTpAuditMetadata(tpAuditMetadata);
         return userProfile;
     }
-
 
 }

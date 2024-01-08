@@ -54,7 +54,7 @@ public class ReAuthenticationServiceImpl implements ReAuthenticationService {
     @Override
     public Authentications initiateAuthentication(final InitializeAuthentications initializeAuthentications) {
         try {
-            initializeAuthentications.setUserProfileId(apiClientConfiguration.getUserProfileId());
+            initializeAuthentications.setUserProfileId(TpVariables.getUserProfileId());
             initializeAuthentications.setTpAuditMetadata(getTpAuditMetadata());
             return reAuthenticationApi.initializeAuthentication(initializeAuthentications);
         } catch (ApiException e) {
@@ -65,7 +65,7 @@ public class ReAuthenticationServiceImpl implements ReAuthenticationService {
     @Override
     public AuthenticationDecisions initiateAuthenticationDecisions(String scanId, final VerifyAuthenticationDecisions verifyAuthenticationDecisions) {
         try {
-            verifyAuthenticationDecisions.setUserProfileId(apiClientConfiguration.getUserProfileId());
+            verifyAuthenticationDecisions.setUserProfileId(TpVariables.getUserProfileId());
             return reAuthenticationApi.authenticationdecisions(scanId, verifyAuthenticationDecisions);
         } catch (ApiException e) {
             throw exceptionUtil.logAndConvertToServiceException(e);
@@ -75,7 +75,7 @@ public class ReAuthenticationServiceImpl implements ReAuthenticationService {
     @Override
     public AuthenticationResults authenticationResults(final VerifyAuthentication verifyAuthentication) {
         try {
-            verifyAuthentication.setUserProfileId(apiClientConfiguration.getUserProfileId());
+            verifyAuthentication.setUserProfileId(TpVariables.getUserProfileId());
             verifyAuthentication.setWorkflowId(TpVariables.getWorkflowIdReAuth());
             verifyAuthentication.setTpAuditMetadata(getTpAuditMetadata());
             return reAuthenticationApi.getAuthenticationResults(verifyAuthentication);

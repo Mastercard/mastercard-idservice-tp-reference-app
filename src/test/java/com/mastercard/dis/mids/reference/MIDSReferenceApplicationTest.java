@@ -19,7 +19,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.anyString;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.spy;
@@ -91,21 +90,26 @@ class MIDSReferenceApplicationTest {
 
     @Test
     void console_handleOption_works() {
-        MIDSReferenceApplication spyMIDSReferenceApplication = spy(new MIDSReferenceApplication(null));
+        Scanner scanner;
         menuMapTest.put("99","Invalid option!");
         for (Map.Entry<String, String> entry : menuMapTest.entrySet()) {
-            spyMIDSReferenceApplication.handleOption(entry.getKey());
+            scanner =  new Scanner("a9e45d02-89c7-4f0a-9d3e-5333a0f64a65 \n 2d205aec-c7b5-4881-b4b1-000000000200 \n 2d205aec-c7b5-4881-b4b1-000000000200 \n 123456 \n 123456 ");
+            ReflectionTestUtils.setField(midsReferenceApplication, "scanner",scanner );
+            midsReferenceApplication.handleOption(entry.getKey());
         }
-        verify(spyMIDSReferenceApplication, times(menuMapTest.size())).handleOption(anyString());
+        Assertions.assertEquals(18,menuMapTest.size());
     }
 
     @Test
     void console_handleOption_works_prompt(){
-        ReflectionTestUtils.setField(midsReferenceApplication, "scanner",new Scanner("12345 \n 54321 "));
+
+        Scanner scanner;
         for (Map.Entry<String, String> entry : menuMapErrorTest.entrySet()) {
+             scanner =  new Scanner("a9e45d02-89c7-4f0a-9d3e-5333a0f64a65 \n 2d205aec-c7b5-4881-b4b1-000000000200 \n 2d205aec-c7b5-4881-b4b1-000000000200");
+            ReflectionTestUtils.setField(midsReferenceApplication, "scanner",scanner );
+
             midsReferenceApplication.handleOption(entry.getKey());
         }
-
        Assertions.assertEquals(7,menuMapErrorTest.size());
     }
 
@@ -114,8 +118,8 @@ class MIDSReferenceApplicationTest {
 
 
         doReturn(pds).when(midsReference).getPDS(false, Collections.singletonList("facePDS"));
-
-        ReflectionTestUtils.setField(midsReferenceApplication, "scanner",new Scanner("63d495cd-2575-453d-923d-598dc4fddcef"));
+        Scanner scanner =  new Scanner("a9e45d02-89c7-4f0a-9d3e-5333a0f64a65 \n 2d205aec-c7b5-4881-b4b1-000000000200 \n 2d205aec-c7b5-4881-b4b1-000000000200");
+        ReflectionTestUtils.setField(midsReferenceApplication, "scanner",scanner );
         midsReferenceApplication.performReAuthentication();
         verify(midsReference, times(1)).getPDS(false, Collections.singletonList("facePDS"));
     }
@@ -123,7 +127,8 @@ class MIDSReferenceApplicationTest {
     @Test
     void performReAuthenticationWithUpdateIdConfirmations_test(){
 
-        ReflectionTestUtils.setField(midsReferenceApplication, "scanner",new Scanner("63d495cd-2575-453d-923d-598dc4fddcef"));
+        Scanner scanner =  new Scanner("a9e45d02-89c7-4f0a-9d3e-5333a0f64a65 \n 2d205aec-c7b5-4881-b4b1-000000000200 \n 2d205aec-c7b5-4881-b4b1-000000000200");
+        ReflectionTestUtils.setField(midsReferenceApplication, "scanner",scanner );
         midsReferenceApplication.performReAuthenticationWithUpdateIdConfirmations();
 
         verify(midsReference, times(1)).performReAuthenticationWithUpdateIdConfirmations();
@@ -141,7 +146,7 @@ class MIDSReferenceApplicationTest {
 
         doReturn(smsOtp).when(midsReference).callCreateSmsOtpsApi(any());
         doReturn(emailOtp).when(midsReference).callCreateEmailOtpsApi(any());
-         Scanner scanner =  new Scanner("12345 \n 54321");
+         Scanner scanner =  new Scanner("a9e45d02-89c7-4f0a-9d3e-5333a0f64a65 \n 2d205aec-c7b5-4881-b4b1-000000000200 \n 12345 \n 54321");
         ReflectionTestUtils.setField(midsReferenceApplication, "scanner",scanner );
 
         midsReferenceApplication.performEnrollmentWithUpdateIdConfirmations();
@@ -156,7 +161,7 @@ class MIDSReferenceApplicationTest {
 
         doReturn(smsOtp).when(midsReference).callCreateSmsOtpsApi(any());
         doReturn(emailOtp).when(midsReference).callCreateEmailOtpsApi(any());
-        Scanner scanner =  new Scanner("12345 \n 54321");
+        Scanner scanner = new Scanner("a9e45d02-89c7-4f0a-9d3e-5333a0f64a65 \n 2d205aec-c7b5-4881-b4b1-000000000200 \n 12345 \n 54321");
 
         ReflectionTestUtils.setField(midsReferenceApplication, "scanner",scanner );
 
@@ -171,7 +176,7 @@ class MIDSReferenceApplicationTest {
          CreatedEmailOtp emailOtp = new CreatedEmailOtp();
          doReturn(emailOtp).when(midsReference).callCreateEmailOtpsApi(any());
 
-         Scanner scanner =  new Scanner("12345");
+         Scanner scanner =  new Scanner("a9e45d02-89c7-4f0a-9d3e-5333a0f64a65 \n 2d205aec-c7b5-4881-b4b1-000000000200 \n 54321");
          ReflectionTestUtils.setField(midsReferenceApplication, "scanner",scanner );
          midsReferenceApplication.performEmailOptions(false);
          verify(midsReference, times(1)).getPDS(false, Collections.singletonList("attributePDS"));
@@ -183,7 +188,7 @@ class MIDSReferenceApplicationTest {
          CreatedSMSOtp smsOtp = new CreatedSMSOtp();
          doReturn(smsOtp).when(midsReference).callCreateSmsOtpsApi(any());
 
-         Scanner scanner =  new Scanner("54321");
+         Scanner scanner =  new Scanner("a9e45d02-89c7-4f0a-9d3e-5333a0f64a65 \n 2d205aec-c7b5-4881-b4b1-000000000200 \n 54321");
          ReflectionTestUtils.setField(midsReferenceApplication, "scanner",scanner );
          midsReferenceApplication.performSMSOptions(false);
          verify(midsReference, times(1)).getPDS(false, Collections.singletonList("attributePDS"));
@@ -194,7 +199,7 @@ class MIDSReferenceApplicationTest {
          doReturn(pds).when(midsReference).getPDS(false, Arrays.asList("facePDS", "attributePDS", "evidencePDS"));
          doNothing().when(midsReference).updateIdentiyAttributes();
 
-         Scanner scanner =  new Scanner("e1b33934-6ff3-45b8-bcbf-c3a2f31c80c8");
+         Scanner scanner =  new Scanner("a9e45d02-89c7-4f0a-9d3e-5333a0f64a65  \n 2d205aec-c7b5-4881-b4b1-000000000200 \n e1b33934-6ff3-45b8-bcbf-c3a2f31c80c8");
          ReflectionTestUtils.setField(midsReferenceApplication, "scanner",scanner );
          midsReferenceApplication.updateIdentityAttributes();
          verify(midsReference, times(1)).getPDS(false, Arrays.asList("facePDS", "attributePDS", "evidencePDS"));
@@ -214,7 +219,7 @@ class MIDSReferenceApplicationTest {
 
     @Test
     void performRPClaimsSharingReAuthentication_test(){
-        Scanner scanner =  new Scanner("7ec89f22-8b4c-44ad-80a5-088c87bd61df");
+        Scanner scanner =  new Scanner("a9e45d02-89c7-4f0a-9d3e-5333a0f64a65  \n 2d205aec-c7b5-4881-b4b1-000000000200 \n 7ec89f22-8b4c-44ad-80a5-088c87bd61df");
         ReflectionTestUtils.setField(midsReferenceApplication, "scanner",scanner );
         doNothing().when(midsReference).enrollmentAndReAuthRPClaimsSharing();
 
@@ -224,7 +229,7 @@ class MIDSReferenceApplicationTest {
 
     @Test
      void performRPClaimsSharingEnrollment_test(){
-        Scanner scanner =  new Scanner("7ec89f22-8b4c-44ad-80a5-088c87bd61df");
+        Scanner scanner =  new Scanner("a9e45d02-89c7-4f0a-9d3e-5333a0f64a65  \n 2d205aec-c7b5-4881-b4b1-000000000200 \n 7ec89f22-8b4c-44ad-80a5-088c87bd61df");
         ReflectionTestUtils.setField(midsReferenceApplication, "scanner",scanner );
         doReturn(pds).when(midsReference).getPDS(true, Arrays.asList("attributePDS","facePDS"));
         doNothing().when(midsReference).enrollmentAndReAuthRPClaimsSharing();
@@ -237,7 +242,7 @@ class MIDSReferenceApplicationTest {
     void performMultiDocEnrollment(){
        // doReturn(pds).when(midsReference).getPDS(false, Arrays.asList("facePDS", "attributePDS", "evidencePDS"));
         Cache.setPdsMultiDocument(null);
-        Scanner scanner =  new Scanner("e1b33934-6ff3-45b8-bcbf-c3a2f31c80c8");
+        Scanner scanner =  new Scanner("a9e45d02-89c7-4f0a-9d3e-5333a0f64a65  \n 2d205aec-c7b5-4881-b4b1-000000000200 \n  e1b33934-6ff3-45b8-bcbf-c3a2f31c80c8");
         ReflectionTestUtils.setField(midsReferenceApplication, "scanner",scanner );
 
         doNothing().when(midsReference).addMultiDoc();
@@ -249,6 +254,9 @@ class MIDSReferenceApplicationTest {
     @Test
     void  deleteIdentityAttribute_test(){
 
+        Scanner scanner =  new Scanner("a9e45d02-89c7-4f0a-9d3e-5333a0f64a65 \n 2d205aec-c7b5-4881-b4b1-000000000200");
+        ReflectionTestUtils.setField(midsReferenceApplication, "scanner",scanner );
+
         doNothing().when(midsReference).deleteIdentityAttribute();
         midsReferenceApplication.deleteIdentityAttribute();
         verify(midsReference,times(1)).deleteIdentityAttribute();
@@ -256,6 +264,9 @@ class MIDSReferenceApplicationTest {
 
     @Test
     void performTpDataShares_test(){
+        Scanner scanner =  new Scanner("a9e45d02-89c7-4f0a-9d3e-5333a0f64a65 \n 2d205aec-c7b5-4881-b4b1-000000000200");
+        ReflectionTestUtils.setField(midsReferenceApplication, "scanner",scanner );
+
         doNothing().when(midsReference).updatePdsData();
         midsReferenceApplication.performTpDataShares();
         verify(midsReference,times(1)).updatePdsData();
@@ -264,6 +275,9 @@ class MIDSReferenceApplicationTest {
     @Test
     void retrieveUserActivities_test(){
         doNothing().when(midsReference).retrieveUserActivities();
+        Scanner scanner =  new Scanner("a9e45d02-89c7-4f0a-9d3e-5333a0f64a65 \n 2d205aec-c7b5-4881-b4b1-000000000200");
+        ReflectionTestUtils.setField(midsReferenceApplication, "scanner",scanner );
+
         midsReferenceApplication.retrieveUserActivities();
         verify(midsReference,times(1)).retrieveUserActivities();
     }
@@ -271,6 +285,9 @@ class MIDSReferenceApplicationTest {
     @Test
     void performDeletion_test(){
         doNothing().when(midsReference).performDeletion();
+        Scanner scanner =  new Scanner("a9e45d02-89c7-4f0a-9d3e-5333a0f64a65");
+        ReflectionTestUtils.setField(midsReferenceApplication, "scanner",scanner );
+
         midsReferenceApplication.performDeletion();
         verify(midsReference,times(1)).performDeletion();
     }
@@ -278,6 +295,9 @@ class MIDSReferenceApplicationTest {
     @Test
     void performAuditEvents_test(){
         doNothing().when(midsReference).performAuditEvents();
+        Scanner scanner =  new Scanner("a9e45d02-89c7-4f0a-9d3e-5333a0f64a65");
+        ReflectionTestUtils.setField(midsReferenceApplication, "scanner",scanner );
+
         midsReferenceApplication.performAuditEvents();
         verify(midsReference,times(1)).performAuditEvents();
     }
@@ -285,12 +305,17 @@ class MIDSReferenceApplicationTest {
     @Test
     void  performActivitySearch_test(){
         doNothing().when(midsReference).performRPActivitySearch();
+        Scanner scanner =  new Scanner("a9e45d02-89c7-4f0a-9d3e-5333a0f64a65 \n 2d205aec-c7b5-4881-b4b1-000000000200");
+        ReflectionTestUtils.setField(midsReferenceApplication, "scanner",scanner );
+
         midsReferenceApplication.performActivitySearch();
         verify(midsReference,times(1)).performRPActivitySearch();
     }
 
     @Test
     void performTpRpClaims_test(){
+        Scanner scanner =  new Scanner("a9e45d02-89c7-4f0a-9d3e-5333a0f64a65 \n 2d205aec-c7b5-4881-b4b1-000000000200");
+        ReflectionTestUtils.setField(midsReferenceApplication, "scanner",scanner );
          midsReferenceApplication.performTpRpClaims();
         verify(midsReference,times(1)).performTpRpClaimSharing();
     }
@@ -298,6 +323,9 @@ class MIDSReferenceApplicationTest {
     @Test
     void performAuthenticationDecisions_test(){
         doNothing().when(midsReference).performAuthenticationDecisions();
+        Scanner scanner =  new Scanner("a9e45d02-89c7-4f0a-9d3e-5333a0f64a65 \n 2d205aec-c7b5-4881-b4b1-000000000200");
+        ReflectionTestUtils.setField(midsReferenceApplication, "scanner",scanner );
+
         midsReferenceApplication.performAuthenticationDecisions();
         verify(midsReference,times(1)).performAuthenticationDecisions();
     }
@@ -305,6 +333,9 @@ class MIDSReferenceApplicationTest {
     @Test
     void generateMultiSDKToken_test(){
         doNothing().when(midsReference).generateMultiToken();
+        Scanner scanner =  new Scanner("a9e45d02-89c7-4f0a-9d3e-5333a0f64a65 \n 2d205aec-c7b5-4881-b4b1-000000000200");
+        ReflectionTestUtils.setField(midsReferenceApplication, "scanner",scanner );
+
         midsReferenceApplication.generateMultiSDKToken();
         verify(midsReference,times(1)).generateMultiToken();
     }
@@ -312,6 +343,9 @@ class MIDSReferenceApplicationTest {
     @Test
     void generateSDKToken_test(){
         doNothing().when(midsReference).generateToken();
+        Scanner scanner =  new Scanner("a9e45d02-89c7-4f0a-9d3e-5333a0f64a65");
+        ReflectionTestUtils.setField(midsReferenceApplication, "scanner",scanner );
+
         midsReferenceApplication.generateSDKToken();
         verify(midsReference,times(1)).generateToken();
     }
@@ -319,6 +353,9 @@ class MIDSReferenceApplicationTest {
     @Test
    void retrieveIdentities_test(){
         doNothing().when(midsReference).callRetrieveIdentities();
+        Scanner scanner =  new Scanner("a9e45d02-89c7-4f0a-9d3e-5333a0f64a65 \n 2d205aec-c7b5-4881-b4b1-000000000200");
+        ReflectionTestUtils.setField(midsReferenceApplication, "scanner",scanner );
+
         midsReferenceApplication.retrieveIdentities();
         verify(midsReference,times(1)).callRetrieveIdentities();
    }
@@ -326,6 +363,8 @@ class MIDSReferenceApplicationTest {
    @Test
     void userProfileRegistration_test(){
        doNothing().when(midsReference).callUserProfileRegistration();
+       Scanner scanner =  new Scanner("a9e45d02-89c7-4f0a-9d3e-5333a0f64a65");
+       ReflectionTestUtils.setField(midsReferenceApplication, "scanner",scanner );
        midsReferenceApplication.userProfileRegistration();
        verify(midsReference,times(1)).callUserProfileRegistration();
     }

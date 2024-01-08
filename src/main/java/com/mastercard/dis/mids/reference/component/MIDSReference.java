@@ -106,7 +106,6 @@ import static com.mastercard.dis.mids.reference.constants.Constants.ATTRIBUTE_PD
 import static com.mastercard.dis.mids.reference.constants.Constants.EMAIL_ID;
 import static com.mastercard.dis.mids.reference.constants.Constants.EVIDENCE_PDS;
 import static com.mastercard.dis.mids.reference.constants.Constants.FACE_PDS;
-import static com.mastercard.dis.mids.reference.constants.Constants.USER_PROFILE_ID_VALUE;
 import static org.openapitools.client.model.UserConsent.ACCEPT;
 
 @Component
@@ -140,12 +139,6 @@ public class MIDSReference {
 
     @Value("${mastercard.api.pds.update.conflict.attribute.value}")
     private String conflictAttributeValue;
-
-    @Value("${mastercard.client.userProfileId}")
-    private String userProfileId;
-
-    @Value("${mastercard.api.scanID}")
-    private String scanID;
 
     private ComparableVersion minSDKSplitPDSComparableVersion;
 
@@ -184,7 +177,7 @@ public class MIDSReference {
 
     public void performAuthenticationDecisions() {
         String pds = getPDS(false, Collections.singletonList(ATTRIBUTE_PDS));
-        callverifyAuthenticationDecissionsApi(scanID, pds);
+        callverifyAuthenticationDecissionsApi(TpVariables.getWorkflowId(), pds);
     }
 
     public void performReAuthenticationWithUpdateIdConfirmations() {
@@ -225,7 +218,7 @@ public class MIDSReference {
 
     public void performDeletion() {
         String userConsent = "ACCEPT";
-        userProfileService.userProfileDelete(USER_PROFILE_ID_VALUE, userConsent);
+        userProfileService.userProfileDelete(TpVariables.getUserProfileId(), userConsent);
     }
 
     private void callCreateRPActivitySearch(String pds) {
@@ -442,7 +435,7 @@ public class MIDSReference {
         Email email = new Email();
         email.setValue(EMAIL_ID);
         tpDataShare.setEmail(email);
-        tpDataShare.setUserProfileId(userProfileId);
+        tpDataShare.setUserProfileId(TpVariables.getUserProfileId());
         tpDataShare.setUserConsent(ACCEPT);
         tpDataSharesService.updatePdsData(tpDataShare);
     }

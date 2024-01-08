@@ -24,8 +24,6 @@ public class Constants {
     //attributes
     //Input Constants
     public static final String USER_PROFILE_ID = "user profile id";
-    public static final String USER_PROFILE_ID_VALUE = "bea70b33-aa30-430a-96f3-99ed04849e70";
-    public static final String AUDIT_USER_PROFILE_ID = "bea70b33-aa30-430a-96f3-99ed04849e70";
     public static final String COUNTRY_CODE = "AU";
     public static final String ENROLLMENT_ORIGIN_VALUE = "RETAIL";
     public static final String SDK_VERSION = "1.0.0";
@@ -40,7 +38,7 @@ public class Constants {
     public static final String OS_VERSION = "Android 5.0";
     public static final String SOFTWARE_VERSION = "1.0.0";
     public static final String TRANSACTION_GROUP_ID = "28eae1aa-6744-433e-879d-7da48d63e89a";
-    public static final String TRANSACTION_GROUP_ID_META_DATA = "be3ad617-04ad-43e1-a438-79425b6511b6";
+
     public static final String AUDIT = "audit";
     public static final String AUDIT_EVENT = "Document Scan";
     public static final String AUDIT_EVENT_TYPE = "Enrollment";
@@ -48,8 +46,7 @@ public class Constants {
     public static final String TP = "TP";
     public static final String TP_RP_SCOPES_FIRST_NAME = "passport.firstName";
     public static final String TP_RP_SCOPES_DATE_OF_BIRTH = "passport.dateOfBirth";
-    public static final String REDIRECT_URL = "http://redirecturl.com";
-    public static final String RELYING_PARTY_NAME = "RELYING_PARTY";
+
     //fraudDetection
     public static final String BEHAVIOUR_DATA = "ewogICJuZHMtcG1kIiA6ICJ7XCJmdnFcIjpcIjBONjROOVAzLVBPM1ItNDcyNi04MDBPLTNQMzM2Mzg2Tk5RT1wiLFwianZxdHJnUW5nblwiOntcInp2cXNpXCI6XCJRUTYzOTc5Ny1OUFAyLTQ0OVItOVA0MS04UTM0NDdOODU5UzdcIixcInpjdlwiOlwidmJmXCIsXCJ6b3pzXCI6XCJOY2N5clwiLFwiemZ6XCI6MTcxNzk4NjkxODQsXCJqeGVcIjo0OTcwLFwiem9vXCI6XCJOY2N5clwiLFwienVmXCI6W1wienZ6Z1wiXSxcInF2cWdtXCI6NDIwLFwidmNlXCI6XCJhcHZjLDAsNXM5bzg0MXAsMywxO2ZnLDAsYXF2Y2V2YWNoZzAsMCxhcXZjZXZhY2hnMSwwO3NzLDAsYXF2Y2V2YWNoZzA7eHEsc3A7eHEsNG47eHEsNW87eHEsNjY7eHEsMjUzO3hxLDg1O3hxLHBxO3hxLDM4O3hxLDVuO3hxLDcyO3hxLDU2O3hxLDUyO3hxLDJwO3NvLG45LGFxdmNldmFjaGcwO3NzLDEsYXF2Y2V2YWNoZzE7eHEsMTI1O3hxLDQwO3hxLG82O3hxLDRyO3hxLG87Z3IscXMsNzcsMjM0LGFxdmNlcGJhZ2VieTBcIixcInpjemlcIjoxMixcInpvelwiOlwidkN1YmFyXCIsXCJ6Y3p2aVwiOjIsXCJ6ZmZcIjo0OTk5NjMxNzQ5MTIsXCJ6dW9wZlwiOi0xLFwiem9jXCI6XCJ2Q3ViYXIgS8qAXCIsXCJ6dmh2XCI6XCJjdWJhclwiLFwiZmVcIjpcIjE3OTJrODI4XCIsXCJoblwiOlwiMi4yLjEzODA2NVwiLFwiemh5XCI6XCJIRlwifSxcImpnXCI6XCIxLmotNDUxNjgwLjEuMi56U0dVQk56cHZNeUFoQjBOR2h2ZlRqLCwuM3hCRWhxSGhKZFREb1ZYY0hjYXJOSDUzVWFFS2t2amxNVF9RQTl5dUlYcWUwbV9iX0k0WWtBWGExUExTVXJzS1R4c0NFWHB2bkJjNkpEajhNTzhGZFVXMEcyaE9BWXZDRWZ5NXRLOHdJdVN4MzBnZmszZDF0MWhnc2NJODdFTG9MVlozNi1BcjhhV0pFSjJ1Ungza3RJYW5teDktOExZZmZsMWlFbVhSd1pqQ3FaQTVVMUZ1dzYzUERKZ2lIYzFUendFVjN3ak8yZDBrbUZIWUJaZTAxd0hnajVKQThTM0R6Z3FydE9pN1d3Q0VqZldZMHFITXFGT1g1d2RBYkl5LVNmOGVkYXBaeHNxaTItc0N6ejhRN2osLFwifSIsCiAgInNpZCIgOiAiMEE2NEE5QzMtQ0IzRS00NzI2LTgwMEItM0MzMzYzODZBQURCIgp9";
     public static final String REMOTE_IP = "127.0.0.1";
@@ -72,29 +69,20 @@ public class Constants {
     public static final String EMAIL_ID ="example@email.com";
 
     //Fraud signals
-    public static final String ORIGINATED_SYSTEM = "RiskManager";
-    public static final String ORIGINATED_SOURCE = "RISKCENTER";
-    public static final String ORIGINATED_SYSTEM_TRANSACTION_ID = "cc3f61fa-22bc-4c7e-879c-ee74507d0b14";
-    public static final String SCORE_BAND = "YELLOW";
-    public static final Integer SCORE_VALUE= 35;
-    public static final String IP_ADDRESS = "127.0.0.1";
-    public static final String DOCUMENT_ID = "D-id-123";
     public static final String NAME = "John Doe";
-    public static final String DOB = "2000-01-01";
-    public static final String NATIONAL_ID= "N-id-123";
-    public static final String PHONE_NUMBER = "123456789";
-    public static final String ADDRESS = "123 Second Street";
-    public static final String N_DEVICE_ID = "0630fd7c-3e89-4a1c-9271-d1e264386318";
 
     //Input test Constants
     public static final String ATTRIBUTE_ID = "868e9531-71e5-4bc9-a19d-d09fb4797dea";
-    public static final String USER_SELECTED_COUNTRY = "USA";
 
     // default values
     public static final String ATTRIBUTE_PDS = "attributePDS";
     public static final String FACE_PDS = "facePDS";
     public static final String EVIDENCE_PDS = "evidencePDS";
     public static final String ARID_SENTENCE = "Enter the Arid value";
+    public static final String PROFILE_ID_SENTENCE = "Enter the User Profile Id";
+    public static final String WORKFLOW_ID_SENTENCE =  "Enter the Workflow Id";
+    public static final String WORKFLOW_ID_MULTI_SENTENCE =  "Enter the Workflow Id MultiDoc";
+    public static final String WORKFLOW_ID_REAUTH_SENTENCE =  "Enter the Workflow Id ReAuth";
 
     private Constants() {
     }

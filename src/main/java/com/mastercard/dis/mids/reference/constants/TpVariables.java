@@ -11,6 +11,8 @@ public class TpVariables {
     private static  String multiDocumentWorkflowId;
     private static  String workflowIdReAuth;
     private static  String aridValue;
+    private static  String userProfileId;
+    private static  String workflowId;
 
     public static String getOtpCode() {
         return otpCode;
@@ -52,4 +54,19 @@ public class TpVariables {
         TpVariables.aridValue = aridValue;
     }
 
+    public static String getUserProfileId() {
+        return userProfileId;
+    }
+
+    public static void setUserProfileId(String userProfileId) {
+        TpVariables.userProfileId = userProfileId;
+    }
+
+    public static String getWorkflowId() {
+        return workflowId;
+    }
+
+    public static void setWorkflowId(String workflowId) {
+        TpVariables.workflowId = workflowId;
+    }
 }

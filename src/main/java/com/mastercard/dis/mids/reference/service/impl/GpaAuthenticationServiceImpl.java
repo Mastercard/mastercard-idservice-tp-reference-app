@@ -2,6 +2,7 @@ package com.mastercard.dis.mids.reference.service.impl;
 
 
 import com.mastercard.dis.mids.reference.config.ApiClientConfiguration;
+import com.mastercard.dis.mids.reference.constants.TpVariables;
 import com.mastercard.dis.mids.reference.exception.ExceptionUtil;
 import com.mastercard.dis.mids.reference.service.GpaAuthenticationService;
 import lombok.extern.slf4j.Slf4j;
@@ -32,7 +33,7 @@ public class GpaAuthenticationServiceImpl implements GpaAuthenticationService {
     @Override
     public Authentications initPremiumAuthentications(final InitPremiumAuthentications initPremiumAuthentications) {
         try {
-            initPremiumAuthentications.setUserProfileId(apiClientConfiguration.getUserProfileId());
+            initPremiumAuthentications.setUserProfileId(TpVariables.getUserProfileId());
             initPremiumAuthentications.setTpAuditMetadata(getTpAuditMetadata());
             return gpaAuthenticationApi.initiateStrongerAuthentication(initPremiumAuthentications);
         } catch (ApiException e) {

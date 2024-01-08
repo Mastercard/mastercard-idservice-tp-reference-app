@@ -56,12 +56,6 @@ public class ApiClientConfiguration {
     @Value("${mastercard.api.key.file}")
     private Resource keyFile;
 
-    @Value("${mastercard.client.userProfileId}")
-    private String userProfileId;
-
-    @Value("${mastercard.client.enrollment.workflowId}")
-    private String workflowId;
-
     @Value("${mastercard.client.sessionId}")
     private String sessionId;
 
@@ -118,14 +112,6 @@ public class ApiClientConfiguration {
             log.error(ERROR_MSG_CONFIGURING_CLIENT, e);
             throw new ServiceException(ERROR_MSG_CONFIGURING_CLIENT);
         }
-    }
-
-    public String getUserProfileId() {
-        return userProfileId;
-    }
-
-    public String getWorkflowId() {
-        return workflowId;
     }
 
     public String getSessionId() {
