@@ -33,12 +33,12 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
 import javax.annotation.Nonnull;
-
+import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.security.PrivateKey;
 import java.security.interfaces.RSAPrivateKey;
-import java.util.Arrays;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 @Slf4j
@@ -70,6 +70,10 @@ public class EncryptionDecryptionInterceptor extends BaseInterceptor implements 
     private boolean isDecryptionEnable;
 
     private static PrivateKey signingKey;
+
+    private final Map<String,Boolean> encryptionRequiredEndpoints = new HashMap<>();
+
+    private final Map<String,Boolean> decryptionRequiredEndpoints = new HashMap<>();
 
     @Nonnull
     @Override
@@ -156,29 +160,35 @@ public class EncryptionDecryptionInterceptor extends BaseInterceptor implements 
     }
 
     private boolean isEncryptionRequired(Request request) {
-        List<String> list = Arrays.asList(
-                "/idservice/claims/user-consents",
-             //   "/idservice/access-tokens",
-               // "/document-verifications/document-data-retrievals",
-                "/idservice/document-verifications/document-data-confirmations",
-               // "/idservice/multi-access-tokens",
-                "/idservice/sms-otps",
-                "/idservice/email-otps",
-                "/idservice/sms-otp-verifications",
-                "/idservice/email-otp-verifications");
-        return list.stream().anyMatch(entry -> request.url().uri().getPath().contains(entry));
+        return encryptionRequiredEndpoints.getOrDefault(request.url().uri().getPath(),false);
     }
 
     private boolean isDecryptionRequired(Request request) {
-        List<String> list = Arrays.asList(
-               // "/idservice/access-tokens",
-                "/idservice/document-verifications/document-data-retrievals",
-                "/idservice/initiate-authentications",
-                "/idservice/retrieve-rp-activities",
-                "/idservice/retrieve-user-account-activities",
-                "/idservice/user-profiles/retrieve-identities",
-                "/idservice/tprp-claims");
-        return list.stream().anyMatch(entry -> request.url().uri().getPath().contains(entry));
+        return decryptionRequiredEndpoints.getOrDefault(request.url().uri().getPath(),false);
     }
+
+    @PostConstruct
+    private void  initEncryptionRequiredEndpointsAndDecryptionRequired(){
+
+        encryptionRequiredEndpoints.put("/idservice/claims/user-consents",true);
+        encryptionRequiredEndpoints.put("/idservice/document-verifications/document-data-confirmations",true);
+        encryptionRequiredEndpoints.put("/idservice/sms-otps",true);
+        encryptionRequiredEndpoints.put("/idservice/email-otps",true);
+        encryptionRequiredEndpoints.put("/idservice/sms-otp-verifications",true);
+        encryptionRequiredEndpoints.put("/idservice/email-otp-verifications",true);
+
+        encryptionRequiredEndpoints.put("/idservice/access-tokens",false);
+        encryptionRequiredEndpoints.put("/document-verifications/document-data-retrievals",false);
+        encryptionRequiredEndpoints.put("/idservice/multi-access-tokens",false);
+
+        decryptionRequiredEndpoints.put("/idservice/document-verifications/document-data-retrievals",true);
+        decryptionRequiredEndpoints.put("/idservice/initiate-authentications",true);
+        decryptionRequiredEndpoints.put("/idservice/retrieve-rp-activities",true);
+        decryptionRequiredEndpoints.put("/idservice/user-profiles/retrieve-identities",true);
+        decryptionRequiredEndpoints.put("/idservice/tprp-claims",true);
+
+        decryptionRequiredEndpoints.put("/idservice/access-tokens",false);
+    }
+
 
 }
