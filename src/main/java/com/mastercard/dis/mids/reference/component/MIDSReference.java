@@ -114,7 +114,6 @@ import static org.openapitools.client.model.UserConsent.ACCEPT;
 public class MIDSReference {
 
     private static final String MINIMUM_SPLIT_SDK_VERSION = "2.3.0";
-    public static final String ANDROID = "ANDROID";
 
     private final EmailOtpService emailOtpService;
     private final SMSOTPService smsOtpService;
