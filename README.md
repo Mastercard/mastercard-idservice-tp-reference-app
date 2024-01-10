@@ -136,16 +136,10 @@ See also:
 #### Generating The API Client Sources <a name="generating-the-api-client-sources"></a>
 Now that you have all the required dependencies, you can generate the sources. To do this, use one of the following methods:
 
-* **Using IDE**<br/>
-  In IntelliJ IDEA (or any other IDE of your choice), open the Maven menu. Click the icons `Reimport All Maven Projects` and `Generate Sources and Update Folders for All Projects`.
-
 * **Using Terminal or CMD**<br/>
   Navigate to the project's root directory within a terminal window and execute the `mvn clean compile` command.
 
 ### Running the Project <a name="running-the-project"></a>
-
-* **Using IDE**<br/>
-  Navigate to the `com.mastercard.dis.mids.reference` package and right-click to run `MIDSReferenceApplication`
 
 * **Using Terminal or CMD**<br/>
   Navigate to the project's root directory within a terminal window and execute the `mvn spring-boot:run` command.
