@@ -141,10 +141,6 @@ Now that you have all the required dependencies, you can generate the sources. T
 
 ### Running the Project <a name="running-the-project"></a>
 
-* **VM Parameter for country selection**<br/>
-  Pass VM Options for `userSelectedCountry`. `USA` set as default.<br/>
-  Example: `-DuserSelectedCountry=BRA`
-
 * **Using Terminal or CMD**<br/>
   Navigate to the project's root directory within a terminal window and execute the `mvn spring-boot:run` command.
 
