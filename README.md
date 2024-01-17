@@ -136,20 +136,10 @@ See also:
 #### Generating The API Client Sources <a name="generating-the-api-client-sources"></a>
 Now that you have all the required dependencies, you can generate the sources. To do this, use one of the following methods:
 
-* **Using IDE**<br/>
-  In IntelliJ IDEA (or any other IDE of your choice), open the Maven menu. Click the icons `Reimport All Maven Projects` and `Generate Sources and Update Folders for All Projects`.
-
 * **Using Terminal or CMD**<br/>
   Navigate to the project's root directory within a terminal window and execute the `mvn clean compile` command.
 
 ### Running the Project <a name="running-the-project"></a>
-
-* **VM Parameter for country selection**<br/>
-  Pass VM Options for `userSelectedCountry`. `USA` set as default.<br/>
-  Example: `-DuserSelectedCountry=BRA`
-
-* **Using IDE**<br/>
-  Navigate to the `com.mastercard.dis.mids.reference` package and right-click to run `MIDSReferenceApplication`
 
 * **Using Terminal or CMD**<br/>
   Navigate to the project's root directory within a terminal window and execute the `mvn spring-boot:run` command.
@@ -185,16 +175,6 @@ Now that you have all the required dependencies, you can generate the sources. T
 The main use cases in ID for Trust Providers Reference APIs are Personal Data Storage, SMS One Time Password, Email One Time Password, Document Verification, Multi Document Verification, Re-Authentication, GPA-Authentication, Claims Sharing, Audit Events, User Profile, Delete ID, TP Scopes Request and Fraud Data.
 
 More details can be found [here](https://developer.mastercard.com/mastercard-id-for-tp/documentation/use-cases/).
-
-### Execute the Use-Cases <a name="execute-use-cases"></a>
-1. Run mvn clean install from the root of the project directory.
-2. There are two ways to execute the user cases :
-   1. Execute the test cases
-    - At the `src/test/java` which is the main root folder for all Junit tests of the application.
-    - Run the tests.
-   2. Select the menu options provided by the application
-    - Run ```mvn spring-boot:run``` command to run the application.
-    - Once the application is running, you should be able chose the options.
 
 ## API Reference <a name="api-reference"></a>
 
