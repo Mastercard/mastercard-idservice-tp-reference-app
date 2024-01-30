@@ -54,31 +54,23 @@ For more information regarding the program, refer to [ID Service](https://idserv
 
     **Authentication**
 
-    >**mastercard.api.key.file=classpath:** Path to keystore (.p12) file, just change the name as per the downloaded file in step 5 and set value as "classpath:your-Mastercard_ID_Service_MTF-sandbox.p12"
+    >**mastercard.api.key.file=classpath:** Copy .p12 file in src/main/resources and set this property's value as classpath:Mastercard_ID_Service_MTF-sandbox.p12
     
-    >**mastercard.api.consumer.key=** This refers to your consumer key. Copy it from the "Keys" section on your project page in [Mastercard Developers](https://developer.mastercard.com/dashboard).
+    >**mastercard.api.consumer.key=** This refers to your consumer key. Copy this from "Sandbox/Production Keys" section on your project page in [Mastercard Developers](https://developer.mastercard.com/dashboard).
     
-    >**mastercard.api.keystore.alias=** Alias of your key. Default key alias for sandbox is `keyalias`.
+    >**mastercard.api.keystore.alias=** Your key alias. Default key alias for sandbox is `keyalias`.
     
-    >**mastercard.api.keystore.password=** Password of your Keystore. Default keystore password for sandbox project is `keystorepassword`.
+    >**mastercard.api.keystore.password=** Your keystore password. Default keystore password for sandbox project is `keystorepassword`.
     
-    >**mastercard.user.selectedCountry=** Replace this country code as required. Following ISO 3166-1 alpha-3 standard. Example: USA.
+    >**api.session.token=** Replace this value with X-user-identity obtained for the user profileID
     
-    >**mastercard.client.userProfileId=** This will be used by /user-profiles API to register a user profile using the given userProfileId. An error will be returned if the user profile already exists.
-
-    >**mastercard.client.enrollment.workflowId=** This workflowId is created by the identity verification provider during the enrollment of the user, and it will be used by other APIs to retrieve the extracted data of the document in a subsequent call.
-
-    >**mastercard.client.sessionId=** This sessionId is the tpAuditMetadata sessionId from the client.
-    
-    >**mastercard.client.transactionGroupId=** This is the tpAuditMetadata transactionGroupId from the client.
-
     **Encryption**
     
     >**mastercard.api.encryption.certificateFile=classpath:** Copy your downloaded certificate (.pem) file to src/main/resources and set value as "classpath:your-mastercard-ID-ServiceClientEnc.pem"
     
     >**mastercard.api.encryption.fingerPrint=** Fingerprint, copy this from the "Client Encryption Keys" section on your project page in [Mastercard Developers](https://developer.mastercard.com/dashboard).
 
-   **Decryption**
+    **Decryption**
     
     >**mastercard.api.decryption.keystore=classpath:** Copy your downloaded .p12 file to src/main/resources and set value as "classpath:keyalias-encryption-mc.p12"
     
@@ -86,15 +78,27 @@ For more information regarding the program, refer to [ID Service](https://idserv
     
     >**mastercard.api.decryption.keystore.password=** Password of your Keystore. Default keystore password for sandbox project is `keystorepassword`.
     
-    >**server.port=** Application port.
+    **Client PDS Data**
     
-    >**mastercard.api.pds.update.conflict.attribute=** Replace this value with "FATHERS_NAME" or "MOTHERS_NAME" or "LEGAL_NAME". More information about it. Please search for IdentityAttributeItem at the mids-reference-app-spec.yaml file.
+    >**mastercard.api.pds.update.conflict.attribute=** For testing purpose you can replace this value with "FATHERS_NAME", "MOTHERS_NAME" or "LEGAL_NAME". More information about it. Please search for IdentityAttributeItem at the mids-reference-app-spec.yaml file.
     
-    >**mastercard.api.pds.update.conflict.attribute.value=** This name should be present in one of the scanned documents(Drivers License or Passport).
+    >**mastercard.api.pds.update.conflict.attribute.value=** For testing purpose you can replace this value with the name present in one of the scanned documents(Drivers License or Passport).
     
-    >**mastercard.api.scanID=** Replace this value with updated value.
+    **Claim Sharing Properties**
     
-    >**api.session.token=** Replace this value with X-user-identity obtained for the user profileID.
+    >**mastercard.user.selectedCountry=** Replace this country code as required. Following ISO 3166-1 alpha-3 standard. Example: USA, AUS, BRA.
+    
+    >**mastercard.client.userProfileId=** Replace this with the user profile UUID from the client. For testing purpose, you can place any UUID. This will be used by /user-profiles API to register a user profile using the given userProfileId. An error will be returned if the user profile already exists.
+
+    >**mastercard.client.enrollment.workflowId=** Replace this with the workflow ID from the client for Data Retrieval and Data Confirmation. This workflowId is created by the identity verification provider during the enrollment of the user, and it will be used by other APIs to retrieve the extracted data of the document in a subsequent call.
+
+    >**mastercard.client.sessionId=** The sessionId can be found in tpAuditMetadata from the client. For testing purpose, you can place any UUID.
+    
+    >**mastercard.client.transactionGroupId=** The transactionGroupId can be found in tpAuditMetadata from the client. For testing purpose, you can place any UUID.
+    
+    >**mastercard.api.scanID=** #Replace this value with updated value. For testing purpose, you can place any UUID.
+    
+    
 
 ### Integrating with OpenAPI Generator <a name="integrating-with-openapi-generator"></a>
 [OpenAPI Generator](https://github.com/OpenAPITools/openapi-generator) generates API client libraries from [OpenAPI Specs](https://github.com/OAI/OpenAPI-Specification).
