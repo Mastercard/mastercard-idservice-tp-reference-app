@@ -178,7 +178,7 @@ public class EncryptionDecryptionInterceptor extends BaseInterceptor implements 
         encryptionRequiredEndpoints.put("/idservice/email-otp-verifications",true);
 
         encryptionRequiredEndpoints.put("/idservice/access-tokens",false);
-        encryptionRequiredEndpoints.put("/document-verifications/document-data-retrievals",false);
+        encryptionRequiredEndpoints.put("/idservice/document-verifications/document-data-retrievals",false);
         encryptionRequiredEndpoints.put("/idservice/multi-access-tokens",false);
 
         decryptionRequiredEndpoints.put("/idservice/document-verifications/document-data-retrievals",true);
