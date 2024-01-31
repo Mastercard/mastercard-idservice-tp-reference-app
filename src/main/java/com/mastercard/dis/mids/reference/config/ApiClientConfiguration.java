@@ -107,12 +107,13 @@ public class ApiClientConfiguration {
                  client.addDefaultHeader("x-user-identity",sessionToken);
              }
 
-            return client.setHttpClient(client.getHttpClient()
-                    .newBuilder()
-                    .addInterceptor(sdkVersionInterceptor)
-                    .addInterceptor(encryptionDecryptionInterceptor) // This interceptor will encrypt and decrypt the payload
-                  .addInterceptor(new OkHttpOAuth1Interceptor(consumerKey, signingKey))
-                    .build()
+            return client.setHttpClient(
+                    client.getHttpClient()
+                        .newBuilder()
+                        .addInterceptor(sdkVersionInterceptor)
+                        .addInterceptor(encryptionDecryptionInterceptor)
+                        .addInterceptor(new OkHttpOAuth1Interceptor(consumerKey, signingKey))
+                        .build()
             );
         } catch (Exception e) {
             log.error(ERROR_MSG_CONFIGURING_CLIENT, e);
