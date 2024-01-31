@@ -1,6 +1,7 @@
 package com.mastercard.dis.mids.reference.service.impl;
 
 import com.mastercard.dis.mids.reference.config.ApiClientConfiguration;
+import com.mastercard.dis.mids.reference.constants.TpVariables;
 import com.mastercard.dis.mids.reference.exception.ExceptionUtil;
 import com.mastercard.dis.mids.reference.exception.ServiceException;
 import okhttp3.Call;
@@ -38,7 +39,6 @@ import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 import static org.openapitools.client.model.UserConsent.ACCEPT;
 
 
@@ -65,7 +65,7 @@ class GpaAuthenticationServiceImplTest {
         headersList = new ArrayList<>();
         headersList.add(X_MIDS_USERAUTH_SESSIONID);
         headers.put(X_MIDS_USERAUTH_SESSIONID, headersList);
-        when(apiClientConfigurationMock.getUserProfileId()).thenReturn(USER_PROFILE_ID);
+        TpVariables.setUserProfileId("17005442-51cd-4e46-ab74-7a3a25c503ec");
     }
 
 

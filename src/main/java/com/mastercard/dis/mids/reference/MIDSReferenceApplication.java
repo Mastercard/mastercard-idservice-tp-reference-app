@@ -35,6 +35,10 @@ import static com.mastercard.dis.mids.reference.constants.Constants.ARID_SENTENC
 import static com.mastercard.dis.mids.reference.constants.Constants.ATTRIBUTE_PDS;
 import static com.mastercard.dis.mids.reference.constants.Constants.EVIDENCE_PDS;
 import static com.mastercard.dis.mids.reference.constants.Constants.FACE_PDS;
+import static com.mastercard.dis.mids.reference.constants.Constants.PROFILE_ID_SENTENCE;
+import static com.mastercard.dis.mids.reference.constants.Constants.WORKFLOW_ID_MULTI_SENTENCE;
+import static com.mastercard.dis.mids.reference.constants.Constants.WORKFLOW_ID_REAUTH_SENTENCE;
+import static com.mastercard.dis.mids.reference.constants.Constants.WORKFLOW_ID_SENTENCE;
 
 
 @Slf4j
@@ -159,10 +163,13 @@ public class MIDSReferenceApplication implements CommandLineRunner {
     synchronized void performMultiDocEnrollment() {
         try {
             log.info("<<--- MultiDocEnrollment Started --->>");
+
+            readUserProfileAndWorkflowID();
+
             if(Cache.isPdsMultiDocumentNull()){
                 Cache.setPdsMultiDocument(midsReference.getPDS(false, Arrays.asList(FACE_PDS, ATTRIBUTE_PDS, EVIDENCE_PDS)));
             }
-            log.info("Enter the workflowId multiDoc");
+            log.info(WORKFLOW_ID_MULTI_SENTENCE);
             TpVariables.setMultiDocumentWorkflowId(scanner.nextLine());
 
             midsReference.addMultiDoc();
@@ -176,6 +183,10 @@ public class MIDSReferenceApplication implements CommandLineRunner {
     void userProfileRegistration() {
         try {
             log.info("<<--- UserProfileRegistration Started --->>");
+
+            log.info(PROFILE_ID_SENTENCE);
+            TpVariables.setUserProfileId(scanner.nextLine());
+
             midsReference.callUserProfileRegistration();
             log.info("<<--- UserProfileRegistration Successfully Ended --->>");
         } catch (Exception e) {
@@ -187,6 +198,9 @@ public class MIDSReferenceApplication implements CommandLineRunner {
     void retrieveIdentities() {
         try {
             log.info("<<--- RetrieveIdentities Started --->>");
+
+            readUserProfileAndWorkflowID();
+
             midsReference.callRetrieveIdentities();
             log.info("<<--- RetrieveIdentities Successfully Ended --->>");
         } catch (Exception e) {
@@ -198,6 +212,10 @@ public class MIDSReferenceApplication implements CommandLineRunner {
     void generateSDKToken() {
         try {
             log.info("<<--- SDKToken Started --->>");
+
+            log.info(PROFILE_ID_SENTENCE);
+            TpVariables.setUserProfileId(scanner.nextLine());
+
             midsReference.generateToken();
             log.info("<<--- SDKToken Successfully Ended --->>");
         } catch (Exception e) {
@@ -209,6 +227,9 @@ public class MIDSReferenceApplication implements CommandLineRunner {
     void generateMultiSDKToken() {
         try {
             log.info("<<--- MultiSDKToken Started --->>");
+
+            readUserProfileAndWorkflowID();
+
             midsReference.generateMultiToken();
             log.info("<<--- MultiSDKToken Successfully Ended --->>");
         } catch (Exception e) {
@@ -220,6 +241,9 @@ public class MIDSReferenceApplication implements CommandLineRunner {
     synchronized void performEnrollment( ) {
         try {
             log.info( "<<--- Enrollment Started --->>");
+
+            readUserProfileAndWorkflowID();
+
             if(Cache.isPdsEnrollmentNull()){
                 Cache.setPdsEnrollment(midsReference.getPDS(false, Collections.singletonList(ATTRIBUTE_PDS)));
             }
@@ -235,11 +259,14 @@ public class MIDSReferenceApplication implements CommandLineRunner {
     synchronized  void performReAuthentication() {
         try {
             log.info("<<--- ReAuthentication Started --->>");
+
+            readUserProfileAndWorkflowID();
+
             if(Cache.isFacePdsNull()){
                 Cache.setFacePds(midsReference.getPDS(false, Collections.singletonList(FACE_PDS)));
             }
 
-            log.info("enter the workflow id reAuth");
+            log.info(WORKFLOW_ID_REAUTH_SENTENCE);
             TpVariables.setWorkflowIdReAuth(scanner.nextLine());
 
             midsReference.performReAuthentication();
@@ -253,6 +280,9 @@ public class MIDSReferenceApplication implements CommandLineRunner {
     void performAuthenticationDecisions() {
         try {
             log.info("<<--- Authentication Decissions Started --->>");
+
+            readUserProfileAndWorkflowID();
+
             midsReference.performAuthenticationDecisions();
             log.info("<<--- Authentication Decissions Successfully Ended --->>");
         } catch (Exception e) {
@@ -264,6 +294,9 @@ public class MIDSReferenceApplication implements CommandLineRunner {
     synchronized void performEnrollmentWithUpdateIdConfirmations() {
         try {
             log.info("<<--- Enrollment With Update Id Confirmations Started --->>");
+
+            readUserProfileAndWorkflowID();
+
             if(Cache.isPdsEnrollmentNull()){
                 Cache.setPdsEnrollment(midsReference.getPDS(false, Collections.singletonList(ATTRIBUTE_PDS)));
             }
@@ -282,11 +315,13 @@ public class MIDSReferenceApplication implements CommandLineRunner {
         try {
             log.info("<<--- ReAuthentication With Update Id Confirmations Started --->>");
 
+            readUserProfileAndWorkflowID();
+
             if(Cache.isFacePdsNull()){
                 Cache.setFacePds(midsReference.getPDS(false, Collections.singletonList(FACE_PDS)));
             }
 
-            log.info("enter the workflow id reAuth");
+            log.info(WORKFLOW_ID_REAUTH_SENTENCE);
             TpVariables.setWorkflowIdReAuth(scanner.nextLine());
 
             midsReference.performReAuthenticationWithUpdateIdConfirmations();
@@ -300,6 +335,9 @@ public class MIDSReferenceApplication implements CommandLineRunner {
     void performTpRpClaims() {
         try {
             log.info("<<--- TP/RP Claims Started --->>");
+
+            readUserProfileAndWorkflowID();
+
             midsReference.performTpRpClaimSharing();
             log.info("<<--- TP/RP Claims Successfully Ended --->>");
         } catch (Exception e) {
@@ -311,6 +349,9 @@ public class MIDSReferenceApplication implements CommandLineRunner {
     void performActivitySearch() {
         try {
             log.info("<<--- Activity Search Started --->>");
+
+            readUserProfileAndWorkflowID();
+
             midsReference.performRPActivitySearch();
             log.info("<<--- Activity Search Successfully Ended --->>");
         } catch (Exception e) {
@@ -322,6 +363,10 @@ public class MIDSReferenceApplication implements CommandLineRunner {
     void performAuditEvents() {
         try {
             log.info("<<--- Audit Events Started --->>");
+
+            log.info(PROFILE_ID_SENTENCE);
+            TpVariables.setUserProfileId(scanner.nextLine());
+
             midsReference.performAuditEvents();
             log.info("<<--- Audit Events Successfully Ended --->>");
         } catch (Exception e) {
@@ -333,6 +378,10 @@ public class MIDSReferenceApplication implements CommandLineRunner {
     void performDeletion() {
         try {
             log.info("<<--- Delete User Profile Api Started --->>");
+
+            log.info(PROFILE_ID_SENTENCE);
+            TpVariables.setUserProfileId(scanner.nextLine());
+
             midsReference.performDeletion();
             log.info("<<--- Delete User Profile Api Successfully Ended --->>");
         } catch (Exception e) {
@@ -344,6 +393,9 @@ public class MIDSReferenceApplication implements CommandLineRunner {
     void retrieveUserActivities() {
         try {
             log.info("<<--- Retrieve User Activities  Started --->>");
+
+            readUserProfileAndWorkflowID();
+
             midsReference.retrieveUserActivities();
             log.info("<<--- Retrieve User Activities Successfully Ended --->>");
         } catch (Exception e) {
@@ -362,6 +414,8 @@ public class MIDSReferenceApplication implements CommandLineRunner {
     synchronized void performRPClaimsSharingEnrollment(boolean claimSharingFlow) {
         try {
             log.info(claimSharingFlow ? "<<--- Claim Sharing Enrollment Started --->>" : "<<--- Enrollment Started --->>");
+
+            readUserProfileAndWorkflowID();
 
             log.info(ARID_SENTENCE);
             TpVariables.setAridValue(scanner.nextLine());
@@ -382,6 +436,8 @@ public class MIDSReferenceApplication implements CommandLineRunner {
     synchronized void performRPClaimsSharingReAuthentication() {
         try {
             log.info("<<--- RPClaimsSharing ReAuthentication Started --->>");
+
+            readUserProfileAndWorkflowID();
 
             log.info(ARID_SENTENCE);
             TpVariables.setAridValue(scanner.nextLine());
@@ -415,6 +471,9 @@ public class MIDSReferenceApplication implements CommandLineRunner {
     void performTpDataShares() {
         try {
             log.info("<<--- TPDataShares Started --->>");
+
+            readUserProfileAndWorkflowID();
+
             midsReference.updatePdsData();
             log.info("<<--- TPDataShares Successfully Ended --->>");
         } catch (Exception e) {
@@ -426,10 +485,13 @@ public class MIDSReferenceApplication implements CommandLineRunner {
     synchronized void updateIdentityAttributes() {
         try {
             log.info("<<--- updateIdentityAttributes Started --->>");
+
+            readUserProfileAndWorkflowID();
+
             if(Cache.isPdsMultiDocumentNull()){
                 Cache.setPdsMultiDocument(midsReference.getPDS(false, Arrays.asList(FACE_PDS, ATTRIBUTE_PDS, EVIDENCE_PDS)));
             }
-            log.info("Enter the workflowId multiDoc");
+            log.info(WORKFLOW_ID_MULTI_SENTENCE);
             TpVariables.setMultiDocumentWorkflowId(scanner.nextLine());
             midsReference.updateIdentiyAttributes();
             log.info("<<--- updateIdentityAttributes Successfully Ended --->>");
@@ -443,6 +505,9 @@ public class MIDSReferenceApplication implements CommandLineRunner {
     synchronized void performEmailOptions(boolean claimSharingFlow) {
         try {
             log.info("<<--- performEmailOptions Started --->>");
+
+            readUserProfileAndWorkflowID();
+
             String pds = midsReference.getPDS(claimSharingFlow, Collections.singletonList(ATTRIBUTE_PDS));
             CreatedEmailOtp emailOtp = midsReference.callCreateEmailOtpsApi(pds);
 
@@ -460,10 +525,13 @@ public class MIDSReferenceApplication implements CommandLineRunner {
     synchronized  void performSMSOptions(boolean claimSharingFlow) {
         try {
             log.info("<<--- performSMSOptions Started --->>");
+
+            readUserProfileAndWorkflowID();
+
             String pds = midsReference.getPDS(claimSharingFlow, Collections.singletonList(ATTRIBUTE_PDS));
             CreatedSMSOtp smsOtp = midsReference.callCreateSmsOtpsApi(pds);
 
-            log.info("Enter the Sms Code");
+            log.info("Enter the SMS Code");
             TpVariables.setOtpCode(scanner.nextLine());
 
             midsReference.callSmsOtpVerificationsApi(smsOtp.getOtpId(), smsOtp.getPds());
@@ -477,6 +545,9 @@ public class MIDSReferenceApplication implements CommandLineRunner {
     void deleteIdentityAttribute() {
         try {
             log.info("<<--- deleteIdentityAttributes Started --->>");
+
+            readUserProfileAndWorkflowID();
+
             midsReference.deleteIdentityAttribute();
             log.info("<<--- deleteIdentityAttribute Successfully Ended --->>");
         } catch (Exception e) {
@@ -491,7 +562,7 @@ public class MIDSReferenceApplication implements CommandLineRunner {
         //Adding email address to the original PDS
         CreatedEmailOtp emailOtp = midsReference.callCreateEmailOtpsApi(smsOtp.getPds());
 
-        log.info("Enter the Sms Code");
+        log.info("Enter the SMS Code");
         TpVariables.setOtpCode( scanner.nextLine());
 
         log.info("Enter the Email Code");
@@ -502,5 +573,12 @@ public class MIDSReferenceApplication implements CommandLineRunner {
         midsReference.callEmailOtpVerificationsApi(emailOtp.getOtpId(), emailOtp.getPds());
     }
 
+    private synchronized void readUserProfileAndWorkflowID(){
+        log.info(PROFILE_ID_SENTENCE);
+        TpVariables.setUserProfileId(scanner.nextLine());
+
+        log.info(WORKFLOW_ID_SENTENCE);
+        TpVariables.setWorkflowId(scanner.nextLine());
+    }
 
 }

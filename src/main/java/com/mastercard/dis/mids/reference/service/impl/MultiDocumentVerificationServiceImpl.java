@@ -49,7 +49,7 @@ public class MultiDocumentVerificationServiceImpl implements MultiDocumentVerifi
                     .channelType(multiDocumentVerificationToken.getChannelTypeEnum())
                     .countryCode(multiDocumentVerificationToken.getCountryCode())
                     .sdkVersion(multiDocumentVerificationToken.getSdkVersion())
-                    .userProfileId(apiClientConfiguration.getUserProfileId())
+                    .userProfileId(TpVariables.getUserProfileId())
                     .pds(multiDocumentVerificationToken.getPds());
             return multiDocumentVerificationApi.getMultiAccessToken(multiRetrieveAccessToken, X_USER_IDENTITY);
         } catch (ApiException e) {
@@ -61,7 +61,7 @@ public class MultiDocumentVerificationServiceImpl implements MultiDocumentVerifi
     public DocumentVerificationExtractedData multiDocumentVerificationStatus(MultiDocumentDataRetrieval multiDocumentDataRetrieval) {
         try {
             util.setupUserIdentityTokens();
-            multiDocumentDataRetrieval.userProfileId(apiClientConfiguration.getUserProfileId())
+            multiDocumentDataRetrieval.userProfileId(TpVariables.getUserProfileId())
                     .workflowId(TpVariables.getMultiDocumentWorkflowId())
                     .tpAuditMetadata(util.getTpAuditMetadata())
                     .userSelectedCountry(apiClientConfiguration.getSelectedUserCountry())
@@ -78,7 +78,7 @@ public class MultiDocumentVerificationServiceImpl implements MultiDocumentVerifi
     public MultiDocumentConfirmedPDS multiDocumentVerificationConfirmation(MultiDocConfirmData multiDocConfirmData) {
         try {
             util.setupUserIdentityTokens();
-            multiDocConfirmData.setUserProfileId(apiClientConfiguration.getUserProfileId());
+            multiDocConfirmData.setUserProfileId(TpVariables.getUserProfileId());
             multiDocConfirmData.getDocumentData().setWorkflowId(TpVariables.getMultiDocumentWorkflowId());
             multiDocConfirmData.setTpAuditMetadata(util.getTpAuditMetadata());
             FraudDetection fraudDetection = new FraudDetection();
