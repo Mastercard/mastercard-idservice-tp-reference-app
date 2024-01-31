@@ -19,8 +19,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -92,11 +94,13 @@ class MIDSReferenceApplicationTest {
     void console_handleOption_works() {
         Scanner scanner;
         menuMapTest.put("99","Invalid option!");
+        MIDSReferenceApplication  midsReferenceApplicationmock = mock(MIDSReferenceApplication.class);
         for (Map.Entry<String, String> entry : menuMapTest.entrySet()) {
             scanner =  new Scanner("a9e45d02-89c7-4f0a-9d3e-5333a0f64a65 \n 2d205aec-c7b5-4881-b4b1-000000000200 \n 2d205aec-c7b5-4881-b4b1-000000000200 \n 123456 \n 123456 ");
             ReflectionTestUtils.setField(midsReferenceApplication, "scanner",scanner );
-            midsReferenceApplication.handleOption(entry.getKey());
+            midsReferenceApplicationmock.handleOption(entry.getKey());
         }
+        verify(midsReferenceApplicationmock, times( menuMapTest.size())).handleOption(anyString());
         Assertions.assertEquals(18,menuMapTest.size());
     }
 
