@@ -88,16 +88,10 @@ For more information regarding the program, refer to [ID Service](https://idserv
     
     >**mastercard.user.selectedCountry=** Replace this country code as required. Following ISO 3166-1 alpha-3 standard. Example: USA, AUS, BRA.
     
-    >**mastercard.client.userProfileId=** Replace this with the user profile UUID from the client. For testing purpose, you can place any UUID. This will be used by /user-profiles API to register a user profile using the given userProfileId. An error will be returned if the user profile already exists.
-
-    >**mastercard.client.enrollment.workflowId=** Replace this with the workflow ID from the client for Data Retrieval and Data Confirmation. This workflowId is created by the identity verification provider during the enrollment of the user, and it will be used by other APIs to retrieve the extracted data of the document in a subsequent call.
-
     >**mastercard.client.sessionId=** The sessionId can be found in tpAuditMetadata from the client. For testing purpose, you can place any UUID.
     
     >**mastercard.client.transactionGroupId=** The transactionGroupId can be found in tpAuditMetadata from the client. For testing purpose, you can place any UUID.
-    
-    >**mastercard.api.scanID=** #Replace this value with updated value. For testing purpose, you can place any UUID.
-    
+        
     
 
 ### Integrating with OpenAPI Generator <a name="integrating-with-openapi-generator"></a>
