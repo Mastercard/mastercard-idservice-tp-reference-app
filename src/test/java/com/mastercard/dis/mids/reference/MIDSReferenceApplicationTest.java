@@ -268,7 +268,7 @@ class MIDSReferenceApplicationTest {
 
     @Test
     void performTpDataShares_test(){
-        Scanner scanner =  new Scanner("a9e45d02-89c7-4f0a-9d3e-5333a0f64a65 \n 2d205aec-c7b5-4881-b4b1-000000000200");
+        Scanner scanner =  new Scanner("a9e45d02-89c7-4f0a-9d3e-5333a0f64a65 \n 2d205aec-c7b5-4881-b4b1-000000000200 \n b60a86fb-d8da-49ff-90bd-e3441d6250ba");
         ReflectionTestUtils.setField(midsReferenceApplication, "scanner",scanner );
 
         doNothing().when(midsReference).updatePdsData();
