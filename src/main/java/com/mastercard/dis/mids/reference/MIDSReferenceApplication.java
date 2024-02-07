@@ -474,6 +474,9 @@ public class MIDSReferenceApplication implements CommandLineRunner {
 
             readUserProfileAndWorkflowID();
 
+            log.info(ARID_SENTENCE);
+            TpVariables.setAridValue(scanner.nextLine());
+
             midsReference.updatePdsData();
             log.info("<<--- TPDataShares Successfully Ended --->>");
         } catch (Exception e) {
